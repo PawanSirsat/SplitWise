@@ -1,3 +1,39 @@
+# SpendShare
+
+SpendShare is a web application for splitting expenses in groups. It allows users to manage groups, track expenses, and view activity history.
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/PawanSirsat/SpendShare.git
+```
+
+2. Installation
+
+```bash
+cd spendshare
+npm install
+```
+3. Install Tailwind
+
+```bash
+npm install -D tailwindcss
+npx tailwindcss init
+```
+4. Run Project
+```bash
+npm run dev
+```
+### Built With
+
+React - A JavaScript library for building user interfaces.
+React Router - Declarative routing for React.js.
+Tailwind CSS - A utility-first CSS framework.
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
