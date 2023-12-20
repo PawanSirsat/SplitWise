@@ -1,15 +1,17 @@
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
-import { differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns';
+import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
+import { useGetCurrentUser } from "@/lib/react-query/queries";
 
 type UserCardProps = {
   activity: Models.Document;
 };
 
 const ActivityCard = ({ activity }: UserCardProps) => {
+  const { data: currentUser } = useGetCurrentUser();
   const currentDate = new Date();
   const date = new Date(activity.Time);
-  
+
   let timeDifference;
 
   const minutesDifference = differenceInMinutes(currentDate, date);
@@ -22,21 +24,52 @@ const ActivityCard = ({ activity }: UserCardProps) => {
     timeDifference = `${minutesDifference} minute${minutesDifference > 1 ? 's' : ''} ago`;
   } else if (hoursDifference < 24) {
     timeDifference = `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
+  } else if (daysDifference < 3) {
+    timeDifference = format(date, 'MMM dd, h:mm a');
   } else if (daysDifference < 7) {
     timeDifference = `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
   } else {
-    // You can add more conditions for weeks, months, etc.
-    timeDifference = 'More than a week ago';
+    timeDifference = format(date, 'MMM dd, yyyy, h:mm a');
+  }
+
+  const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
+  const isCurrentUserInvolved = activity.splitMember?.some((member: { $id: string }) => member.$id === 
+  currentUser?.$id) || false;
+
+  const splitCount = activity.splitMember?.length ?? 0;
+
+  let amountMessage = '';
+
+  if (isPaidByCurrentUser && isCurrentUserInvolved) {
+    const individualAmount = parseFloat(activity.Amout) / splitCount;    
+    const getback = parseFloat(activity.Amout) - individualAmount
+    amountMessage = `You get back $${getback.toFixed(2)}`;
+  } 
+  else if (isPaidByCurrentUser && !isCurrentUserInvolved) {
+    const individualAmount = parseFloat(activity.Amout)
+    amountMessage = `You get back $${individualAmount.toFixed(2)}`;
+  } 
+   else if (!isPaidByCurrentUser && isCurrentUserInvolved) {
+     const individualAmount = parseFloat(activity.Amout) / splitCount;
+    amountMessage = `You owe $${individualAmount.toFixed(2)}`;
+  }
+  else {
+    amountMessage = `Not involved`;
   }
 
   return (
     <Link to={`/profile/${activity.$id}`}>
-      <p className="text-lg font-bold mb-1">{activity.Desc}</p>
+      <p className="text-lg font-bold mb-1">{activity.Desc}  <span>&#8377;</span>{activity.Amout}</p>
       <p>
-        Added by <span className="font-semibold">{activity.PaidBy.UserName}</span> in{' '}
-        <span className="font-semibold">{activity.Group.groupName}</span>
+        Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : ''}`}>"{activity.PaidBy.UserName}"</span> in{' '}
+        <span className="font-semibold">"{activity.Group.groupName}"</span>
       </p>
-      <p className="text-gray-500">{timeDifference}</p>
+      <p>
+        {timeDifference}
+      </p>
+     <p className={`${isPaidByCurrentUser ? 'text-green-500 font-semibold' : (!isPaidByCurrentUser && isCurrentUserInvolved ? 'text-red font-semibold' : 'text-indigo-700 font-semibold')}`}>
+  {amountMessage}
+</p>
     </Link>
   );
 };

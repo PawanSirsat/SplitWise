@@ -27,6 +27,7 @@ import {
   getFollowers,
   getFollowings,
   getGroups,
+  getActivity,
 } from "@/lib/appwrite/api";
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
@@ -84,8 +85,15 @@ export const useSearchPosts = (searchTerm: string) => {
 
 export const useGroups = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+    queryKey: [QUERY_KEYS.GET_RECENT_GROUP],
     queryFn: getGroups,
+  });
+};
+
+export const useActivity = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
+    queryFn: getActivity,
   });
 };
 

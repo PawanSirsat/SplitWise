@@ -14,7 +14,14 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <>
       <h2 className="text-lg font-bold mb-2">{post.groupName}</h2>
-      <p>Members: {post.Members.map((user: { name: any; }) => user.name).join(', ')}</p>
+      {post.Members && post.Members.length > 2 && (
+        <p>
+          Members: {post.Members.slice(0, 2).map((user: { name: any }) => user.name).join(', ')}...
+        </p>
+      )}
+      {!(post.Members && post.Members.length > 2) && (
+        <p>Members: {post.Members?.map((user: { name: any }) => user.name).join(', ')}</p>
+      )}
       <p>Expenses: ${totalAmount.toFixed(2)}</p>
     </>
   );

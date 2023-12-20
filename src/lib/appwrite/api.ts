@@ -458,7 +458,7 @@ export async function getUserPosts(userId?: string) {
   }
 }
 
-// ============================== GET POPULAR POSTS (BY HIGHEST LIKE COUNT)
+// ============================== GET GROUPS DATA
 export async function getGroups() {
   try {
     const groups = await databases.listDocuments(
@@ -468,6 +468,21 @@ export async function getGroups() {
 
     if (!groups) throw Error;
     return groups;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ============================== GET ACTIVITY DATA
+export async function getActivity() {
+  try {
+    const activity = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.activityCollectionId,
+    );
+    
+    if (!activity) throw Error;
+    return activity;
   } catch (error) {
     console.log(error);
   }

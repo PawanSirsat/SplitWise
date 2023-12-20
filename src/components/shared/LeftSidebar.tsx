@@ -40,11 +40,11 @@ const LeftSidebar = () => {
               <li
                 key={link.label}
                 className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
+                  isActive && "bg-blue-500"
                 }`}>
                 <NavLink
                   to={link.route}
-                  className="flex gap-4 items-center p-4">
+                  className="flex gap-1 items-center p-1">
                   <img
                     src={link.imgURL}
                     alt={link.label}
