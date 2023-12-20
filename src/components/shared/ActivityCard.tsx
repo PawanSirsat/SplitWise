@@ -8,6 +8,7 @@ type UserCardProps = {
 };
 
 const ActivityCard = ({ activity }: UserCardProps) => {
+
   const { data: currentUser } = useGetCurrentUser();
   const currentDate = new Date();
   const date = new Date(activity.Time);
@@ -35,7 +36,6 @@ const ActivityCard = ({ activity }: UserCardProps) => {
   const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
   const isCurrentUserInvolved = activity.splitMember?.some((member: { $id: string }) => member.$id === 
   currentUser?.$id) || false;
-
   const splitCount = activity.splitMember?.length ?? 0;
 
   let amountMessage = '';
@@ -59,7 +59,8 @@ const ActivityCard = ({ activity }: UserCardProps) => {
 
   return (
     <Link to={`/profile/${activity.$id}`}>
-      <p className="text-lg font-bold mb-1">{activity.Desc}  <span>&#8377;</span>{activity.Amout}</p>
+      <p className="text-lg font-bold mb-1 text-blue-500">{activity.Desc}  <span className="text-white"> 
+       &ensp;&#8377;{activity.Amout}</span></p>
       <p>
         Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : ''}`}>"{activity.PaidBy.UserName}"</span> in{' '}
         <span className="font-semibold">"{activity.Group.groupName}"</span>

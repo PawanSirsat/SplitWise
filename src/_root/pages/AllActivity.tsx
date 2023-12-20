@@ -2,6 +2,7 @@ import { Models } from "appwrite";
 import { Loader } from "@/components/shared";
 import { useActivity, useGetCurrentUser } from "@/lib/react-query/queries";
 import ActivityCard from "@/components/shared/ActivityCard";
+import SimplifyCard from "@/components/shared/SimplifyCard";
 
 const AllActivity = () => {
   const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
@@ -34,13 +35,15 @@ const AllActivity = () => {
       ) : userMemberGroups.length === 0 ? (
         <p className="text-white font-bold mb-2">No Activity in Groups</p>
       ) : (
+        <><SimplifyCard activities={userMemberGroups} userId={currentUser?.$id} />
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {userMemberGroups.map((activity: Models.Document) => (
-            <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text-white">
-              <ActivityCard activity={activity} />
-            </li>
-          ))}
-        </ul>
+                {userMemberGroups.map((activity: Models.Document) => (
+                  <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text 
+                     white">
+                    <ActivityCard activity={activity} />
+                  </li>
+                ))}
+              </ul></>
       )}
          {/* Floating Add Friend button */}
       <button className="fixed top-20 right-4 bg-blue-500 text-white px-4 py-2 rounded-full">
