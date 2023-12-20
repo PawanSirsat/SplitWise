@@ -1,0 +1,55 @@
+import { Models } from "appwrite";
+import { Loader, UserCard } from "@/components/shared";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
+
+const AllUsers = () => {
+  const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
+
+  let userFriends: Models.Document[] = [];
+
+  if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUser.List[0].friendsId) {
+    userFriends = currentUser.List[0].friendsId;
+  }
+
+  if (isErrorgroups) {
+    return (
+      <div className="flex flex-1">
+        <div className="home-container">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
+        <div className="home-creators">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container p-5 flex flex-col">
+      <h2 className="text-black text-2xl font-bold mb-6">Friends</h2>
+
+      {isgroupLoading ? (
+        <Loader />
+      ) : userFriends.length === 0 ? (
+        <p className="text-dark-1 font-bold mb-2">You have no friends</p>
+      ) : (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {userFriends.map((friend: Models.Document) => (
+            <li key={friend.$id} className="bg-white p-4 shadow-md rounded-md text-black">
+              <UserCard user={friend} />
+            </li>
+          ))}
+        </ul>
+      )}
+         {/* Floating Add Friend button */}
+      <button
+        className="fixed top-20 right-4 bg-blue-500 text-white px-4 py-2 rounded-full"
+        
+      >
+        Add Friend
+      </button>
+    </div>
+  );
+};
+
+export default AllUsers;
