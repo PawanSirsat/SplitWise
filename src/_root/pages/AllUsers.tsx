@@ -1,17 +1,14 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
 import { useGetCurrentUser } from "@/lib/react-query/queries";
-import { useToast } from "@/components/ui/use-toast";
 
 const AllUsers = () => {
-  const { toast } = useToast();
+const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
+let userFriends: Models.Document[] = [];
 
-  const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
-  let userFriends: Models.Document[] = [];
-
-  if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUser.List[0].friendsId) {
+if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUser.List[0].friendsId) {
     userFriends = currentUser.List[0].friendsId;
-  }
+}
 
   if (isErrorgroups) {
     return (

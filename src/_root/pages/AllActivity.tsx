@@ -5,8 +5,8 @@ import ActivityCard from "@/components/shared/ActivityCard";
 import SimplifyCard from "@/components/shared/SimplifyCard";
 
 const AllActivity = () => {
-  const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
-  const { data: activity, isLoading: isactivityLoading, isError: isErroractivity } = useActivity();
+const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
+const { data: activity, isLoading: isactivityLoading, isError: isErroractivity } = useActivity();
   
   const userMemberGroups: Models.Document[] = (activity?.documents?.filter((activity: Models.Document) => 
   activity.Group.Members?.some((member: { $id: string | undefined; }) => member.$id === currentUser?.$id)
@@ -28,8 +28,8 @@ const AllActivity = () => {
   return (
      <div className="common-container">
       <div className="user-container">
+      <div className="container p-3">
       <h2 className="text-white text-2xl font-bold mb-6">Activity</h2>
-
       {isgroupLoading || isactivityLoading? (
         <Loader />
       ) : userMemberGroups.length === 0 ? (
@@ -50,6 +50,7 @@ const AllActivity = () => {
         Add expense
       </button>
     </div>
+  </div>
   </div>
   );
 };

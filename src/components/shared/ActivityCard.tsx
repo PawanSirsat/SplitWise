@@ -61,8 +61,8 @@ const ActivityCard = ({ activity }: UserCardProps) => {
   return (
     <Link to={`/profile/${activity.$id}`}>
       <div style={{ display: 'flex', alignItems: 'center' }} className="pb-3">
-         <Profilephoto profile={activity}/>
-      <p className="text-lg font-bold mb-1 pl-5 text-blue-500">{activity.Desc}  <span className="text-white"> 
+         <Profilephoto name={activity.PaidBy}/>
+      <p className="text-lg font-bold mb-1 pl-3 text-blue-500">{activity.Desc}  <span className="text-white"> 
        &ensp;&#8377;{activity.Amout}</span></p>
     </div>
       <p>

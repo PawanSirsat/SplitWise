@@ -1,12 +1,10 @@
 import { Models } from 'appwrite';
-import React from 'react'
 
 type UserCardProps = {
-  profile: Models.Document;
+  name: Models.Document;
 };
 
-const Profilephoto = ({ profile }: UserCardProps) =>
-{
+const Profilephoto = ({ name }: UserCardProps) => {
   const getBackgroundColor = (letter: string): string => {
     // You can define your own logic to determine background color based on the initial letter
     // Here, a simple example is used for demonstration purposes
@@ -20,11 +18,12 @@ const Profilephoto = ({ profile }: UserCardProps) =>
     return firstLetter;
   };
 
-  const backgroundColor = getBackgroundColor(profile.PaidBy.UserName.charAt(0));
+  const userName = name.UserName || ''; // Assuming userName is a property in your Models.Document
+  const backgroundColor = getBackgroundColor(userName.charAt(0));
 
   return (
-      <div
-        style={{
+    <div
+      style={{
         width: '40px',
         height: '40px',
         borderRadius: '50%',
@@ -36,9 +35,9 @@ const Profilephoto = ({ profile }: UserCardProps) =>
         fontWeight: 'bold',
       }}
     >
-      {renderInitial(profile.PaidBy.UserName)}
+      {renderInitial(userName)}
     </div>
-  )
-}
+  );
+};
 
-export default Profilephoto
+export default Profilephoto;

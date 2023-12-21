@@ -39,7 +39,7 @@ export const bottombarLinks = [
   },
   {
     imgURL: "https://img.icons8.com/color/48/admin-settings-male.png",
-    route: "/saved",
+    route: "/profile",
     label: "Profile",
   },
 ];

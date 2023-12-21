@@ -110,7 +110,7 @@
   }
 
   .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-6 px-3 md:px-8 lg:p-14 custom-scrollbar;
   }
 
   /* All Users */
