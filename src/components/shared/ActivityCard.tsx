@@ -2,6 +2,7 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
+import Profilephoto from "./Profilephoto";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -59,8 +60,11 @@ const ActivityCard = ({ activity }: UserCardProps) => {
 
   return (
     <Link to={`/profile/${activity.$id}`}>
-      <p className="text-lg font-bold mb-1 text-blue-500">{activity.Desc}  <span className="text-white"> 
+      <div style={{ display: 'flex', alignItems: 'center' }} className="pb-3">
+         <Profilephoto profile={activity}/>
+      <p className="text-lg font-bold mb-1 pl-5 text-blue-500">{activity.Desc}  <span className="text-white"> 
        &ensp;&#8377;{activity.Amout}</span></p>
+    </div>
       <p>
         Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : ''}`}>"{activity.PaidBy.UserName}"</span> in{' '}
         <span className="font-semibold">"{activity.Group.groupName}"</span>
