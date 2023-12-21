@@ -84,15 +84,22 @@ const SignupForm = () => {
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col">
+   <div className="bg-gray-800 h-16 fixed top-0 w-full z-10">
+      <div className="text-white font-bold text-lg flex items-center justify-center">
+        <span role="img" aria-label="Splitwise App" className="mr-3 p-2 items-center">
+          <img
+            width="40"
+            height="40"
+            src="https://img.icons8.com/color/48/cash-in-hand.png"
+            alt="cash-in-hand"
+          />
+        </span>
+        SpendShare
+      </div>
+    </div>
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-2">
-          Create a new account
-        </h2>
-        <p className="text-light-3 small-medium md:base-regular mt-2">
-          To use snapgram, Please enter your details
-        </p>
-
+  <div className="sm:w-420 flex-center flex-col pt-10">
+      <h3 className="text-2xl font-bold  text-blue-500">SignUp</h3>
         <form
           onSubmit={form.handleSubmit(handleSignup)}
           className="flex flex-col gap-5 w-full mt-4">
@@ -152,7 +159,7 @@ const SignupForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary">
+          <Button type="submit" className="bg-blue-500">
             {isCreatingAccount || isSigningInUser || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
@@ -166,7 +173,7 @@ const SignupForm = () => {
             Already have an account?
             <Link
               to="/sign-in"
-              className="text-primary-500 text-small-semibold ml-1">
+              className="text-blue-500 text-small-semibold ml-1">
               Log in
             </Link>
           </p>

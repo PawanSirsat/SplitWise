@@ -28,8 +28,8 @@ const Home = () => {
     );
   }
   return (
-      <div className="common-container">
-      <div className="user-container">
+<div className="common-container">
+  <div className="user-container">
     <div className="container p-5 flex flex-col">
       <h2 className="text-white text-2xl font-bold mb-6">Groups</h2>
 
@@ -52,7 +52,8 @@ const Home = () => {
         Add Group
       </button>
     </div>
-    </div></div>
+  </div>
+</div>
   );
 };
  

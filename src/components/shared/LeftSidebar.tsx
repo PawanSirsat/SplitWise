@@ -2,7 +2,6 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { INavLink } from "@/types";
 import { sidebarLinks } from "@/constants";
-import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queries";
 import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
@@ -31,7 +30,6 @@ const LeftSidebar = () => {
           <span role="img" aria-label="Splitwise App" className="mr-1"><img width="35" height="35" src="https://img.icons8.com/color/48/cash-in-hand.png" alt="cash-in-hand"/></span>
           SpendShare
         </Link> 
-
         <ul className="flex flex-col gap-4">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;

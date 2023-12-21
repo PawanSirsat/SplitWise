@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
         </Route>
       </Routes>
+
       <Toaster />
     </main>
   );

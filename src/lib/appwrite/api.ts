@@ -107,7 +107,6 @@ export async function getCurrentUser() {
 export async function signOutAccount() {
   try {
     const session = await account.deleteSession("current");
-
     return session;
   } catch (error) {
     console.log(error);
@@ -473,6 +472,22 @@ export async function getGroups() {
   }
 }
 
+// ============================== GET FRIENDS DATA
+
+
+export async function getFriends(userId?: string) {
+  if (!userId) return;
+  try {
+    const friendsData = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsCollectionId,
+      [Query.equal("CollectionId", userId)]
+    );
+    return friendsData;
+  } catch (error) {
+    console.error(error);
+  }
+}
 // ============================== GET ACTIVITY DATA
 export async function getActivity() {
   try {

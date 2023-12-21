@@ -28,6 +28,7 @@ import {
   getFollowings,
   getGroups,
   getActivity,
+  getFriends,
 } from "@/lib/appwrite/api";
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
@@ -87,6 +88,14 @@ export const useGroups = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_RECENT_GROUP],
     queryFn: getGroups,
+  });
+};
+
+export const useFriends = (userId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_FRIENDS, userId],
+    queryFn: () => getFriends(userId),
+    enabled: !!userId,
   });
 };
 

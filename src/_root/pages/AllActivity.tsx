@@ -26,7 +26,7 @@ const { data: activity, isLoading: isactivityLoading, isError: isErroractivity }
   }
 
   return (
-     <div className="common-container">
+     <div className="common-container ">
       <div className="user-container">
       <div className="container p-3">
       <h2 className="text-white text-2xl font-bold mb-6">Activity</h2>

@@ -10,7 +10,15 @@
   }
 
   body {
-    @apply bg-dark-1 text-white min-h-screen font-inter;
+    background: #485563;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #29323c, #485563);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #29323c, #485563);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -224,7 +232,7 @@
   }
 
   .leftsidebar-link {
-    @apply rounded-lg base-medium hover:bg-primary-500 transition;
+    @apply rounded-lg base-medium hover:bg-blue-500 transition;
   }
 
   /* Post Card */
@@ -269,7 +277,7 @@
 
   /* Button */
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
+    @apply bg-blue-500 hover:bg-blue-500 text-light-1 flex gap-2 !important;
   }
 
   .shad-button_dark_4 {
