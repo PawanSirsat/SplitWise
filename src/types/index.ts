@@ -42,3 +42,8 @@ export type INewUser = {
   username: string;
   password: string;
 };
+
+export type INewFriend = {
+  currentId: string;
+  friendId: string;
+};

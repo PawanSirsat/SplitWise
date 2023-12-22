@@ -1,101 +1,87 @@
-import * as z from "zod";
-import { Models } from "appwrite";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Button,
-  Input,
-} from "@/components/ui";
-import { GroupValidation } from "@/lib/validation";
-import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui";
+import useDebounce from "@/hooks/useDebounce";
+import { GridPostList, Loader } from "@/components/shared";
+import { useFriends, useGetUserByUserName } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
-import { Loader } from "@/components/shared";
-import {  useCreateGroup } from "@/lib/react-query/queries";
+import ShowFriendList from "../shared/ShowFriendList";
 
-type PostFormProps = {
-  group?: Models.Document;
-  action: "Create" | "Update";
+export type SearchResultProps = {
+  isSearchFetching: boolean;
+  searchedFriends: any;
 };
 
-const FriendForm = ({ group, action }: PostFormProps) => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
+const SearchResults = ({ isSearchFetching, searchedFriends }: SearchResultProps) => {
+  if (isSearchFetching) {
+    return <Loader />;
+  } else if (searchedFriends) 
+  {
+   console.log(searchedFriends);
+    return <ShowFriendList list={searchedFriends} />;
+  } else {
+    return (
+      <p className="text-light-4 mt-5 text-center w-full">No results found</p>
+    );
+  }
+};
+
+
+const FriendForm = () => {
+  const { ref, inView } = useInView();
   const { user } = useUserContext();
-  const form = useForm<z.infer<typeof GroupValidation>>({
-    resolver: zodResolver(GroupValidation),
-    defaultValues: {
-      groupname: group ? group.name : "",
-    },
-  });
+  const { data: FriendList, isLoading: isfrndLoading, isError: isErrorfrnd } = useFriends(user.id);
+  
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearch = useDebounce(searchValue, 500);
+  const { data: searchedFriends, isFetching: isSearchFetching } = 
+  useGetUserByUserName(debouncedSearch);
 
-  // Query
-  const { mutateAsync: createGroup, isLoading: isLoadingCreate } =
-    useCreateGroup();
-
-  // Handler
-  const handleSubmit = async (value: z.infer<typeof GroupValidation>) => {
-    // ACTION = CREATE
-    const newGroup = await createGroup({
-      ...value,
-      userId: user.id,
-      groupName: value.groupname,
-      members: [user.id]
-    });
-
-    if (!newGroup) {
-      toast({
-        title: `${action} group failed. Please try again.`,
-      });
-    }
-    navigate("/");
-  };
+  const shouldShowSearchResults = searchValue !== "";
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex flex-col gap-9 w-full  max-w-5xl">
-       
-        <FormField
-          control={form.control}
-          name="groupname"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Enter Username</FormLabel>
-              <FormControl>
-                <Input type="text" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage className="shad-form_message" />
-            </FormItem>
-          )}
-        />
-
-        <div className="flex gap-4 items-center justify-end">
-          <Button
-            type="button"
-            className="shad-button_dark_4"
-            onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            style={{ backgroundColor: '#1CC29F' }}
-            className="whitespace-nowrap"
-            disabled={isLoadingCreate }>
-            {(isLoadingCreate) && <Loader />}
-  {action === 'Create' ? 'Add' : 'Update'} {/* Change here */}
-          </Button>
+    <div className="explore-container">
+      <div className="explore-inner_container">
+        <h2 className="h3-bold md:h2-bold w-full">Search Friend</h2>
+        <div className="flex gap-1 px-4 w-full rounded-lg bg-dark-4">
+          <img
+            src="/assets/icons/search.svg"
+            width={24}
+            height={24}
+            alt="search"
+          />
+          <Input
+            type="text"
+            placeholder="Search"
+            className="explore-search"
+            value={searchValue}
+            onChange={(e) => {
+              const { value } = e.target;
+              setSearchValue(value);
+            }}
+          />
         </div>
-      </form>
-    </Form>
+      </div>
+
+      <div className="mt-5">
+        {shouldShowSearchResults ? (
+          <SearchResults
+            isSearchFetching={isSearchFetching}
+            searchedFriends={searchedFriends}
+          />
+        ) : (
+             <p className="text-light-3 mt-10 text-center w-full">Find Friends By Username</p>
+            )  
+        }
+      </div>
+
+      {/* {searchValue && (
+        <div ref={ref} className="mt-10">
+          <Loader />
+        </div>
+      )} */}
+    </div>
   );
 };
 

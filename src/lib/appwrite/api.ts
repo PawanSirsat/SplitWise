@@ -1,7 +1,7 @@
 import { ID, Query } from "appwrite";
 
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
-import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
+import { IUpdatePost, INewUser, IUpdateUser } from "@/types";
 
 // ============================================================
 // AUTH
@@ -500,12 +500,8 @@ export async function getUsers() {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
-    );
-
-    console.log(users);
-    
+    );    
     if (!users) throw Error;
-
     return users;
   } catch (error) {
     console.log(error);
@@ -520,12 +516,33 @@ export async function getUserById(userId: string) {
       appwriteConfig.userCollectionId,
       userId
     );
-
     if (!user) throw Error;
-
     return user;
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+export async function geByUsername(username: string) {
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [
+        Query.equal("UserName", "pawan123") 
+      ] 
+    );
+    if (!users.documents || users.documents.length === 0) {
+      throw new Error("User not found");
+    }
+    
+    const user = users.documents[0]; // Assuming username is unique, get the first result
+   
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error; // Re-throw the error for the caller to handle
   }
 }
 

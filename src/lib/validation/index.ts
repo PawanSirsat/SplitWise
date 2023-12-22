@@ -29,3 +29,7 @@ export const ProfileValidation = z.object({
 export const GroupValidation = z.object({
   groupname: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
 });
+
+export const FriendValidation = z.object({
+  username: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
+});

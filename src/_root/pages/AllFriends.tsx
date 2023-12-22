@@ -1,17 +1,12 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
-import { useFriends, useGetCurrentUser } from "@/lib/react-query/queries";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "@/context/AuthContext";
 
 const AllFriends = () => {
 const navigate = useNavigate();
-const { user, isAuthenticated, checkAuthUser } = useUserContext();
 const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
 let userFriends: Models.Document[] = [];
-
-const { data: FriendList, isLoading: isfrLoading, isError: isErrorfr } = useFriends(user.id);
-console.log(FriendList);
 
 if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUser.List[0].friendsId) {
     userFriends = currentUser.List[0].friendsId;

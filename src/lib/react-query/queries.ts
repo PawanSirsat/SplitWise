@@ -29,6 +29,7 @@ import {
   getActivity,
   getFriends,
   createGroup,
+  geByUsername,
 } from "@/lib/appwrite/api";
 import { INewGroup, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
@@ -113,6 +114,18 @@ export const useCreateGroup = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_GROUPS],
+      });
+    },
+  });
+};
+
+export const useAddFriend = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (group: INewGroup) => createGroup(group),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_FRIENDS],
       });
     },
   });
@@ -262,6 +275,14 @@ export const useGetUserById = (userId: string) => {
     queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
     queryFn: () => getUserById(userId),
     enabled: !!userId,
+  });
+};
+
+export const useGetUserByUserName = (userName: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_USER_NAME, userName],
+    queryFn: () => geByUsername(userName),
+    enabled: !!userName,
   });
 };
 
