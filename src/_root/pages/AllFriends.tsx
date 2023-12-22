@@ -4,7 +4,7 @@ import { useFriends, useGetCurrentUser } from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 
-const AllUsers = () => {
+const AllFriends = () => {
 const navigate = useNavigate();
 const { user, isAuthenticated, checkAuthUser } = useUserContext();
 const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
@@ -40,7 +40,7 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
        <button  style={{ backgroundColor: '#1CC29F' }}
        className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
       hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
-          onClick={() => navigate("/create-post")}>
+          onClick={() => navigate("/add-friend")}>
         Add Friend
       </button>
       </h2>
@@ -66,4 +66,4 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
   );
 };
 
-export default AllUsers;
+export default AllFriends;

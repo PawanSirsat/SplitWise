@@ -1,10 +1,10 @@
 import PostForm from "@/components/forms/PostForm";
 
-const CreatePost = () => {
+const CreateGroup = () => {
   return (
     <div className="flex flex-1">
       <div className="common-container">
-        <div className="max-w-5xl flex-start gap-3 justify-start w-full">
+        <div className="max-w-5xl flex-start gap-3 justify-start w-full mt-8">
           <img
             src="/assets/icons/add-post.svg"
             width={36}
@@ -20,4 +20,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default CreateGroup;

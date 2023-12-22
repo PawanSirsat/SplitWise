@@ -1,16 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-
 import {
   Home,
   Explore,
   Saved,
-  CreatePost,
   Profile,
   EditPost,
   PostDetails,
   UpdateProfile,
-  AllUsers,
   AllActivity,
+  CreateGroup,
 } from "@/_root/pages";
 import AuthLayout from "./_auth/AuthLayout";
 import RootLayout from "./_root/RootLayout";
@@ -19,6 +17,8 @@ import SigninForm from "@/_auth/forms/SigninForm";
 import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
+import AllFriends from "./_root/pages/AllFriends";
+import AddFriend from "./_root/pages/AddFriend";
 
 const App = () => {
   return (
@@ -35,9 +35,10 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
-          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/all-friends" element={<AllFriends />} />
           <Route path="/all-activity" element={<AllActivity />} />
-          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/create-group" element={<CreateGroup />} />
+          <Route path="/add-friend" element={<AddFriend />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile" element={<Profile />} />

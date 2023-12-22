@@ -1,8 +1,6 @@
 import { Models } from "appwrite";
 import { Loader, PostCard } from "@/components/shared";
 import { useGetCurrentUser, useGroups } from "@/lib/react-query/queries";
-import CreatePost from "./CreatePost";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -23,25 +21,26 @@ const Home = () => {
  return (
   <>
    <div className="home-container">
-          <p className="body-medium text-light-1">Something bad happened</p>
-        </div>
-        <div className="home-creators">
-          <p className="body-medium text-light-1">Something bad happened</p>
-        </div>
+      <p className="body-medium text-light-1">Something bad happened</p>
+   </div>
+   <div className="home-creators">
+      <p className="body-medium text-light-1">Something bad happened</p>
+   </div>
   </>  
-      
-    );
+  );
   }
   return (
 <div className="common-container">
   <div className="user-container">
     <div className="container p-5 flex flex-col">
-      <h2 className="text-white text-2xl font-bold mb-6">Groups<button  style={{ backgroundColor: '#1CC29F' }}
+      <h2 className="text-white text-2xl font-bold mb-6">Groups
+      <button  style={{ backgroundColor: '#1CC29F' }}
        className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
       hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
-          onClick={() => navigate("/create-post")}>
+          onClick={() => navigate("/create-group")}>
         Add Group
-      </button></h2>
+      </button>
+      </h2>
       { isLoading ? (
         <Loader />
       ) : userMemberGroups.length === 0 ? (
@@ -55,9 +54,6 @@ const Home = () => {
           ))}
         </ul>
       )}
-
-      
-
     </div>
   </div>
 </div>

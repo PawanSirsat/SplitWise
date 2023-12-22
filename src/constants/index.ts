@@ -6,7 +6,7 @@ export const sidebarLinks = [
   },
   {
     imgURL: "https://img.icons8.com/color/48/friends--v1.png",
-    route: "/all-users",
+    route: "/all-friends",
     label: "Friends",
   },
   {
@@ -29,7 +29,7 @@ export const bottombarLinks = [
   },
   {
     imgURL: "https://img.icons8.com/color/48/friends--v1.png",
-    route: "/all-users",
+    route: "/all-friends",
     label: "Friends",
   },
   {

@@ -25,7 +25,7 @@ const { data: activity, isLoading: isactivityLoading, isError: isErroractivity }
     );
   }
 
-  return (
+return (
      <div className="common-container ">
       <div className="user-container">
       <div className="container p-3">
@@ -35,21 +35,21 @@ const { data: activity, isLoading: isactivityLoading, isError: isErroractivity }
       ) : userMemberGroups.length === 0 ? (
         <p className="text-white font-bold mb-2">No Activity in Groups</p>
       ) : (
-        <><SimplifyCard activities={userMemberGroups} userId={currentUser?.$id} />
+    <><SimplifyCard activities={userMemberGroups} userId={currentUser?.$id} />
+      <div style={{ maxHeight: "380px", overflowY: "auto" }} className="custom-scrollbar">
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {userMemberGroups.map((activity: Models.Document) => (
-                  <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text 
-                     white">
-                    <ActivityCard activity={activity} />
-                  </li>
-                ))}
-              </ul>
-        </>
-      )}
-         {/* Floating Add Friend button */}
+          {userMemberGroups.map((activity: Models.Document) => (
+            <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text white">
+              <ActivityCard activity={activity} />
+            </li>
+          ))}
+          </ul>
+        </div>
+      </>
+    )}
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
   );
 };
 

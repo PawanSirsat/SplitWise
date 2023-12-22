@@ -104,6 +104,7 @@
     border-radius: 2px;
   }
 
+
   .custom-scrollbar::-webkit-scrollbar-track {
     background: #09090a;
   }
@@ -118,7 +119,7 @@
   }
 
   .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-6 px-3 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1 items-center gap-10 py-3 px-3 md:px-8 lg:p-14 custom-scrollbar;
   }
 
   /* All Users */

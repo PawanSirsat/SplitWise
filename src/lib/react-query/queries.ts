@@ -12,7 +12,6 @@ import {
   getCurrentUser,
   signOutAccount,
   getUsers,
-  createPost,
   getPostById,
   updatePost,
   getUserPosts,
@@ -31,7 +30,7 @@ import {
   getFriends,
   createGroup,
 } from "@/lib/appwrite/api";
-import { INewGroup, INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+import { INewGroup, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
 // ============================================================
 // AUTH QUERIES
