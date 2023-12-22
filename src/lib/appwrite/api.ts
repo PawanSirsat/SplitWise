@@ -118,43 +118,24 @@ export async function signOutAccount() {
 // ============================================================
 
 // ============================== CREATE POST
-export async function createPost(post: INewPost) {
+export async function createGroup(group: INewPost) {
   try {
-    // Upload file to appwrite storage
-    const uploadedFile = await uploadFile(post.file[0]);
+   
+    console.log("Id: "+group.userId);
+        console.log("Name: "+group.groupName);
+    console.log("Member: "+group.members);
 
-    if (!uploadedFile) throw Error;
-
-    // Get file url
-    const fileUrl = getFilePreview(uploadedFile.$id);
-    if (!fileUrl) {
-      await deleteFile(uploadedFile.$id);
-      throw Error;
-    }
-
-    // Convert tags into array
-    const tags = post.tags?.replace(/ /g, "").split(",") || [];
-
-    // Create post
+    
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
+      appwriteConfig.groupsCollectionId,
       ID.unique(),
       {
-        creator: post.userId,
-        caption: post.caption,
-        imageUrl: fileUrl,
-        imageId: uploadedFile.$id,
-        location: post.location,
-        tags: tags,
+        Creator: group.userId,
+        groupName: group.groupName,
+        Members: group.members,
       }
     );
-
-    if (!newPost) {
-      await deleteFile(uploadedFile.$id);
-      throw Error;
-    }
-
     return newPost;
   } catch (error) {
     console.log(error);

@@ -13,12 +13,10 @@ export type IUpdateUser = {
   file: File[];
 };
 
-export type INewPost = {
+export type INewGroup = {
   userId: string;
-  caption: string;
-  file: File[];
-  location?: string;
-  tags?: string;
+  groupName: string;
+  members: string[];
 };
 
 export type IUpdatePost = {

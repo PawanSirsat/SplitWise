@@ -1,12 +1,12 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
 import { useFriends, useGetCurrentUser } from "@/lib/react-query/queries";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 
 const AllUsers = () => {
-  const { user, isAuthenticated, checkAuthUser } = useUserContext();
-
+const navigate = useNavigate();
+const { user, isAuthenticated, checkAuthUser } = useUserContext();
 const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
 let userFriends: Models.Document[] = [];
 
@@ -36,7 +36,14 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
       <div className="user-container">
 
     <div className="container p-5 flex flex-col">
-      <h2 className="text-white text-2xl font-bold mb-6">Friends</h2>
+      <h2 className="text-white text-2xl font-bold mb-6">Friends
+       <button  style={{ backgroundColor: '#1CC29F' }}
+       className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
+      hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
+          onClick={() => navigate("/create-post")}>
+        Add Friend
+      </button>
+      </h2>
 
       {isgroupLoading ? (
         <Loader />
@@ -52,11 +59,6 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
         </ul>
       )}
          {/* Floating Add Friend button */}
-      <button
-        className="fixed top-20 right-4 bg-blue-500 text-white px-4 py-2 rounded-full"   
-      >
-        Add Friend
-      </button>
     </div>
           </div>
       </div>

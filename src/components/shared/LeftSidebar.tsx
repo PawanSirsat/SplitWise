@@ -38,8 +38,9 @@ const LeftSidebar = () => {
               <li
                 key={link.label}
                 className={`leftsidebar-link group ${
-                  isActive && "bg-blue-500"
-                }`}>
+                  isActive && ""
+                }`}
+                style={isActive ? { backgroundColor: '#1CC29F' } : {}}>
                 <NavLink
                   to={link.route}
                   className="flex gap-1 items-center p-1">

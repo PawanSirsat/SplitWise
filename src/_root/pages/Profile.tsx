@@ -49,18 +49,18 @@ const Profile = () => {
            <p className="text-gray-200">Email:</p>
            <p className="text-white font-semibold">{currentUser.email}</p>
           </div>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">
+          <button className="bg-blue-500 font-semibold text-white px-4 py-2 rounded-md mr-2">
             Edit
           </button>
           <button
-            className="bg-green-500 text-white px-4 py-2 rounded-md">
-            Contact Splitwise
+            className="bg-green-500 font-semibold text-white px-4 py-2 rounded-md">
+            Contact 
           </button>
       </section>
 
       <section className="mt-6">
         <button
-          className="bg-red text-white px-4 py-2 rounded-md"
+          className="bg-red font-semibold text-white px-4 py-2 rounded-md"
           onClick={(e) => handleSignOut(e)}
         >
           Logout

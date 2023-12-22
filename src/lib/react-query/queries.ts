@@ -29,8 +29,9 @@ import {
   getGroups,
   getActivity,
   getFriends,
+  createGroup,
 } from "@/lib/appwrite/api";
-import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+import { INewGroup, INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
 // ============================================================
 // AUTH QUERIES
@@ -106,13 +107,13 @@ export const useActivity = () => {
   });
 };
 
-export const useCreatePost = () => {
+export const useCreateGroup = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (post: INewPost) => createPost(post),
+    mutationFn: (group: INewGroup) => createGroup(group),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+        queryKey: [QUERY_KEYS.GET_RECENT_GROUPS],
       });
     },
   });

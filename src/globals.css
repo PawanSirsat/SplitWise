@@ -231,8 +231,28 @@
     @apply hidden md:flex px-5 py-10 flex-col justify-between min-w-[220px] bg-gray-800;
   }
 
+  .leftsidebar-link:hover {
+    background-color: #1CC29F;
+  }
+
   .leftsidebar-link {
-    @apply rounded-lg base-medium hover:bg-blue-500 transition;
+    @apply rounded-lg base-medium transition;
+  }
+
+  /* Add this to your styles */
+  .custom-form-container {
+    background-color: #ffffff;
+    /* Set the initial background color */
+    transition: background-color 0.3s;
+    /* Add transition for smooth effect */
+
+    /* Other styles for your form container */
+    /* ... */
+  }
+
+  .custom-form-container:hover {
+    background-color: #1CC29F;
+    /* Set the background color on hover */
   }
 
   /* Post Card */
@@ -277,7 +297,11 @@
 
   /* Button */
   .shad-button_primary {
-    @apply bg-blue-500 hover:bg-blue-500 text-light-1 flex gap-2 !important;
+    @apply text-light-1 flex gap-2 !important;
+  }
+
+  .shad-button_primary:hover {
+    background-color: #1CC29F;
   }
 
   .shad-button_dark_4 {

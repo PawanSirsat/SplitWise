@@ -86,20 +86,20 @@ const SignupForm = () => {
     <Form {...form}>
    <div className="bg-gray-800 h-16 fixed top-0 w-full z-10">
       <div className="text-white font-bold text-lg flex items-center justify-center">
-        <span role="img" aria-label="Splitwise App" className="mr-3 p-2 items-center">
+        <span role="img" aria-label="Splitwise App" className="mr-3 p-2 mt-1 items-center">
           <img
             width="40"
             height="40"
-            src="https://img.icons8.com/color/48/cash-in-hand.png"
+            src="/assets/images/split-logo.png"
             alt="cash-in-hand"
           />
         </span>
-        SpendShare
+        Splitwise
       </div>
     </div>
 
   <div className="sm:w-420 flex-center flex-col pt-10">
-      <h3 className="text-2xl font-bold  text-blue-500">SignUp</h3>
+      <h3 style={{color: '#1CC29F' }} className="text-2xl font-bold">SignUp</h3>
         <form
           onSubmit={form.handleSubmit(handleSignup)}
           className="flex flex-col gap-5 w-full mt-4">
@@ -159,7 +159,7 @@ const SignupForm = () => {
             )}
           />
 
-          <Button type="submit" className="bg-blue-500">
+          <Button type="submit" style={{backgroundColor: '#1CC29F' }} className="">
             {isCreatingAccount || isSigningInUser || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
@@ -171,9 +171,9 @@ const SignupForm = () => {
 
           <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
-            <Link
+            <Link style={{color: '#1CC29F' }}
               to="/sign-in"
-              className="text-blue-500 text-small-semibold ml-1">
+              className=" text-small-semibold ml-1">
               Log in
             </Link>
           </p>

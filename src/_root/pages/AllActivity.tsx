@@ -29,7 +29,7 @@ const { data: activity, isLoading: isactivityLoading, isError: isErroractivity }
      <div className="common-container ">
       <div className="user-container">
       <div className="container p-3">
-      <h2 className="text-white text-2xl font-bold mb-6">Activity</h2>
+      <h2 className="text-white text-2xl font-bold mb-3">Activity</h2>
       {isgroupLoading || isactivityLoading? (
         <Loader />
       ) : userMemberGroups.length === 0 ? (
@@ -43,12 +43,10 @@ const { data: activity, isLoading: isactivityLoading, isError: isErroractivity }
                     <ActivityCard activity={activity} />
                   </li>
                 ))}
-              </ul></>
+              </ul>
+        </>
       )}
          {/* Floating Add Friend button */}
-      <button className="fixed top-20 right-4 bg-blue-500 text-white px-4 py-2 rounded-full">
-        Add expense
-      </button>
     </div>
   </div>
   </div>

@@ -35,7 +35,7 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
   const { overallOwe, overallOwned } = calculateOverallBalance(activities, userId);
   return (
     <>
-    <div className="text-white text-lg font-semibold">
+    <div className="text-white text-lg font-semibold mb-3">
  <p >
     Overall, you owe <span className="text-red">&#8377;{overallOwe.toFixed(2)}</span>
   </p>

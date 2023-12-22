@@ -17,10 +17,10 @@ const Topbar = () => {
   return (
     <section className="topbar">
        <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-evenly items-center pe-8">
+      <div className="container font-sans mx-auto flex justify-evenly items-center pe-8">
         <Link to="/" className="text-white font-bold text-lg flex items-center">
-          <span role="img" aria-label="Splitwise App" className="mr-1"><img width="35" height="35" src="https://img.icons8.com/color/48/cash-in-hand.png" alt="cash-in-hand"/></span>
-          SpendShare
+          <span role="img" aria-label="Splitwise App" className="mr-1 pr-2"><img width="40" height="40" src="/assets/images/split-logo.png" alt="cash-in-hand"/></span>
+          Splitwise
         </Link>      
         </div>
     </nav>
