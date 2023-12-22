@@ -530,7 +530,7 @@ export async function geByUsername(username: string) {
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       [
-        Query.equal("UserName", "pawan123") 
+        Query.equal("UserName", username) 
       ] 
     );
     if (!users.documents || users.documents.length === 0) {

@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
-import { GridPostList, Loader } from "@/components/shared";
+import {  Loader } from "@/components/shared";
 import { useFriends, useGetUserByUserName } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 import ShowFriendList from "../shared/ShowFriendList";
@@ -18,7 +18,6 @@ const SearchResults = ({ isSearchFetching, searchedFriends }: SearchResultProps)
     return <Loader />;
   } else if (searchedFriends) 
   {
-   console.log(searchedFriends);
     return <ShowFriendList list={searchedFriends} />;
   } else {
     return (
@@ -28,11 +27,7 @@ const SearchResults = ({ isSearchFetching, searchedFriends }: SearchResultProps)
 };
 
 
-const FriendForm = () => {
-  const { ref, inView } = useInView();
-  const { user } = useUserContext();
-  const { data: FriendList, isLoading: isfrndLoading, isError: isErrorfrnd } = useFriends(user.id);
-  
+const FriendForm = () => {  
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearch = useDebounce(searchValue, 500);
   const { data: searchedFriends, isFetching: isSearchFetching } = 
