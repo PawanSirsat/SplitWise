@@ -54,8 +54,16 @@ export async function saveUserToDB(user: {
       uniqueID,
       user
     );
-    console.log(newUser.$id);
 
+     await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsCollectionId,
+      ID.unique(),
+      {
+        CollectionId: newUser.$id,
+      }
+    );
+    console.log(newUser.$id);
     return newUser;
   } catch (error) {
     console.log(error);

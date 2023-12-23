@@ -58,9 +58,9 @@ export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
 
-export async function followUser(
-  followsArray: string[],
-  LoginfollowingArray: string[],
+export async function addFriend(
+  newFriendArray: string[],
+  LoginfriendArray: string[],
   visitDocId: any,
   loginDocId: any
 ) {
@@ -68,10 +68,10 @@ export async function followUser(
     // Add the targetUserId to the current user's followings list
     const updatedCurrentUser = await databases.updateDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.followersCollectionId,
+      appwriteConfig.friendsCollectionId,
       visitDocId,
       {
-        followers: followsArray,
+        friendsId: newFriendArray,
       }
     );
 
@@ -80,10 +80,10 @@ export async function followUser(
     // Add the userId to the target user's followers list
     const updatedTargetUser = await databases.updateDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.followingsCollectionId,
+      appwriteConfig.friendsCollectionId,
       loginDocId,
       {
-        followings: LoginfollowingArray,
+        friendsId: LoginfriendArray,
       }
     );
 
