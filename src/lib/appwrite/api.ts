@@ -531,6 +531,20 @@ export async function getUserById(userId: string) {
   }
 }
 
+export async function getGroupById(groupId: string) {
+  try {
+    const group = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.groupsCollectionId,
+      groupId
+    );
+    if (!group) throw Error;
+    return group;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export async function geByUsername(username: string) {
   try {

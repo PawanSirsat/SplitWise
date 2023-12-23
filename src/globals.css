@@ -313,3 +313,118 @@
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
 }
+
+/* Date And Time */
+
+.date-container {
+  display: flex;
+  align-items: center;
+}
+
+.month-circle {
+  background-color: #3498db;
+  /* You can choose your own color */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.month-initials {
+  color: white;
+  font-size: 18px;
+}
+
+.formatted-date {
+  font-size: 16px;
+}
+
+/* Custome Button */
+
+.app-container {
+  position: relative;
+}
+
+.blur-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  outline: none;
+  z-index: 1;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blur-button:hover {
+  background-color: #2980b9;
+}
+
+.plus-sign {
+  margin-left: 2px;
+}
+
+.additional-buttons {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app-container.blurred .additional-buttons {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.extra-button {
+  margin-top: 10px;
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.extra-button:hover {
+  background-color: #27ae60;
+}
+
+/* ... (Previous styles) */
+
+.plus-sign::before {
+  content: '+';
+  margin-left: 2px;
+}
+
+.plus-sign.minus::before {
+  content: '-';
+  margin-left: 1px;
+  /* Adjust as needed */
+}
+
+/* ... (Previous styles) */
+
+.blurred2 {
+  filter: blur(4px);
+}
+
+.hidden {
+  display: none;
+}
+
+/* ... (Previous styles) */

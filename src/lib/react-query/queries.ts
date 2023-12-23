@@ -30,6 +30,7 @@ import {
   getFriends,
   createGroup,
   geByUsername,
+  getGroupById,
 } from "@/lib/appwrite/api";
 import { INewGroup, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
@@ -130,6 +131,7 @@ export const useAddFriend = () => {
     },
   });
 };
+
 
 export const useGetPostById = (postId?: string) => {
   return useQuery({
@@ -275,6 +277,14 @@ export const useGetUserById = (userId: string) => {
     queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
     queryFn: () => getUserById(userId),
     enabled: !!userId,
+  });
+};
+
+export const useGetGroupById = (groupId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_GROUP_BY_ID, groupId],
+    queryFn: () => getGroupById(groupId),
+    enabled: !!groupId,
   });
 };
 

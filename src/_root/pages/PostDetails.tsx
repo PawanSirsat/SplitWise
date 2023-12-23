@@ -1,156 +1,81 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
-import { GridPostList, PostStats } from "@/components/shared";
-
-import {
-  useGetPostById,
-  useGetUserPosts,
-  useDeletePost,
-} from "@/lib/react-query/queries";
-import { multiFormatDateString } from "@/lib/utils";
+import { useGetGroupById } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
+import { Models } from "appwrite";
+import GroupActivity from "@/components/shared/GroupActivity";
+import CollapseButton from "@/components/ui/CollapseButton";
 
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
 
-  const { data: post, isLoading } = useGetPostById(id);
-  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
-    post?.creator.$id
-  );
-  const { mutate: deletePost } = useDeletePost();
+  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id);
+  const totalAmount = GroupData?.activity.reduce((sum: number, activityItem: { Amout: string }) => {
+    return sum + parseFloat(activityItem.Amout);
+  }, 0);
 
-  const relatedPosts = userPosts?.documents.filter(
-    (userPost) => userPost.$id !== id
-  );
+  const [isBlurred, setIsBlurred] = useState(false);
 
-  const handleDeletePost = () => {
-    deletePost({ postId: id, imageId: post?.imageId });
-    navigate(-1);
+    const handleButtonClick = () => {
+    setIsBlurred((prevIsBlurred) => !prevIsBlurred);
+    console.log("Click");
+    
   };
-
   return (
-    <div className="post_details-container">
-      <div className="hidden md:flex max-w-5xl w-full">
-        <Button
-          onClick={() => navigate(-1)}
-          variant="ghost"
-          className="shad-button_ghost">
-          <img
-            src={"/assets/icons/back.svg"}
-            alt="back"
-            width={24}
-            height={24}
-          />
-          <p className="small-medium lg:base-medium">Back</p>
-        </Button>
+    <>
+      <div className={`items-center flex-1 p-5 `}>   
+             <div className={`app-container `}>
+      <button onClick={handleButtonClick} className={`blur-button ${isBlurred ? 'expanded' : ''}`}>
+        <span className={`plus-sign ${isBlurred ? 'minus' : ''}`}></span>
+      </button>
+      <div className={`${isBlurred ? 'expanded' : 'hidden'}`}>
+        <Button className='ml-2'>Add Member</Button>
+        <Button className='ml-2'>Add Expense</Button>
       </div>
+    </div>
 
-      {isLoading || !post ? (
-        <Loader />
-      ) : (
-        <div className="post_details-card">
-          <img
-            src={post?.imageUrl}
-            alt="creator"
-            className="post_details-img"
-          />
+        <div className={`w-full`}>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="ghost"
+            className="disable shad-button_ghost">
+            <img
+              src="https://img.icons8.com/color/48/back--v1.png"
+              alt="back"
+              width={24}
+              height={24}
+            />
+            <p className="small-medium lg:base-medium">Back</p>
+          </Button>
+        </div>
 
-          <div className="post_details-info">
-            <div className="flex-between w-full">
-              <Link
-                to={`/profile/${post?.creator.$id}`}
-                className="flex items-center gap-3">
-                <img
-                  src={
-                    post?.creator.imageUrl ||
-                    "/assets/icons/profile-placeholder.svg"
-                  }
-                  alt="creator"
-                  className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
-                />
-                <div className="flex gap-1 flex-col">
-                  <p className="base-medium lg:body-bold text-light-1">
-                    {post?.creator.name}
-                  </p>
-                  <div className="flex-center gap-2 text-light-3">
-                    <p className="subtle-semibold lg:small-regular ">
-                      {multiFormatDateString(post?.$createdAt)}
-                    </p>
-                    •
-                    <p className="subtle-semibold lg:small-regular">
-                      {post?.location}
-                    </p>
-                  </div>
-                </div>
-              </Link>
+        {isGroupDataLoading || !GroupData ? (
+          <Loader />
+        ) : (
+          <div className={`bg-slate-800 p-4 shadow-md rounded-md text-white  ${isBlurred ? 'blurred2' : ''}`}>
+            <h2 className="text-lg font-bold mb-2">Group : {GroupData.groupName}</h2>
 
-              <div className="flex-center gap-4">
-                <Link
-                  to={`/update-post/${post?.$id}`}
-                  className={`${user.id !== post?.creator.$id && "hidden"}`}>
-                  <img
-                    src={"/assets/icons/edit.svg"}
-                    alt="edit"
-                    width={24}
-                    height={24}
-                  />
-                </Link>
-
-                <Button
-                  onClick={handleDeletePost}
-                  variant="ghost"
-                  className={`ost_details-delete_btn ${
-                    user.id !== post?.creator.$id && "hidden"
-                  }`}>
-                  <img
-                    src={"/assets/icons/delete.svg"}
-                    alt="delete"
-                    width={24}
-                    height={24}
-                  />
-                </Button>
-              </div>
-            </div>
-
-            <hr className="border w-full border-dark-4/80" />
-
-            <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
-              <p>{post?.caption}</p>
-              <ul className="flex gap-1 mt-2">
-                {post?.tags.map((tag: string, index: string) => (
-                  <li
-                    key={`${tag}${index}`}
-                    className="text-light-3 small-regular">
-                    #{tag}
+            <p>Members: {GroupData?.Members?.map((user: { name: any }) => user.name).join(', ')} </p>
+            <p className="text-xl" style={{ paddingBottom: '5px' }}>
+              Expenses: <span className="font-semibold text-green-500">${totalAmount.toFixed(2)}</span>
+            </p>
+            <div style={{ maxHeight: "330px", overflowY: "auto" }} className="custom-scrollbar">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {GroupData.activity.map((activity: Models.Document) => (
+                  <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text white">
+                    <GroupActivity activity={activity} GroupName={GroupData?.groupName} />
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="w-full">
-              <PostStats post={post} userId={user.id} />
-            </div>
           </div>
-        </div>
-      )}
-
-      <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
-
-        <h3 className="body-bold md:h3-bold w-full my-10">
-          More Related Posts
-        </h3>
-        {isUserPostLoading || !relatedPosts ? (
-          <Loader />
-        ) : (
-          <GridPostList posts={relatedPosts} />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

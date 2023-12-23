@@ -8,7 +8,8 @@ const AllActivity = () => {
 const { data: currentUser, isLoading: isgroupLoading, isError: isErrorgroups } = useGetCurrentUser();
 const { data: activity, isLoading: isactivityLoading, isError: isErroractivity } = useActivity();
   
-  const userMemberGroups: Models.Document[] = (activity?.documents?.filter((activity: Models.Document) => 
+
+const userMemberGroups: Models.Document[] = (activity?.documents?.filter((activity: Models.Document) => 
   activity.Group.Members?.some((member: { $id: string | undefined; }) => member.$id === currentUser?.$id)
 ) ?? []).reverse();
 
