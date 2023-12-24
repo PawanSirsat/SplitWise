@@ -1,12 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
-  Explore,
-  Saved,
   Profile,
-  EditPost,
-  PostDetails,
-  UpdateProfile,
   AllActivity,
   CreateGroup,
 } from "@/_root/pages";
@@ -21,6 +16,7 @@ import AllFriends from "./_root/pages/AllFriends";
 import AddFriend from "./_root/pages/AddFriend";
 import AddMemberForm from "./components/forms/AddMemberForm";
 import AddExpense from "./components/forms/AddExpense";
+import GroupDetails from "./_root/pages/GroupDetails";
 
 const App = () => {
   return (
@@ -35,18 +31,14 @@ const App = () => {
         {/* private routes */}
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/saved" element={<Saved />} />
           <Route path="/all-friends" element={<AllFriends />} />
           <Route path="/all-activity" element={<AllActivity />} />
           <Route path="/create-group" element={<CreateGroup />} />
           <Route path="/add-expense/:id" element={<AddExpense/>} />
           <Route path="/add-friend" element={<AddFriend />} />
-          <Route path="/update-post/:id" element={<EditPost />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/groups/:id" element={<GroupDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/add-member/:id" element={<AddMemberForm />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile />} />
         </Route>
       </Routes>
 

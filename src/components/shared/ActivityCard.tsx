@@ -59,8 +59,8 @@ const ActivityCard = ({ activity }: UserCardProps) => {
   }
 
   return (
-    <Link to={`/profile/${activity.$id}`}>
-      <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
+<>
+<div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
          <Profilephoto name={activity.PaidBy}/>
       <p className="text-lg font-bold mb-1 pl-3 text-blue-500">{activity.Desc}  <span className="text-white"> 
        &ensp;&#8377;{activity.Amout}</span></p>
@@ -75,7 +75,7 @@ const ActivityCard = ({ activity }: UserCardProps) => {
      <p className={`${isPaidByCurrentUser ? 'text-green-500 font-semibold' : (!isPaidByCurrentUser && isCurrentUserInvolved ? 'text-red font-semibold' : 'text-indigo-700 font-semibold')}`}>
   {amountMessage}
 </p>
-    </Link>
+   </>
   );
 };
 

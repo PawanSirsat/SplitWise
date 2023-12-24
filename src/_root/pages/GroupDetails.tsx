@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
@@ -6,9 +6,8 @@ import { useGetGroupById } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
-import CollapseButton from "@/components/ui/CollapseButton";
 
-const PostDetails = () => {
+const GroupDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
@@ -38,7 +37,7 @@ const PostDetails = () => {
     </div>
         <div className={`w-full`}>
           <Button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             variant="ghost"
             className="disable shad-button_ghost">
             <img
@@ -81,4 +80,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default GroupDetails;

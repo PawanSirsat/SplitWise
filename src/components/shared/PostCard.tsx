@@ -13,7 +13,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
   return (
     <>
-      <Link to={`/posts/${post?.$id}`} >                
+      <Link to={`/groups/${post?.$id}`} >                
       <h2 className="text-lg font-bold mb-2 text-emerald-500">{post.groupName}</h2>
       {post.Members && post.Members.length > 2 && (
         <p className="font-bold text-gray-400">

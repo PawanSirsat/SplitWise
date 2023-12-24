@@ -152,9 +152,7 @@ export async function createGroup(group: INewGroup) {
 }
 
 export async function createExpense(expense: INewExpense) {
-  try {
-     console.log(expense);
-  
+  try {  
     const newExpense = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.activityCollectionId,
@@ -163,14 +161,11 @@ export async function createExpense(expense: INewExpense) {
         Desc: expense.desc,
         PaidBy: expense.paidBy,
         Group : expense.group,
-        Time : expense.Time,
+        Time : new Date().toISOString(),
         splitMember : expense.splitMember,
-        Amount : expense.amount,
+        Amout : expense.amount,
       }
-    );
-
-    console.log(newExpense);
-    
+    );    
     return newExpense;
   } catch (error) {
     console.log(error);

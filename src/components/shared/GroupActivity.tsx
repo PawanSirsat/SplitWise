@@ -61,8 +61,8 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
   }
 
   return (
-    <Link to={`/profile/${activity.$id}`}>
-      <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
+    <>
+     <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
             <DateDisplay dateTimeString={activity.Time} />
             <span className="text-blue-500 text-lg font-bold pl-20">&ensp;&#8377;{activity.Amout}</span>
       </div>
@@ -75,7 +75,7 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
       && isCurrentUserInvolved ? 'text-red font-semibold' : 'text-indigo-700 font-semibold')}`}>
   {amountMessage}
 </p>
-    </Link>
+    </>    
   );
 };
 
