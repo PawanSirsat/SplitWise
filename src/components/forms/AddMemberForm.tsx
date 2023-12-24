@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFriends, useGetGroupById } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";

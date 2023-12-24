@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-
+import { useState } from "react";
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
 import {  Loader } from "@/components/shared";
