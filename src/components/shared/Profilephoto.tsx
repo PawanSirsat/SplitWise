@@ -18,7 +18,7 @@ const Profilephoto = ({ name }: UserCardProps) => {
     return firstLetter;
   };
 
-  const userName = name.UserName || ''; // Assuming userName is a property in your Models.Document
+  const userName = name.name || ''; // Assuming userName is a property in your Models.Document
   const backgroundColor = getBackgroundColor(userName.charAt(0));
 
   return (

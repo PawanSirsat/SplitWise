@@ -31,8 +31,9 @@ import {
   createGroup,
   geByUsername,
   getGroupById,
+  createExpense,
 } from "@/lib/appwrite/api";
-import { INewGroup, INewUser, IUpdatePost, IUpdateUser } from "@/types";
+import { INewExpense, INewGroup, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
 // ============================================================
 // AUTH QUERIES
@@ -88,7 +89,7 @@ export const useSearchPosts = (searchTerm: string) => {
 
 export const useGroups = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_RECENT_GROUP],
+    queryKey: [QUERY_KEYS.GET_RECENT_GROUPS],
     queryFn: getGroups,
   });
 };
@@ -115,6 +116,18 @@ export const useCreateGroup = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_GROUPS],
+      });
+    },
+  });
+};
+
+export const useCreateExpense = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (expense: INewExpense) => createExpense(expense),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
       });
     },
   });

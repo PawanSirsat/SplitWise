@@ -1,7 +1,8 @@
 import { ID, Query } from "appwrite";
 
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
-import { IUpdatePost, INewUser, IUpdateUser } from "@/types";
+import { IUpdatePost, INewUser, IUpdateUser, INewExpense, INewGroup } from "@/types";
+import { log } from "console";
 
 // ============================================================
 // AUTH
@@ -126,7 +127,7 @@ export async function signOutAccount() {
 // ============================================================
 
 // ============================== CREATE POST
-export async function createGroup(group: INewPost) {
+export async function createGroup(group: INewGroup) {
   try {
    
     console.log("Id: "+group.userId);
@@ -150,6 +151,31 @@ export async function createGroup(group: INewPost) {
   }
 }
 
+export async function createExpense(expense: INewExpense) {
+  try {
+     console.log(expense);
+  
+    const newExpense = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.activityCollectionId,
+      ID.unique(),
+      {
+        Desc: expense.desc,
+        PaidBy: expense.paidBy,
+        Group : expense.group,
+        Time : expense.Time,
+        splitMember : expense.splitMember,
+        Amount : expense.amount,
+      }
+    );
+
+    console.log(newExpense);
+    
+    return newExpense;
+  } catch (error) {
+    console.log(error);
+  }
+}
 // ============================== UPLOAD FILE
 export async function uploadFile(file: File) {
   try {

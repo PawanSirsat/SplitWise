@@ -19,6 +19,15 @@ export type INewGroup = {
   members: string[];
 };
 
+export type INewExpense = {
+  desc: string;
+  paidBy: string;
+  group: string;
+  Time:string;
+  splitMember: string[];
+  amount: string;
+};
+
 export type IUpdatePost = {
   postId: string;
   caption: string;

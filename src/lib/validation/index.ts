@@ -26,9 +26,20 @@ export const ProfileValidation = z.object({
 // ============================================================
 // POST
 // ============================================================
+export const ExpenseValidation = z.object({
+  desc: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(1000, { message: "Maximum 1000 characters." }),
+ amount: z
+    .string()
+    .min(1, { message: "Amount is required" })
+    .max(10, { message: "Maximum 10 digit." }),
+});
+
 export const GroupValidation = z.object({
   groupname: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),
-});
+}); 
 
 export const FriendValidation = z.object({
   username: z.string().min(1, { message: "This field is required" }).max(1000, { message: "Maximum 1000 characters." }),

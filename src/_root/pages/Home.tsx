@@ -49,7 +49,7 @@ const Home = () => {
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {userMemberGroups.map((group: Models.Document) => (
             <li key={group.$id} className="bg-slate-800 p-4 shadow-md rounded-md text-white">
-              <PostCard post={group} />
+              <PostCard post={group}/>
             </li>
           ))}
         </ul>

@@ -95,3 +95,26 @@ export async function addFriend(
     throw error;
   }
 }
+
+
+export async function addMember(
+  newMemberArray: string[],
+  groupDocId: any
+  ) {
+  try {
+    // Add the targetUserId to the current user's followings list
+    const updatedMembers = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.groupsCollectionId,
+      groupDocId,
+      {
+        Members: newMemberArray,
+      }
+    );
+
+    return { updatedMembers };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
