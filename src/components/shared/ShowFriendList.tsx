@@ -12,9 +12,8 @@ type ShowFriendListProps = {
 
 const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
   const { user } = useUserContext();
-  const { data: friendList, isLoading: isFrndLoading, isError: isErrorFrnd } = useFriends(user.id);
-  const { data: newfriendList, isLoading: isnewFrndLoading, isError: isErrornewFrnd } = 
-  useFriends(list.$id);
+  const { data: friendList} = useFriends(user.id);
+  const { data: newfriendList } = useFriends(list.$id);
 
   const loginDocId = friendList?.documents[0]?.$id;
   const visitDocId = newfriendList?.documents[0]?.$id;

@@ -17,7 +17,7 @@ const Home = () => {
      currentUser?.$id);
   }) ?? [];
 
-   if (isErrorgroups) {
+   if (isErrorgroups || iserror) {
  return (
   <>
    <div className="home-container">
@@ -41,7 +41,7 @@ const Home = () => {
         Add Group
       </button>
       </h2>
-      { isLoading ? (
+      { isLoading || isgroupLoading ? (
         <Loader />
       ) : userMemberGroups.length === 0 ? (
         <p className="text-white font-bold mb-2">You are not part of any groups.</p>

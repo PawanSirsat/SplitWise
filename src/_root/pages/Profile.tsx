@@ -9,7 +9,7 @@ const Profile = () => {
   const { mutate: signOut } = useSignOutAccount();
   const navigate = useNavigate();
 
-  const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
+  const { setUser, setIsAuthenticated } = useUserContext();
 
    const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>

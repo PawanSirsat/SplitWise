@@ -1,18 +1,6 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { Button } from "../ui/button";
-import { useUserContext } from "@/context/AuthContext";
-import { useSignOutAccount } from "@/lib/react-query/queries";
+import { Link} from "react-router-dom";
 
 const Topbar = () => {
-  const navigate = useNavigate();
-  const { user } = useUserContext();
-  const { mutate: signOut, isSuccess } = useSignOutAccount();
-
-  useEffect(() => {
-    if (isSuccess) navigate(0);
-  }, [isSuccess]);
 
   return (
     <section className="topbar">

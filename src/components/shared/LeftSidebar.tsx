@@ -9,7 +9,7 @@ import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
 const LeftSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
+  const { setUser, setIsAuthenticated } = useUserContext();
 
   const { mutate: signOut } = useSignOutAccount();
 

@@ -3,16 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { useGetGroupById } from "@/lib/react-query/queries";
-import { useUserContext } from "@/context/AuthContext";
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
 
 const GroupDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useUserContext();
-
-  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id);
+  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
   const totalAmount = GroupData?.activity.reduce((sum: number, activityItem: { Amout: string }) => 
    {
     return sum + parseFloat(activityItem.Amout);

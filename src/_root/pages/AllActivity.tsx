@@ -13,7 +13,7 @@ const userMemberGroups: Models.Document[] = (activity?.documents?.filter((activi
   activity.Group.Members?.some((member: { $id: string | undefined; }) => member.$id === currentUser?.$id)
 ) ?? []).reverse();
 
-  if (isErrorgroups ) {
+  if (isErrorgroups || isErroractivity) {
     return (
       <div className="flex flex-1">
         <div className="home-container">

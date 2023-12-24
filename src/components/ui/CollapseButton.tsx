@@ -1,8 +1,8 @@
 // CollapseButton.js
-import React, { useState } from 'react';
-import { Button } from './Button';
 
-const CollapseButton = ({ onButtonClick }) => {
+import { Button } from "./button";
+
+const CollapseButton = ({ onButtonClick} : {onButtonClick:any}) => {
   return (
     <div className="app-container">
       <button onClick={onButtonClick} className="blur-button">

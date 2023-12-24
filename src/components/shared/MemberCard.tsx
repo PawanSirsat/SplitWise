@@ -1,7 +1,6 @@
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import Profilephoto from "./Profilephoto";
-import { useGetUserByUserName } from "@/lib/react-query/queries";
 type UserCardProps = {
   user: Models.Document;
 };

@@ -1,5 +1,4 @@
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
 import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
 import Profilephoto from "./Profilephoto";

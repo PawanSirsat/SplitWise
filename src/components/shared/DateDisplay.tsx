@@ -1,10 +1,10 @@
-import React from 'react';
 
-const formatDate = (inputDateString: string | number | Date) => {
+const formatDate = (inputDateString: any) => {
   const inputDate = new Date(inputDateString);
 
-  const monthOptions = { month: 'long' };
-  const dateOptions = { day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
+    const monthOptions: Intl.DateTimeFormatOptions = { month: "long", day: 'numeric', year: 'numeric', hour: '2-digit', minute: "2-digit" };
+
+  const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: 'numeric', year: 'numeric', hour: '2-digit', minute: "2-digit", hour12: true };
 
   const monthName = new Intl.DateTimeFormat('en-US', monthOptions).format(inputDate);
   const dayAndTime = new Intl.DateTimeFormat('en-US', dateOptions).format(inputDate);
@@ -12,7 +12,7 @@ const formatDate = (inputDateString: string | number | Date) => {
   return `${monthName.slice(0, 3)} ${dayAndTime}`;
 };
 
-const DateDisplay = ({ dateTimeString }) => {
+const DateDisplay = ({ dateTimeString  }: { dateTimeString: any; }) => {
   const formattedDate = formatDate(dateTimeString);
 
   return (

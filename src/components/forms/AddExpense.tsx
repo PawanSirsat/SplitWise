@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -14,7 +13,6 @@ import {
 } from "@/components/ui";
 import { ExpenseValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
-import { useUserContext } from "@/context/AuthContext";
 import { Loader } from "@/components/shared";
 import {  useCreateExpense, useGetGroupById } from "@/lib/react-query/queries";
 import { INewExpense } from "@/types";
@@ -25,9 +23,7 @@ const AddExpense = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user } = useUserContext();
-  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id);
-
+  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   
   const form = useForm<INewExpense>({
@@ -66,7 +62,7 @@ const AddExpense = () => {
 
      const newExpense = await createExpense({
       ...value,
-      group: id, 
+      group: id!, 
       paidBy: selectedPaidBy,
       Time: new Date().toISOString(),
       splitMember:selectedMembers
@@ -88,7 +84,13 @@ const AddExpense = () => {
     <div className="common-container">
     <div className="user-container">
     <div className="container p-5 flex flex-col">
-     <h2 className="text-lg font-bold mb-2 text-white">Add Expense in "{GroupData?.groupName}"</h2>
+      { isGroupDataLoading ? (
+        <Loader />
+      ) : GroupData?.length === 0 ? (
+        <p className="text-white font-bold mb-2">You are not part of any groups.</p>
+      ) : (
+      <>
+       <h2 className="text-lg font-bold mb-2 text-white">Add Expense in "{GroupData?.groupName}"</h2>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex flex-col gap-5 w-full  max-w-5xl text-gray-300">
@@ -155,7 +157,7 @@ const AddExpense = () => {
      
      <span className="shad-form_label mr-2">Split In</span>
       <div style={{ maxHeight: "100px", overflowY: "auto" }} className="custom-scrollbar">
-       {GroupData?.Members?.map((member, index) => (
+       {GroupData?.Members?.map((member:any) => (
     <div key={member.$id}>
         <ul className="p-1 m-1 w-48 text-sm font-medium text-gray-900 bg-gray-600 border
          border-gray-600 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -199,6 +201,8 @@ const AddExpense = () => {
           </Button>
         </div>
       </form>
+      </>
+      )}  
      </div>
     </div>
    </div>

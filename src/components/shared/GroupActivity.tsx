@@ -1,9 +1,8 @@
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
 import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
-import Profilephoto from "./Profilephoto";
 import DateDisplay from "./DateDisplay";
+import { log } from "console";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -36,6 +35,9 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
     timeDifference = format(date, 'MMM dd, yyyy, h:mm a');
   }
 
+  console.log(timeDifference);
+  
+
   const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
   const isCurrentUserInvolved = activity.splitMember?.some((member: { $id: string }) => member.$id === 
   currentUser?.$id) || false;
@@ -64,7 +66,8 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
     <>
      <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
             <DateDisplay dateTimeString={activity.Time} />
-            <span className="text-blue-500 text-lg font-bold pl-20">&ensp;&#8377;{activity.Amout}</span>
+            <span className="text-blue-500 text-lg font-bold pl-20">&ensp;&#8377;{activity.Amout} 
+             </span>
       </div>
       <p className="text-lg font-bold mb-1">{activity.Desc}</p>
       <p>

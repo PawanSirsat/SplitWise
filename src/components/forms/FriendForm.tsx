@@ -4,8 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
 import {  Loader } from "@/components/shared";
-import { useFriends, useGetUserByUserName } from "@/lib/react-query/queries";
-import { useUserContext } from "@/context/AuthContext";
+import {  useGetUserByUserName } from "@/lib/react-query/queries";
 import ShowFriendList from "../shared/ShowFriendList";
 
 export type SearchResultProps = {
@@ -70,12 +69,6 @@ const FriendForm = () => {
             )  
         }
       </div>
-
-      {/* {searchValue && (
-        <div ref={ref} className="mt-10">
-          <Loader />
-        </div>
-      )} */}
     </div>
   );
 };

@@ -11,8 +11,8 @@ const AddMemberForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
-  const { data: friendList, isLoading: isFrndLoading, isError: isErrorFrnd } = useFriends(user.id);
-  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id);
+  const { data: friendList, isLoading: isFrndLoading } = useFriends(user.id);
+  const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
     
   const friendArray = friendList?.documents[0]?.friendsId?.map((item: { $id: any; name: string }) => ({
     id: item?.$id,
@@ -67,7 +67,7 @@ const AddMemberForm = () => {
       ) : (
         <div style={{ maxHeight: "370px", overflowY: "auto" }} className="custom-scrollbar">
          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {friendArray.map((friend) => (
+          {friendArray.map((friend:any) => (
             <li key={friend.id} className="bg-slate-800 p-4 shadow-md rounded-md text-white">
               <UserCard user={friend} />
               {memberArray.includes(friend.id) ? (
