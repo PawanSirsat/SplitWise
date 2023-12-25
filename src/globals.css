@@ -4,16 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@media only screen and (max-width: 600px) {
-
-  /* Mobile-specific styles go here */
-  html {
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    height: 95%;
-  }
-}
 
 @layer base {
   * {
