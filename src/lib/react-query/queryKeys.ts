@@ -9,7 +9,6 @@ export enum QUERY_KEYS {
   GET_GROUP_BY_ID = "getGroupById",
   GET_USER_BY_USER_NAME = "getUserByUserName",
 
-
   // POST KEYS
   GET_POSTS = "getPosts",
   GET_INFINITE_POSTS = "getInfinitePosts",
@@ -20,11 +19,4 @@ export enum QUERY_KEYS {
   GET_RECENT_ACTIVITY = "getRecentActivity",
   GET_FRIENDS = "getFriends",
 
-
-  //  SEARCH KEYS
-  SEARCH_POSTS = "getSearchPosts",
-
-  // FOLLWERS & FOLLOWINGS
-  GET_FOLLOWERS = "getFollowers",
-  GET_FOLLOWINGS = "getFollowings",
 }

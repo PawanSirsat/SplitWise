@@ -32,10 +32,7 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
     timeDifference = `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
   } else {
     timeDifference = format(date, 'MMM dd, yyyy, h:mm a');
-  }
-
-  console.log(timeDifference);
-  
+  }  
 
   const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
   const isCurrentUserInvolved = activity.splitMember?.some((member: { $id: string }) => member.$id === 

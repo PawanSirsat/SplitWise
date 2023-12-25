@@ -96,11 +96,12 @@ export async function addFriend(
   }
 }
 
-
 export async function addMember(
   newMemberArray: string[],
   groupDocId: any
   ) {
+    
+ console.log(groupDocId);    
   try {
     // Add the targetUserId to the current user's followings list
     const updatedMembers = await databases.updateDocument(
@@ -110,8 +111,7 @@ export async function addMember(
       {
         Members: newMemberArray,
       }
-    );
-
+    );    
     return { updatedMembers };
   } catch (error) {
     console.error(error);

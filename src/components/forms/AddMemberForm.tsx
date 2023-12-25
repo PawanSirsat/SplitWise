@@ -13,6 +13,8 @@ const AddMemberForm = () => {
   const { user } = useUserContext();
   const { data: friendList, isLoading: isFrndLoading } = useFriends(user.id);
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
+  const [isLoading, setLoading] = useState(false);
+
     
   const friendArray = friendList?.documents[0]?.friendsId?.map((item: { $id: any; name: string }) => ({
     id: item?.$id,
@@ -22,22 +24,40 @@ const AddMemberForm = () => {
     const [memberArray, setmemberArray] = useState<string[]>(
     GroupData?.Members?.map((item: { $id: any }) => item?.$id) || []
   );
- const handleAddMember = (friendId: string) => {
-  // Check if friend is not already a member
-  if (!memberArray.includes(friendId)) {
-    setmemberArray((prevArray) => {
-      const newArray = [...prevArray, friendId];
-      console.log("New Member Array:", newArray);
+const [newid, setnewid] = useState<string | null>(null);
 
-      addMember(newArray,GroupData?.$id)
-      return newArray;
-    });
-    // TODO: Perform the actual backend update to add the friend to the group
-  } else {
+ const handleAddMember = async (friendId: string) => {
+  // Check if friend is not already a member
+  
+  setnewid(friendId)
+  if (!memberArray.includes(friendId)) 
+  {
+      const newArray = [...memberArray, friendId];
+      console.log("New Member Array:", newArray); 
+      Add(newArray);
+  } 
+  else
+  {
     console.log("Friend is already a member of the group");
   }
 };
 
+const Add = async (array: string[]) => {
+  try {
+    setLoading(true);
+    const { updatedMembers } = await addMember(array, GroupData?.$id);
+    
+    console.log(updatedMembers);
+    if(updatedMembers){
+    setmemberArray(array)
+    navigate(`/groups/${id}`);
+    }
+  } catch (error) {
+    console.error("Error adding member:", error);
+  }finally {
+    setLoading(false);
+  }
+};
 
   return (
       <div className="common-container">
@@ -73,7 +93,15 @@ const AddMemberForm = () => {
               {memberArray.includes(friend.id) ? (
                 <Button disabled>Already a Member</Button>
               ) : (
-                <Button onClick={() => handleAddMember(friend.id)}>Add to Group</Button>
+                <Button onClick={() => handleAddMember(friend.id)}>
+                   {newid === friend.id && isLoading ? (
+                  <>
+                    Adding... <Loader />
+                  </>
+                ) : (
+                  <span >Add to Group</span>
+                )}{" "}                
+                  </Button>
               )}
             </li>
           ))}

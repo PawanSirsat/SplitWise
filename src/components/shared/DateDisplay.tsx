@@ -21,7 +21,7 @@ const DateDisplay = ({ dateTimeString  }: { dateTimeString: any; }) => {
         <span className="month-initials font-bold">{formattedDate.substring(0, 3)}</span>
       </div>
       <div className="date-time">
-        <span className="formatted-date">{formattedDate.substring(3)}</span>
+        <span className="formatted-date">{formattedDate.substring(12)}</span>
       </div>
     </div>
   );

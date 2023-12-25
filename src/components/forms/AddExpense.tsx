@@ -73,7 +73,7 @@ const AddExpense = () => {
         title: `Expense creation failed. Please try again.`,
       });
     } else {
-      navigate(`/posts/${id}`);
+      navigate(`/groups/${id}`);
     }
   
 };
