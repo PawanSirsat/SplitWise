@@ -432,3 +432,7 @@
 }
 
 /* ... (Previous styles) */
+
+.red-image {
+  filter: hue-rotate(0deg) brightness(70%) saturate(100%) sepia(100%);
+}

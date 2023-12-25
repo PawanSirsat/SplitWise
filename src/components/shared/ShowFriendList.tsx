@@ -99,7 +99,7 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
     setTimeout(() => {
     setIsFriend(!IsFriend);
     setLoading(false);
-  }, 3000);
+  }, 10000);
 
 }
     } catch (error) {
