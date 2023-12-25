@@ -13,8 +13,8 @@ type ShowFriendListProps = {
 const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
   const { user } = useUserContext();
 
-  const { data: friendList, isLoading: isFriendListLoading, isError: isErrorFriendList } = useFriends(user.id);
-  const { data: newfriendList, isLoading: isnewfriendListLoading, isError: isErrornewfriendList } = useFriends(list.$id);
+  const { data: friendList, isLoading: isFriendListLoading } = useFriends(user.id);
+  const { data: newfriendList, isLoading: isnewfriendListLoading } = useFriends(list.$id);
 
   const [IsFriend, setIsFriend] = useState(false);
   const [isLoading, setLoading] = useState(false);
