@@ -65,19 +65,13 @@ export async function addFriend(
   loginDocId: any
 ) {
   try {
-    // Add the targetUserId to the current user's followings list
-    const updatedCurrentUser = await databases.updateDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.friendsCollectionId,
-      visitDocId,
-      {
-        friendsId: newFriendArray,
-      }
-    );
 
-    if (!updatedCurrentUser) throw Error;
+       console.log("After");
+       console.log("doc fri "+visitDocId);
+       console.log(newFriendArray);
 
-    // Add the userId to the target user's followers list
+       console.log("doc login "+loginDocId);
+       console.log(LoginfriendArray);
     const updatedTargetUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
@@ -87,7 +81,24 @@ export async function addFriend(
       }
     );
 
-    if (!updatedTargetUser) throw Error;
+    if(updatedTargetUser)
+    {
+      console.log("id Added in FriendList");  
+    }
+
+    const updatedCurrentUser = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsCollectionId,
+      visitDocId,
+      {
+        friendsId: newFriendArray,
+      }
+    );
+
+    if(updatedCurrentUser)
+    {
+      console.log("id Added in FriendList");
+    }
 
     return { updatedCurrentUser, updatedTargetUser };
   } catch (error) {
