@@ -51,7 +51,7 @@ const GroupDetails = () => {
           <Loader />
         ) : (
           <div className={`bg-slate-800 p-4 shadow-md rounded-md text-white  ${isBlurred ? 'blurred2' : ''}`}>
-       <h2 className="text-lg font-bold mb-2 text-gray-400">Group : 
+       <h2 className="text-lg font-bold mb-2 mt-2 text-gray-400">Group : 
        <span className="font-mono text-blue-400">&nbsp;{GroupData.groupName}</span></h2>
 
             <p className="font-bold text-gray-400">
