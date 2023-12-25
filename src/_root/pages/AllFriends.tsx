@@ -39,7 +39,6 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
         Add Friend
       </button>
       </h2>
-
       {isgroupLoading ? (
         <Loader />
       ) : userFriends.length === 0 ? (

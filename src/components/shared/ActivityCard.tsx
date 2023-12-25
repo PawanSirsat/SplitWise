@@ -14,7 +14,8 @@ const ActivityCard = ({ activity }: UserCardProps) => {
   const date = new Date(activity.Time);
 
   let timeDifference;
-
+  console.log(timeDifference);
+  
   const minutesDifference = differenceInMinutes(currentDate, date);
   const hoursDifference = differenceInHours(currentDate, date);
   const daysDifference = differenceInDays(currentDate, date);
