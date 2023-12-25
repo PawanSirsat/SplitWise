@@ -45,6 +45,7 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
       if(!IsFriend)
       {
         setLoading(true);
+           
         let newloggedInFriendArray = [...friendArray];
         let newAddedFriendArray = [...newfriendArray];
 
@@ -58,9 +59,9 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
         if (!newAddedFriendArray.includes(user.id)) {
           newAddedFriendArray.push(user.id);
         } 
+        setnewfriendArray(newAddedFriendArray);
         // SAVE IN DATABASE
         await addFriend(newAddedFriendArray, newloggedInFriendArray, visitDocId, loginDocId);
-        setnewfriendArray(newAddedFriendArray);
         // SET TRUE TO ISFRIEND
         setIsFriend(!IsFriend);
       }
