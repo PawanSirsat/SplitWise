@@ -58,13 +58,32 @@ export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
 
-export async function addFriend(
-  newFriendArray: string[],
-  LoginfriendArray: string[],
-  visitDocId: any,
-  loginDocId: any
-) {
+export async function targetaddFriend(newFriendArray: string[],visitDocId: any) {
   try {
+      console.log("start 1");
+      
+      const updatedCurrentUser = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsCollectionId,
+      visitDocId,
+      {
+        friendsId: newFriendArray,
+      }
+    );
+    console.log('Updated target user:', updatedCurrentUser);
+    return { updatedCurrentUser };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function loginaddFriend(LoginfriendArray: string[],loginDocId: any) {
+  try {
+
+    console.log("start 2");
+    
+    // Add the userId to the target user's followers list
     const updatedTargetUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
@@ -73,31 +92,25 @@ export async function addFriend(
         friendsId: LoginfriendArray,
       }
     );
-
-    const updatedCurrentUser = await databases.updateDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.friendsCollectionId,
-      visitDocId,
-      {
-        friendsId: newFriendArray,
-      }
-    );
-    return { updatedCurrentUser, updatedTargetUser };
-  } catch (error) {
+    if(!updatedTargetUser) throw new Error("error1")
+    console.log('Updated login user:', updatedTargetUser);
+    return { updatedTargetUser };
+  } catch (error) 
+  {
     console.error(error);
     throw error;
   }
 }
 
+
 export async function addMember(
   newMemberArray: string[],
   groupDocId: any
   ) {
+      try {
     
- console.log(groupDocId);    
-  try {
     // Add the targetUserId to the current user's followings list
-    const updatedMembers = await databases.updateDocument(
+      const updatedMembers = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.groupsCollectionId,
       groupDocId,
