@@ -1,5 +1,4 @@
 import { Models } from "appwrite";
-import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
 import DateDisplay from "./DateDisplay";
 
@@ -11,29 +10,7 @@ type UserCardProps = {
 const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
 
   const { data: currentUser } = useGetCurrentUser();
-  const currentDate = new Date();
-  const date = new Date(activity.Time);
-
-  let timeDifference;
-
-  const minutesDifference = differenceInMinutes(currentDate, date);
-  const hoursDifference = differenceInHours(currentDate, date);
-  const daysDifference = differenceInDays(currentDate, date);
-
-  if (minutesDifference < 1) {
-    timeDifference = 'Just now';
-  } else if (minutesDifference < 60) {
-    timeDifference = `${minutesDifference} minute${minutesDifference > 1 ? 's' : ''} ago`;
-  } else if (hoursDifference < 24) {
-    timeDifference = `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
-  } else if (daysDifference < 3) {
-    timeDifference = format(date, 'MMM dd, h:mm a');
-  } else if (daysDifference < 7) {
-    timeDifference = `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
-  } else {
-    timeDifference = format(date, 'MMM dd, yyyy, h:mm a');
-  }  
-
+ 
   const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
   const isCurrentUserInvolved = activity.splitMember?.some((member: { $id: string }) => member.$id === 
   currentUser?.$id) || false;
