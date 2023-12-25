@@ -47,16 +47,7 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
         setLoading(true);
            
         let newloggedInFriendArray = [...friendArray];
-        let newAddedFriendArray = [...newfriendArray];
-
-        console.log("Before");
-        
-        console.log(friendArray);
-        console.log(newfriendArray);
-        console.log("Login user "+user.id);
-        console.log("want to add "+list?.$id);
-        
-        
+        let newAddedFriendArray = [...newfriendArray]; 
         // LOGIN USER ARRAY
         if (!newloggedInFriendArray.includes(list?.$id)) {
           newloggedInFriendArray.push(list?.$id);

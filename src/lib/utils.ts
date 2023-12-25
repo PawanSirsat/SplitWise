@@ -65,13 +65,6 @@ export async function addFriend(
   loginDocId: any
 ) {
   try {
-
-       console.log("After");
-       console.log("doc fri "+visitDocId);
-       console.log(newFriendArray);
-
-       console.log("doc login "+loginDocId);
-       console.log(LoginfriendArray);
     const updatedTargetUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
@@ -81,11 +74,6 @@ export async function addFriend(
       }
     );
 
-    if(updatedTargetUser)
-    {
-      console.log("id Added in FriendList");  
-    }
-
     const updatedCurrentUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
@@ -94,12 +82,6 @@ export async function addFriend(
         friendsId: newFriendArray,
       }
     );
-
-    if(updatedCurrentUser)
-    {
-      console.log("id Added in FriendList");
-    }
-
     return { updatedCurrentUser, updatedTargetUser };
   } catch (error) {
     console.error(error);
