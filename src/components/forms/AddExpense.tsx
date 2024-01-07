@@ -17,12 +17,14 @@ import { Loader } from "@/components/shared";
 import {  useCreateExpense, useGetGroupById } from "@/lib/react-query/queries";
 import { INewExpense } from "@/types";
 import { useEffect, useState } from "react";
+import { useUserContext } from "@/context/AuthContext";
 
 const AddExpense = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useUserContext();
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   
@@ -30,7 +32,7 @@ const AddExpense = () => {
     resolver: zodResolver(ExpenseValidation),
     defaultValues: {
       desc: "",
-      paidBy: "me", // Set the default value based on your logic
+      paidBy: user.id, // Set the default value based on your logic
       group: id, // Set the default value to the group ID
       Time: new Date().toISOString(), // Set the default value to the current time
       splitMember: [], // Set the default value based on your logic
@@ -38,19 +40,22 @@ const AddExpense = () => {
     },
   });
 
+    const [isCheckboxError, setIsCheckboxError] = useState(false);
+
   const handleMemberCheckboxChange = (memberId: string) => {
     setSelectedMembers((prevMembers) =>
       prevMembers.includes(memberId)
         ? prevMembers.filter((id) => id !== memberId)
         : [...prevMembers, memberId]
     );
+        setIsCheckboxError(false); // Reset error when a checkbox is selected
   };
 
  useEffect(() => {
   form.setValue("splitMember", selectedMembers);
 }, [selectedMembers]);
 
- const [selectedPaidBy, setSelectedPaidBy] = useState<string>('');
+ const [selectedPaidBy, setSelectedPaidBy] = useState<string>(user.id);
 
   const handlePaidByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPaidBy(event.target.value);
@@ -60,6 +65,10 @@ const AddExpense = () => {
  
  const handleSubmit = async (value: INewExpense) => {
 
+     if (selectedMembers.length === 0) {
+      setIsCheckboxError(true);
+      return;
+    }
      const newExpense = await createExpense({
       ...value,
       group: id!, 
@@ -177,8 +186,13 @@ const AddExpense = () => {
           </ul>      
       </div>
     ))}
+     
       </div>
-    
+      {isCheckboxError && (
+        <p className="text-red text-sm mt-2">
+          Please select at least one member.
+        </p>
+      )}
   </div>      
 </div>
 
@@ -206,6 +220,7 @@ const AddExpense = () => {
      </div>
     </div>
    </div>
+    
   </Form>                                         
  );
 };
