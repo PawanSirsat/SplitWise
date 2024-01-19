@@ -1,7 +1,6 @@
 import { Models } from "appwrite";
 import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
-import Profilephoto from "./Profilephoto";
 import ActivityImage from "./ActivityImage";
 
 type UserCardProps = {
