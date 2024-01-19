@@ -17,11 +17,12 @@ const DateDisplay = ({ dateTimeString  }: { dateTimeString: any; }) => {
 
   return (
     <div className="date-container">
-      <div className="month-circle">
-        <span className="month-initials font-bold">{formattedDate.substring(0, 3)}</span>
-      </div>
+      
       <div className="date-time">
-        <span className="formatted-date">{formattedDate.substring(12)}</span>
+        <span className="month-initials font-bold">&nbsp;&nbsp;{formattedDate.substring(0, 3)} &nbsp;
+        </span>
+        <span className="formatted-date">{formattedDate.substring(15,12)}</span>
+        <span className="formatted-date">{formattedDate.substring(20)}</span>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Models } from "appwrite";
 import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
 import { useGetCurrentUser } from "@/lib/react-query/queries";
 import Profilephoto from "./Profilephoto";
+import ActivityImage from "./ActivityImage";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -61,7 +62,7 @@ const ActivityCard = ({ activity }: UserCardProps) => {
   return (
 <>
 <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
-         <Profilephoto name={activity.PaidBy}/>
+         <ActivityImage Desc={activity.Desc}/>
       <p className="text-lg font-bold mb-1 pl-3 text-blue-500">{activity.Desc}  <span className="text-white"> 
        &ensp;&#8377;{activity.Amout}</span></p>
     </div>

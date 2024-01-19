@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
 import { useGetCurrentUser } from "@/lib/react-query/queries";
 import DateDisplay from "./DateDisplay";
+import ActivityImage from "./ActivityImage";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -37,7 +38,8 @@ const GroupActivity = ({ activity }: UserCardProps) => {
   return (
     <>
      <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
-     <DateDisplay dateTimeString={activity.Time} />
+      <ActivityImage Desc={activity.Desc}/>
+      <DateDisplay dateTimeString={activity.Time} />
       <span className="text-blue-500 text-lg font-bold pl-10">&ensp;&#8377;{activity.Amout} </span>
       </div>
       <p className="text-lg font-bold mb-1">{activity.Desc}</p>
