@@ -4,10 +4,9 @@ import DateDisplay from "./DateDisplay";
 
 type UserCardProps = {
   activity: Models.Document;
-  GroupName : String
 };
 
-const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
+const GroupActivity = ({ activity }: UserCardProps) => {  
 
   const { data: currentUser } = useGetCurrentUser();
  
@@ -43,10 +42,13 @@ const GroupActivity = ({ activity, GroupName }: UserCardProps) => {
       </div>
       <p className="text-lg font-bold mb-1">{activity.Desc}</p>
       <p>
-        Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : ''}`}>" 
-         {activity.PaidBy.UserName}"</span> in{' '}
-        <span className="font-semibold">"{GroupName}"</span>
-      </p>
+        Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : 'text-teal-400'}`}>" 
+         {activity.PaidBy.name}"</span> Split in{' '}
+<span className="font-bold text-teal-400	">
+          {activity.splitMember?.map((member: { UserName: string, email: string, accountId: string, name: string, $id: string }) => (
+            <span key={member.$id}>{member.name}, </span>
+          ))}
+        </span>      </p>
      <p className={`${isPaidByCurrentUser ? 'text-green-500 font-semibold' : (!isPaidByCurrentUser 
       && isCurrentUserInvolved ? 'text-red font-semibold' : 'text-indigo-700 font-semibold')}`}>
       {amountMessage}

@@ -65,7 +65,7 @@ const GroupDetails = () => {
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {GroupData.activity.map((activity: Models.Document) => (
                   <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text white">
-                    <GroupActivity activity={activity} GroupName={GroupData?.groupName} />
+                    <GroupActivity activity={activity} />
                   </li>
                 ))}
               </ul>

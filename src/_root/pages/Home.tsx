@@ -46,6 +46,7 @@ const Home = () => {
       ) : userMemberGroups.length === 0 ? (
         <p className="text-white font-bold mb-2">You are not part of any groups.</p>
       ) : (
+      <div style={{ maxHeight: "410px", overflowY: "auto" }} className="custom-scrollbar">
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {userMemberGroups.map((group: Models.Document) => (
             <li key={group.$id} className="bg-slate-800 p-4 shadow-md rounded-md text-white">
@@ -53,6 +54,7 @@ const Home = () => {
             </li>
           ))}
         </ul>
+        </div>
       )}
     </div>
   </div>

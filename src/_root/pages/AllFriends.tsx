@@ -44,6 +44,7 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
       ) : userFriends.length === 0 ? (
         <p className="text-white font-bold mb-2">You have no friends</p>
       ) : (
+        <div style={{ maxHeight: "380px", overflowY: "auto" }} className="custom-scrollbar">
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {userFriends.map((friend: Models.Document) => (
             <li key={friend.$id} className="bg-slate-800 p-4 shadow-md rounded-md text-white">
@@ -51,6 +52,7 @@ if (currentUser && currentUser.List && currentUser.List.length > 0 && currentUse
             </li>
           ))}
         </ul>
+        </div>
       )}
          {/* Floating Add Friend button */}
     </div>

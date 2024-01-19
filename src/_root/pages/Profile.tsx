@@ -8,9 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const { mutate: signOut } = useSignOutAccount();
   const navigate = useNavigate();
-
   const { setUser, setIsAuthenticated } = useUserContext();
-
    const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
