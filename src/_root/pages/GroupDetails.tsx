@@ -10,6 +10,7 @@ const GroupDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(id!);
+  
   const totalAmount = GroupData?.activity.reduce((sum: number, activityItem: { Amout: string }) => 
    {
     return sum + parseFloat(activityItem.Amout);
@@ -62,13 +63,15 @@ const GroupDetails = () => {
               Expenses : <span className="font-bold text-green-400">${totalAmount.toFixed(2)}</span>
             </p>
             <div style={{ maxHeight: "330px", overflowY: "auto" }} className="custom-scrollbar">
-              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {GroupData.activity.map((activity: Models.Document) => (
+               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {GroupData.activity
+                .sort((a: { Time: string | number | Date; }, b: { Time: string | number | Date; }) => new Date(b.Time).getTime() - new Date(a.Time).getTime()) // Sort by timestamp in descending order
+                .map((activity: Models.Document) => (
                   <li key={activity.$id} className="bg-slate-800 p-4 shadow-md rounded-md text white">
                     <GroupActivity activity={activity} />
                   </li>
                 ))}
-              </ul>
+            </ul>
             </div>
           </div>
         )}
