@@ -37,12 +37,12 @@ const GroupActivity = ({ activity }: UserCardProps) => {
 
   return (
     <>
-     <div style={{ display: 'flex', alignItems: 'center' }} className="pb-2">
+     <div style={{ display: 'flex'}} className="pb-2">
       <ActivityImage Desc={activity.Desc}/>
-      <DateDisplay dateTimeString={activity.Time} />
-      <span className="text-blue-500 text-lg font-bold pl-10">&ensp;&#8377;{activity.Amout} </span>
+      <p className="text-lg font-bold mb-1 mt-2">&ensp;{activity.Desc}</p>
+      <span className="text-blue-500 text-lg font-bold ml-10 mt-2">&#8377;{activity.Amout} </span>
       </div>
-      <p className="text-lg font-bold mb-1">{activity.Desc}</p>
+      <DateDisplay dateTimeString={activity.Time} />
       <p>
         Added by <span className={`font-semibold ${isPaidByCurrentUser ? 'text-green-500' : 'text-teal-400'}`}>" 
          {activity.PaidBy.name}"</span> Split in{' '}
