@@ -1,6 +1,6 @@
 import { ID, Query } from "appwrite";
 import { appwriteConfig, account, databases } from "./config";
-import {  INewUser, INewExpense, INewGroup } from "@/types";
+import { INewUser, INewExpense, INewGroup } from "@/types";
 
 // ============================== SIGN UP
 export async function createUserAccount(user: INewUser) {
@@ -10,13 +10,13 @@ export async function createUserAccount(user: INewUser) {
       user.email,
       user.password,
       user.name
-    );    
+    );
     if (!newAccount) throw Error;
     const newUser = await saveUserToDB({
       UserName: user.username,
       email: newAccount.email,
       accountId: newAccount.$id,
-      name: newAccount.name
+      name: newAccount.name,
     });
 
     return newUser;
@@ -44,7 +44,7 @@ export async function saveUserToDB(user: {
       user
     );
 
-     await databases.createDocument(
+    await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
       ID.unique(),
@@ -132,7 +132,7 @@ export async function createGroup(group: INewGroup) {
 // ============================== CREATE EXPENSE
 
 export async function createExpense(expense: INewExpense) {
-  try {  
+  try {
     const newExpense = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.activityCollectionId,
@@ -140,12 +140,12 @@ export async function createExpense(expense: INewExpense) {
       {
         Desc: expense.desc,
         PaidBy: expense.paidBy,
-        Group : expense.group,
-        Time : new Date().toISOString(),
-        splitMember : expense.splitMember,
-        Amout : expense.amount,
+        Group: expense.group,
+        Time: new Date().toISOString(),
+        splitMember: expense.splitMember,
+        Amout: expense.amount,
       }
-    );    
+    );
     return newExpense;
   } catch (error) {
     console.log(error);
@@ -154,7 +154,6 @@ export async function createExpense(expense: INewExpense) {
 
 // ============================== DELETE ACTIVITY
 export async function deleteActivity(postId?: string) {
-
   try {
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
@@ -174,6 +173,7 @@ export async function getGroups() {
     const groups = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.groupsCollectionId,
+      [Query.orderDesc("$createdAt")]
     );
 
     if (!groups) throw Error;
@@ -184,7 +184,6 @@ export async function getGroups() {
 }
 
 // ============================== GET FRIENDS DATA
-
 
 export async function getFriends(userId?: string) {
   if (!userId) return;
@@ -205,8 +204,8 @@ export async function getActivity() {
     const activity = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.activityCollectionId,
+      [Query.orderDesc("$createdAt")]
     );
-    
     if (!activity) throw Error;
     return activity;
   } catch (error) {
@@ -220,8 +219,8 @@ export async function getUsers() {
   try {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
-      appwriteConfig.friendsCollectionId,
-    );    
+      appwriteConfig.friendsCollectionId
+    );
     if (!users) throw Error;
     return users;
   } catch (error) {
@@ -258,15 +257,12 @@ export async function getGroupById(groupId: string) {
   }
 }
 
-
 export async function geByUsername(username: string) {
   try {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      [
-        Query.equal("UserName", username) 
-      ] 
+      [Query.equal("UserName", username)]
     );
     if (!users.documents || users.documents.length === 0) {
       throw new Error("User not found");
@@ -275,6 +271,6 @@ export async function geByUsername(username: string) {
     return user;
   } catch (error) {
     console.error(error);
-    throw error; 
+    throw error;
   }
 }

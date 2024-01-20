@@ -58,11 +58,12 @@ export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
 
-export async function targetaddFriend(newFriendArray: string[],visitDocId: any) {
+export async function targetaddFriend(
+  newFriendArray: string[],
+  visitDocId: any
+) {
   try {
-      console.log("start 1");
-      
-      const updatedCurrentUser = await databases.updateDocument(
+    const updatedCurrentUser = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.friendsCollectionId,
       visitDocId,
@@ -70,7 +71,7 @@ export async function targetaddFriend(newFriendArray: string[],visitDocId: any) 
         friendsId: newFriendArray,
       }
     );
-    console.log('Updated target user:', updatedCurrentUser);
+    console.log("Updated target user:", updatedCurrentUser);
     return { updatedCurrentUser };
   } catch (error) {
     console.error(error);
@@ -78,11 +79,11 @@ export async function targetaddFriend(newFriendArray: string[],visitDocId: any) 
   }
 }
 
-export async function loginaddFriend(LoginfriendArray: string[],loginDocId: any) {
+export async function loginaddFriend(
+  LoginfriendArray: string[],
+  loginDocId: any
+) {
   try {
-
-    console.log("start 2");
-    
     // Add the userId to the target user's followers list
     const updatedTargetUser = await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -92,32 +93,26 @@ export async function loginaddFriend(LoginfriendArray: string[],loginDocId: any)
         friendsId: LoginfriendArray,
       }
     );
-    if(!updatedTargetUser) throw new Error("error1")
-    console.log('Updated login user:', updatedTargetUser);
+    if (!updatedTargetUser) throw new Error("error1");
+    console.log("Updated login user:", updatedTargetUser);
     return { updatedTargetUser };
-  } catch (error) 
-  {
+  } catch (error) {
     console.error(error);
     throw error;
   }
 }
 
-
-export async function addMember(
-  newMemberArray: string[],
-  groupDocId: any
-  ) {
-      try {
-    
+export async function addMember(newMemberArray: string[], groupDocId: any) {
+  try {
     // Add the targetUserId to the current user's followings list
-      const updatedMembers = await databases.updateDocument(
+    const updatedMembers = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.groupsCollectionId,
       groupDocId,
       {
         Members: newMemberArray,
       }
-    );    
+    );
     return { updatedMembers };
   } catch (error) {
     console.error(error);

@@ -29,11 +29,6 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
   const [loginDocId, setloginDocId] = useState<string>();
   const [visitDocId, setvisitDocId] = useState<string>();
 
-  console.log("old");
-
-  console.log(newfriendArray);
-  console.log(friendArray);
-
   useEffect(() => {
     // Ensure both friendList and newfriendList data are available before updating state
     if (!isFriendListLoading && !isnewfriendListLoading) {
