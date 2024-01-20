@@ -20,13 +20,13 @@ const UserCard = ({ user, userCanPay, friendCanPay }: UserCardProps) => {
       </div>
       {/* <h3 className="text-lg font-bold mb-2"> {user.name}</h3> */}
       <p>
-        You owe :{" "}
+        "{user.name}" owes you :{" "}
         <span className="text-lg font-bold text-green-500">
           &#8377;&nbsp;{userCanPay}
         </span>
       </p>
       <p>
-        "{user.name}" owe :{" "}
+        You owe "{user.name}" :{" "}
         <span className="text-lg font-bold text-red">
           &#8377;&nbsp;{friendCanPay}
         </span>
