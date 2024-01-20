@@ -16,15 +16,14 @@ const AllActivity = () => {
     isError: isErroractivity,
   } = useActivity();
 
-  const userMemberGroups: Models.Document[] = (
+  const userMemberGroups: Models.Document[] =
     activity?.documents?.filter(
       (activity: Models.Document) =>
         activity.Group.Members?.some(
           (member: { $id: string | undefined }) =>
             member.$id === currentUser?.$id
         )
-    ) ?? []
-  ).reverse();
+    ) ?? [];
 
   if (isErrorgroups || isErroractivity) {
     return (
