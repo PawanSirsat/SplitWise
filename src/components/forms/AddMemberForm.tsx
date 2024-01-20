@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useFriends, useGetGroupById } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import UserCard from "../shared/UserCard";
 import { Button } from "../ui";
 import Loader from "../shared/Loader";
 import { addMember } from "@/lib/utils";
+import UserList from "../shared/UserList";
 
 const AddMemberForm = () => {
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const AddMemberForm = () => {
                   <li
                     key={friend.id}
                     className="bg-slate-800 p-4 shadow-md rounded-md text-white">
-                    <UserCard user={friend} />
+                    <UserList user={friend} />
                     {memberArray.includes(friend.id) ? (
                       <Button disabled>Already a Member</Button>
                     ) : (

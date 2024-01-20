@@ -14,11 +14,7 @@ const AllFriends = () => {
 
   let userFriends: Models.Document[] = [];
 
-  const {
-    data: activity,
-    isLoading: isactivityLoading,
-    isError: isErroractivity,
-  } = useActivity();
+  const { data: activity } = useActivity();
 
   const userMemberGroups: Models.Document[] =
     activity?.documents?.filter(
