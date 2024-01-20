@@ -14,7 +14,7 @@ const AllFriends = () => {
 
   let userFriends: Models.Document[] = [];
 
-  const { data: activity } = useActivity();
+  const { data: activity, isLoading: isactivityLoading } = useActivity();
 
   const userMemberGroups: Models.Document[] =
     activity?.documents?.filter(
@@ -65,7 +65,7 @@ const AllFriends = () => {
               Add Friend
             </button>
           </h2>
-          {isgroupLoading ? (
+          {isgroupLoading || isactivityLoading ? (
             <Loader />
           ) : userFriends.length === 0 ? (
             <p className="text-white font-bold mb-2">You have no friends</p>
