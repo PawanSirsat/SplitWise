@@ -1,28 +1,41 @@
 
+import { differenceInMinutes, differenceInHours, differenceInDays, format } from 'date-fns';
+
 const formatDate = (inputDateString: any) => {
-  const inputDate = new Date(inputDateString);
+   const currentDate = new Date();
+  const date = new Date(inputDateString);
 
-    const monthOptions: Intl.DateTimeFormatOptions = { month: "long", day: 'numeric', year: 'numeric', hour: '2-digit', minute: "2-digit" };
+  let timeDifference;
+  console.log(timeDifference);
+  
+  const minutesDifference = differenceInMinutes(currentDate, date);
+  const hoursDifference = differenceInHours(currentDate, date);
+  const daysDifference = differenceInDays(currentDate, date);
 
-  const dateOptions: Intl.DateTimeFormatOptions = { month: "long", day: 'numeric', year: 'numeric', hour: '2-digit', minute: "2-digit", hour12: true };
+  if (minutesDifference < 1) {
+    timeDifference = 'Just now';
+  } else if (minutesDifference < 60) {
+    timeDifference = `${minutesDifference} minute${minutesDifference > 1 ? 's' : ''} ago`;
+  } else if (hoursDifference < 24) {
+    timeDifference = `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
+  } else if (daysDifference >= 3) {
+    timeDifference = format(date, 'MMM dd, h:mm a');
+  } else if (daysDifference <= 2) {
+    timeDifference = `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
+  } else {
+    timeDifference = format(date, 'MMM dd, yyyy, h:mm a');
+  }
 
-  const monthName = new Intl.DateTimeFormat('en-US', monthOptions).format(inputDate);
-  const dayAndTime = new Intl.DateTimeFormat('en-US', dateOptions).format(inputDate);
-
-  return `${monthName.slice(0, 3)} ${dayAndTime}`;
+  return timeDifference
 };
 
 const DateDisplay = ({ dateTimeString  }: { dateTimeString: any; }) => {
   const formattedDate = formatDate(dateTimeString);
 
   return (
-    <div className="date-container">
-      
+    <div className="date-container"> 
       <div className="date-time">
-        <span className="month-initials font-bold">&nbsp;{formattedDate.substring(0, 3)} &nbsp;
-        </span>
-        <span className="formatted-date">{formattedDate.substring(15,12)}</span>
-        <span className="formatted-date">{formattedDate.substring(20)}</span>
+        <span className="formatted-date">{formattedDate}</span>
       </div>
     </div>
   );

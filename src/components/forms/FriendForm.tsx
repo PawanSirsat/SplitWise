@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
-import {  Loader } from "@/components/shared";
-import {  useGetUserByUserName } from "@/lib/react-query/queries";
+import { Loader } from "@/components/shared";
+import { useGetUserByUserName } from "@/lib/react-query/queries";
 import ShowFriendList from "../shared/ShowFriendList";
 
 export type SearchResultProps = {
@@ -10,11 +10,13 @@ export type SearchResultProps = {
   searchedFriends: any;
 };
 
-const SearchResults = ({ isSearchFetching, searchedFriends }: SearchResultProps) => {
+const SearchResults = ({
+  isSearchFetching,
+  searchedFriends,
+}: SearchResultProps) => {
   if (isSearchFetching) {
     return <Loader />;
-  } else if (searchedFriends) 
-  {
+  } else if (searchedFriends) {
     return <ShowFriendList list={searchedFriends} />;
   } else {
     return (
@@ -23,12 +25,11 @@ const SearchResults = ({ isSearchFetching, searchedFriends }: SearchResultProps)
   }
 };
 
-
-const FriendForm = () => {  
+const FriendForm = () => {
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearch = useDebounce(searchValue, 500);
-  const { data: searchedFriends, isFetching: isSearchFetching } = 
-  useGetUserByUserName(debouncedSearch);
+  const { data: searchedFriends, isFetching: isSearchFetching } =
+    useGetUserByUserName(debouncedSearch);
 
   const shouldShowSearchResults = searchValue !== "";
 
@@ -63,9 +64,10 @@ const FriendForm = () => {
             searchedFriends={searchedFriends}
           />
         ) : (
-             <p className="text-light-3 mt-10 text-center w-full">Find Friends By Username</p>
-            )  
-        }
+          <p className="text-light-3 mt-10 text-center w-full">
+            Find Friends By Username
+          </p>
+        )}
       </div>
     </div>
   );

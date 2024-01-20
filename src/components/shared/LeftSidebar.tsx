@@ -27,9 +27,16 @@ const LeftSidebar = () => {
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
         <Link to="/" className="text-white font-bold text-lg flex items-center">
-          <span role="img" aria-label="Splitwise App" className="mr-1"><img width="35" height="35" src="https://img.icons8.com/color/48/cash-in-hand.png" alt="cash-in-hand"/></span>
+          <span role="img" aria-label="Splitwise App" className="mr-1">
+            <img
+              width="35"
+              height="35"
+              src="https://img.icons8.com/color/48/cash-in-hand.png"
+              alt="cash-in-hand"
+            />
+          </span>
           SpendShare
-        </Link> 
+        </Link>
         <ul className="flex flex-col gap-4">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
@@ -37,10 +44,8 @@ const LeftSidebar = () => {
             return (
               <li
                 key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && ""
-                }`}
-                style={isActive ? { backgroundColor: '#1CC29F' } : {}}>
+                className={`leftsidebar-link group ${isActive && ""}`}
+                style={isActive ? { backgroundColor: "#1CC29F" } : {}}>
                 <NavLink
                   to={link.route}
                   className="flex gap-1 items-center p-1">
@@ -63,7 +68,12 @@ const LeftSidebar = () => {
         variant="ghost"
         className="shad-button_ghost"
         onClick={(e) => handleSignOut(e)}>
-        <img width="40" height="40"  src="https://img.icons8.com/sf-black/64/FA5252/logout-rounded-left.png" alt="logout-rounded-left" />
+        <img
+          width="40"
+          height="40"
+          src="https://img.icons8.com/sf-black/64/FA5252/logout-rounded-left.png"
+          alt="logout-rounded-left"
+        />
         <p className="small-medium lg:base-medium">Logout</p>
       </Button>
     </nav>

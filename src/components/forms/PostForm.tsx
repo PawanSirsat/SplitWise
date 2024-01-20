@@ -18,7 +18,7 @@ import { GroupValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import { Loader } from "@/components/shared";
-import {  useCreateGroup } from "@/lib/react-query/queries";
+import { useCreateGroup } from "@/lib/react-query/queries";
 
 type PostFormProps = {
   group?: Models.Document;
@@ -47,7 +47,7 @@ const PostForm = ({ group, action }: PostFormProps) => {
       ...value,
       userId: user.id,
       groupName: value.groupname,
-      members: [user.id]
+      members: [user.id],
     });
 
     if (!newGroup) {
@@ -63,7 +63,6 @@ const PostForm = ({ group, action }: PostFormProps) => {
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex flex-col gap-9 w-full  max-w-5xl">
-       
         <FormField
           control={form.control}
           name="groupname"
@@ -87,11 +86,11 @@ const PostForm = ({ group, action }: PostFormProps) => {
           </Button>
           <Button
             type="submit"
-            style={{ backgroundColor: '#1CC29F' }}
+            style={{ backgroundColor: "#1CC29F" }}
             className="whitespace-nowrap"
-            disabled={isLoadingCreate }>
-            {(isLoadingCreate) && <Loader />}
-            {action} 
+            disabled={isLoadingCreate}>
+            {isLoadingCreate && <Loader />}
+            {action}
           </Button>
         </div>
       </form>
