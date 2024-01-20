@@ -1,7 +1,8 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
-import { useGetCurrentUser } from "@/lib/react-query/queries";
+import { useActivity, useGetCurrentUser } from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
+import { processTransactions } from "@/components/shared/Simplify";
 
 const AllFriends = () => {
   const navigate = useNavigate();
@@ -10,7 +11,27 @@ const AllFriends = () => {
     isLoading: isgroupLoading,
     isError: isErrorgroups,
   } = useGetCurrentUser();
+
   let userFriends: Models.Document[] = [];
+
+  const {
+    data: activity,
+    isLoading: isactivityLoading,
+    isError: isErroractivity,
+  } = useActivity();
+
+  const userMemberGroups: Models.Document[] =
+    activity?.documents?.filter(
+      (activity: Models.Document) =>
+        activity.Group.Members?.some(
+          (member: { $id: string | undefined }) =>
+            member.$id === currentUser?.$id
+        )
+    ) ?? [];
+
+  // Example usage:
+  const userId = currentUser?.$id; // Replace with the actual user ID
+  const jsonData = userMemberGroups;
 
   if (
     currentUser &&
@@ -57,13 +78,29 @@ const AllFriends = () => {
               style={{ maxHeight: "380px", overflowY: "auto" }}
               className="custom-scrollbar">
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {userFriends.map((friend: Models.Document) => (
-                  <li
-                    key={friend.$id}
-                    className="bg-slate-800 p-4 shadow-md rounded-md text-white">
-                    <UserCard user={friend} />
-                  </li>
-                ))}
+                {userFriends.map((friend: Models.Document) => {
+                  // Update userFriendsID for each friend
+                  const updatedUserFriendsID = friend.$id;
+
+                  // Call processTransactions to get updated values
+                  const { userCanPay, friendCanPay } = processTransactions(
+                    userId || "", // Ensure userId is not undefined
+                    jsonData || [],
+                    updatedUserFriendsID || []
+                  );
+
+                  return (
+                    <li
+                      key={friend.$id}
+                      className="bg-slate-800 p-4 shadow-md rounded-md text-white">
+                      <UserCard
+                        user={friend}
+                        userCanPay={userCanPay}
+                        friendCanPay={friendCanPay}
+                      />
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}

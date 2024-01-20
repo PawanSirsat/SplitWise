@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Profilephoto from "./Profilephoto";
 type UserCardProps = {
   user: Models.Document;
+  userCanPay: number;
+  friendCanPay: number;
 };
 
-const UserCard = ({ user }: UserCardProps) => {
+const UserCard = ({ user, userCanPay, friendCanPay }: UserCardProps) => {
   return (
     <Link to={`/profile/${user.$id}`}>
       <div
@@ -17,7 +19,18 @@ const UserCard = ({ user }: UserCardProps) => {
         </p>
       </div>
       {/* <h3 className="text-lg font-bold mb-2"> {user.name}</h3> */}
-      <p>Expenses: $256</p>
+      <p>
+        You owe :{" "}
+        <span className="text-lg font-bold text-green-500">
+          &#8377;&nbsp;{userCanPay}
+        </span>
+      </p>
+      <p>
+        "{user.name}" owe :{" "}
+        <span className="text-lg font-bold text-red">
+          &#8377;&nbsp;{friendCanPay}
+        </span>
+      </p>
     </Link>
   );
 };
