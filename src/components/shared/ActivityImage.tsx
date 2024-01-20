@@ -1,36 +1,10 @@
+import { imageKeywordPairs } from "@/types";
+
 type UserCardProps = {
   Desc: string;
 };
 
 const ActivityImage = ({ Desc }: UserCardProps) => {
-  const imageKeywordPairs = [
-    { name: "coffee", keywords: ["coffee", "chai", "milk"] },
-    { name: "chicken", keywords: ["chicken", "meat", "beef"] },
-    { name: "burger", keywords: ["burger", "bread", "breakfast"] },
-    { name: "pizza", keywords: ["pizza", "dominos"] },
-    {
-      name: "food",
-      keywords: [
-        "food",
-        "reastaurant",
-        "reastro",
-        "panipuri",
-        "dinner",
-        "lunch",
-      ],
-    },
-    { name: "cart", keywords: ["order", "amazon", "flipkart"] },
-    { name: "grocery", keywords: ["grocery", "dmart", "mart"] },
-    { name: "list", keywords: ["list"] },
-    {
-      name: "fruits",
-      keywords: ["fruit", "fruits", "mangoes", "mango", "apple", "banana"],
-    },
-    { name: "shop", keywords: ["shop"] },
-    { name: "icecream", keywords: ["ice", "icecream"] },
-    { name: "vegetable", keywords: ["vegitable", "veg", "vegetable"] },
-  ];
-
   const findMatchingImage = (desc: string) => {
     const lowercaseDesc = desc.toLowerCase();
     const matchingImage = imageKeywordPairs.find((pair) =>
@@ -40,7 +14,7 @@ const ActivityImage = ({ Desc }: UserCardProps) => {
     if (matchingImage) {
       return matchingImage.name;
     } else {
-      return "cart";
+      return "list";
     }
   };
 
