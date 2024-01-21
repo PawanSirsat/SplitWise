@@ -65,7 +65,7 @@ const AllFriends = () => {
               Add Friend
             </button>
           </h2>
-          {isgroupLoading || isactivityLoading ? (
+          {isgroupLoading ? (
             <Loader />
           ) : userFriends.length === 0 ? (
             <p className="text-white font-bold mb-2">You have no friends</p>

@@ -29,6 +29,7 @@
     "lucide-react": "^0.279.0",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
+    "react-axios": "^2.0.6",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
