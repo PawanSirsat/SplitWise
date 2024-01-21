@@ -26,13 +26,13 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const generateUPILink = () => {
     // Replace these values with your actual payment details
-    const payeeVPA = "9518994028-2@ybl";
-    const payeeName = "Pawan Sirsat";
+    const payeeVPA = "nayanbarhate739-1@oksbi";
+    const payeeName = user.name;
     const merchantCode = "123456";
     const transactionId = "txn123";
     const transactionRefId = "ref123";
     const transactionNote = "Payment for Goods";
-    const transactionAmount = "100.00";
+    const transactionAmount = friendCanPay;
     const currencyCode = "INR";
     const callbackURL = "https://yourcallbackurl.com";
 
