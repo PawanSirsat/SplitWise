@@ -32,7 +32,7 @@ const UserCard: React.FC<UserCardProps> = ({
     const transactionId = "txn123";
     const transactionRefId = "ref123";
     const transactionNote = "Payment for Goods";
-    const transactionAmount = friendCanPay;
+    const transactionAmount = "1";
     const currencyCode = "INR";
     const callbackURL = "https://yourcallbackurl.com";
 
