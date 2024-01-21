@@ -2,7 +2,6 @@ import React from "react";
 import { Models } from "appwrite";
 import Profilephoto from "./Profilephoto";
 import CircleLoader from "./CircleLoader";
-import axios from "axios";
 
 type UserCardProps = {
   user: Models.Document;
@@ -27,8 +26,8 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const generateUPILink = () => {
     // Replace these values with your actual payment details
-    const payeeVPA = "johndoe@upi";
-    const payeeName = "John Doe";
+    const payeeVPA = "9518994028-2@ybl";
+    const payeeName = "Pawan Sirsat";
     const merchantCode = "123456";
     const transactionId = "txn123";
     const transactionRefId = "ref123";
