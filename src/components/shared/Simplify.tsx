@@ -2,7 +2,6 @@ type FriendTransactions = {
   friendCanPay: number;
   userCanPay: number;
 };
-
 export function processTransactions(
   userId: string,
   transactions: any,
@@ -35,6 +34,23 @@ export function processTransactions(
       });
     }
   );
-
   return { userCanPay, friendCanPay };
 }
+
+export const getUniqueUserIdsFromGroups = (groups: any, userid: any) => {
+  const uniqueUserDataMap = new Map(); // Use a Map to store unique user data based on user IDs
+
+  groups.forEach((group: { Members: any[] }) => {
+    if (group.Members && Array.isArray(group.Members)) {
+      group.Members.forEach((member) => {
+        if (member.$id !== undefined && member.$id !== userid) {
+          uniqueUserDataMap.set(member.$id, member);
+        }
+      });
+    }
+  });
+
+  // Convert the values of the Map to an array to get unique user data
+  const uniqueUserDataArray = Array.from(uniqueUserDataMap.values());
+  return uniqueUserDataArray;
+};

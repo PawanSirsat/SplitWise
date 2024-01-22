@@ -1,8 +1,15 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
-import { useActivity, useGetCurrentUser } from "@/lib/react-query/queries";
+import {
+  useActivity,
+  useGetCurrentUser,
+  useGroups,
+} from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
-import { processTransactions } from "@/components/shared/Simplify";
+import {
+  getUniqueUserIdsFromGroups,
+  processTransactions,
+} from "@/components/shared/Simplify";
 
 const AllFriends = () => {
   const navigate = useNavigate();
@@ -11,6 +18,20 @@ const AllFriends = () => {
     isLoading: isgroupLoading,
     isError: isErrorgroups,
   } = useGetCurrentUser();
+
+  const { data: currentGroup } = useGroups();
+
+  const userGroups: Models.Document[] =
+    currentGroup?.documents?.filter((group: Models.Document) => {
+      return group.Members?.some(
+        (member: { $id: string | undefined }) => member.$id === currentUser?.$id
+      );
+    }) ?? [];
+
+  const uniqueUserIds = getUniqueUserIdsFromGroups(
+    userGroups,
+    currentUser?.$id
+  );
 
   let userFriends: Models.Document[] = [];
 
@@ -30,12 +51,13 @@ const AllFriends = () => {
   const jsonData = userMemberGroups;
 
   if (
-    currentUser &&
-    currentUser.List &&
-    currentUser.List.length > 0 &&
-    currentUser.List[0].friendsId
+    (currentUser &&
+      currentUser.List &&
+      currentUser.List.length > 0 &&
+      currentUser.List[0].friendsId) ||
+    uniqueUserIds.length > 0
   ) {
-    userFriends = currentUser.List[0].friendsId;
+    userFriends = uniqueUserIds;
   }
 
   if (isErrorgroups) {
