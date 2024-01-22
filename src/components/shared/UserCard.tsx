@@ -53,8 +53,11 @@ const UserCard: React.FC<UserCardProps> = ({
         </div>
 
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline"
-          onClick={handleButtonClick}>
+          className={`bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline ${
+            friendCanPay === 0 ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={handleButtonClick}
+          disabled={friendCanPay === 0}>
           Settle Up
         </button>
       </div>
@@ -92,13 +95,13 @@ const UserCard: React.FC<UserCardProps> = ({
             <p>
               "{user.name}" owes you{" "}
               <span className="text-lg font-bold text-green-500">
-                &#8377;&nbsp;{userCanPay}
+                &#8377;&nbsp;{userCanPay.toFixed(1)}
               </span>
             </p>
             <p>
               You owe "{user.name}"{" "}
               <span className="text-lg font-bold text-red">
-                &#8377;&nbsp;{friendCanPay}
+                &#8377;&nbsp;{friendCanPay.toFixed(1)}
               </span>
             </p>
           </>
