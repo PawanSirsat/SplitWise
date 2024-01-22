@@ -27,18 +27,9 @@ const UserCard: React.FC<UserCardProps> = ({
   const generateUPILink = () => {
     // Replace these values with your actual payment details
     const payeeVPA = "nayanbarhate739-1@oksbi";
-    const payeeName = user.name;
-    const merchantCode = "123456";
-    const transactionId = "txn123";
-    const transactionRefId = "ref123";
-    const transactionNote = "Payment for Goods";
     const transactionAmount = "1";
-    const currencyCode = "INR";
-    const callbackURL = "https://yourcallbackurl.com";
-
     // Construct the UPI link
-    const upiLink = `upi://pay?pa=${payeeVPA}&pn=${payeeName}&mc=${merchantCode}&tid=${transactionId}&tr=${transactionRefId}&tn=${transactionNote}&am=${transactionAmount}&cu=${currencyCode}&url=${callbackURL}`;
-
+    const upiLink = `upi://pay?pa=${payeeVPA}&pn=%20&tr=%20&am=${transactionAmount}&cu=INR`;
     return upiLink;
   };
 
@@ -55,18 +46,22 @@ const UserCard: React.FC<UserCardProps> = ({
       ) : (
         <>
           <p>
-            "{user.name}" owes you:{" "}
+            "{user.name}" owes you{" "}
             <span className="text-lg font-bold text-green-500">
               &#8377;&nbsp;{userCanPay}
             </span>
           </p>
           <p>
-            You owe "{user.name}":{" "}
+            You owe "{user.name}"{" "}
             <span className="text-lg font-bold text-red">
               &#8377;&nbsp;{friendCanPay}
             </span>
           </p>
-          <button onClick={handlePayment}>Settle Up</button>
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline"
+            onClick={handlePayment}>
+            Settle Up
+          </button>
         </>
       )}
     </div>
