@@ -19,7 +19,7 @@ const AllFriends = () => {
     isError: isErrorgroups,
   } = useGetCurrentUser();
 
-  const { data: currentGroup } = useGroups();
+  const { data: currentGroup, isLoading: isDataloading } = useGroups();
 
   const userGroups: Models.Document[] =
     currentGroup?.documents?.filter((group: Models.Document) => {
@@ -87,7 +87,7 @@ const AllFriends = () => {
               Add Friend
             </button>
           </h2>
-          {isgroupLoading ? (
+          {isgroupLoading || isDataloading ? (
             <Loader />
           ) : userFriends.length === 0 ? (
             <p className="text-white font-bold mb-2">You have no friends</p>

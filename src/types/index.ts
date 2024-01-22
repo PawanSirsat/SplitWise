@@ -4,6 +4,12 @@ export type INavLink = {
   label: string;
 };
 
+export interface UniqueUserIdsResponse {
+  data: any[]; // Adjust this based on the actual structure of your response data
+  isLoading: boolean;
+  // Add any other properties you might expect in the response
+}
+
 export type IUpdateUser = {
   userId: string;
   name: string;

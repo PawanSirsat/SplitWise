@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import {
@@ -107,8 +103,7 @@ export const useAddFriend = () => {
 export const useDeleteActivity = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ groupId }: { groupId?: string }) =>
-      deleteActivity(groupId),
+    mutationFn: ({ groupId }: { groupId?: string }) => deleteActivity(groupId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
@@ -154,4 +149,3 @@ export const useGetUserByUserName = (userName: string) => {
     enabled: !!userName,
   });
 };
-

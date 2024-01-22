@@ -88,7 +88,7 @@ const UserCard: React.FC<UserCardProps> = ({
       </div>
 
       <div className={` ${isBlurred ? "blurred2" : ""}`}>
-        {userCanPay === undefined || friendCanPay === undefined ? (
+        {userCanPay === 0 && friendCanPay === 0 ? (
           <CircleLoader />
         ) : (
           <>

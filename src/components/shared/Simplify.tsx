@@ -49,8 +49,6 @@ export const getUniqueUserIdsFromGroups = (groups: any, userid: any) => {
       });
     }
   });
-
-  // Convert the values of the Map to an array to get unique user data
   const uniqueUserDataArray = Array.from(uniqueUserDataMap.values());
   return uniqueUserDataArray;
 };

@@ -18,5 +18,4 @@ export enum QUERY_KEYS {
   GET_FILE_PREVIEW = "getFilePreview",
   GET_RECENT_ACTIVITY = "getRecentActivity",
   GET_FRIENDS = "getFriends",
-
 }
