@@ -158,7 +158,7 @@ export async function getsettlement(userId?: string, receiverId?: string) {
   try {
     const settlementData = await databases.listDocuments(
       appwriteConfig.databaseId,
-      appwriteConfig.friendsTransactionId,
+      appwriteConfig.TransactionCollectionId,
       [Query.equal("payerId", userId), Query.equal("receiverId", receiverId)]
     );
     return settlementData;
@@ -171,7 +171,7 @@ export async function makeSettlement(settle: ISettlement) {
   try {
     const newSettlement = await databases.createDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.friendsTransactionId,
+      appwriteConfig.TransactionCollectionId,
       ID.unique(),
       {
         payerId: settle.payerId,

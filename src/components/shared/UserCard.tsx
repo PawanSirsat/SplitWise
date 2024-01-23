@@ -136,12 +136,13 @@ const UserCard: React.FC<UserCardProps> = ({
         ) : (
           <>
             <p>
-              "{user.name}" owes you{" "}
+              {totalAmountReceiver}"{user.name}" owes you{" "}
               <span className="text-lg font-bold text-green-500">
                 &#8377;&nbsp;{receiver.toFixed(1)}
               </span>
             </p>
             <p>
+              {totalAmountPayer}
               You owe "{user.name}"{" "}
               <span className="text-lg font-bold text-red">
                 &#8377;&nbsp;{payeer.toFixed(1)}
