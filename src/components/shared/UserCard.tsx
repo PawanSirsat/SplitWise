@@ -43,12 +43,12 @@ const UserCard: React.FC<UserCardProps> = ({
   const [receiver, setreceiver] = useState(0);
 
   useEffect(() => {
-    const newSum = totalAmountPayer + friendCanPay;
+    const newSum = totalAmountPayer - friendCanPay;
     setpayeer(newSum);
   }, [totalAmountPayer, friendCanPay]);
 
   useEffect(() => {
-    const newSum = totalAmountReceiver + userCanPay;
+    const newSum = totalAmountReceiver - userCanPay;
     setreceiver(newSum);
   }, [totalAmountReceiver, userCanPay]);
 
