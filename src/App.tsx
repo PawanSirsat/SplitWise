@@ -1,10 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  Home,
-  Profile,
-  AllActivity,
-  CreateGroup,
-} from "@/_root/pages";
+import { Home, Profile, AllActivity, CreateGroup } from "@/_root/pages";
 import AuthLayout from "./_auth/AuthLayout";
 import RootLayout from "./_root/RootLayout";
 import SignupForm from "@/_auth/forms/SignupForm";
@@ -17,6 +12,7 @@ import AddFriend from "./_root/pages/AddFriend";
 import AddMemberForm from "./components/forms/AddMemberForm";
 import AddExpense from "./components/forms/AddExpense";
 import GroupDetails from "./_root/pages/GroupDetails";
+import Settlement from "./components/forms/Settlement";
 
 const App = () => {
   return (
@@ -34,7 +30,11 @@ const App = () => {
           <Route path="/all-friends" element={<AllFriends />} />
           <Route path="/all-activity" element={<AllActivity />} />
           <Route path="/create-group" element={<CreateGroup />} />
-          <Route path="/add-expense/:id" element={<AddExpense/>} />
+          <Route path="/add-expense/:id" element={<AddExpense />} />
+          <Route
+            path="/settlement/:amount/:receiverID"
+            element={<Settlement />}
+          />
           <Route path="/add-friend" element={<AddFriend />} />
           <Route path="/groups/:id" element={<GroupDetails />} />
           <Route path="/profile" element={<Profile />} />

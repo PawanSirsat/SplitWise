@@ -34,6 +34,12 @@ export type INewExpense = {
   amount: string;
 };
 
+export type ISettlement = {
+  payerId: string;
+  receiverId: string;
+  amount: number;
+};
+
 export type IUpdatePost = {
   postId: string;
   caption: string;

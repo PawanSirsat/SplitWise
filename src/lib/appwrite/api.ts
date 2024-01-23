@@ -1,6 +1,6 @@
 import { ID, Query } from "appwrite";
 import { appwriteConfig, account, databases } from "./config";
-import { INewUser, INewExpense, INewGroup } from "@/types";
+import { INewUser, INewExpense, INewGroup, ISettlement } from "@/types";
 
 // ============================== SIGN UP
 export async function createUserAccount(user: INewUser) {
@@ -147,6 +147,40 @@ export async function createExpense(expense: INewExpense) {
       }
     );
     return newExpense;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getsettlement(userId?: string, receiverId?: string) {
+  if (!userId) return;
+  if (!receiverId) return;
+
+  try {
+    const settlementData = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsTransactionId,
+      [Query.equal("payerId", userId), Query.equal("receiverId", receiverId)]
+    );
+    return settlementData;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function makeSettlement(settle: ISettlement) {
+  try {
+    const newSettlement = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.friendsTransactionId,
+      ID.unique(),
+      {
+        payerId: settle.payerId,
+        receiverId: settle.receiverId,
+        Amount: settle.amount.toString(), // Convert to string
+      }
+    );
+
+    return newSettlement;
   } catch (error) {
     console.log(error);
   }

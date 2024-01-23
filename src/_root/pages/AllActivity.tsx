@@ -3,6 +3,8 @@ import { Loader } from "@/components/shared";
 import { useActivity, useGetCurrentUser } from "@/lib/react-query/queries";
 import ActivityCard from "@/components/shared/ActivityCard";
 import SimplifyCard from "@/components/shared/SimplifyCard";
+import { SetStateAction, useState } from "react";
+import Scrollicon from "@/components/ui/Scrollicon";
 
 const AllActivity = () => {
   const {
@@ -15,6 +17,14 @@ const AllActivity = () => {
     isLoading: isactivityLoading,
     isError: isErroractivity,
   } = useActivity();
+
+  const [scrollTop, setScrollTop] = useState(0);
+
+  const handleScroll = (event: {
+    currentTarget: { scrollTop: SetStateAction<number> };
+  }) => {
+    setScrollTop(event.currentTarget.scrollTop);
+  };
 
   const userMemberGroups: Models.Document[] =
     activity?.documents?.filter(
@@ -54,6 +64,7 @@ const AllActivity = () => {
                 userId={currentUser?.$id}
               />
               <div
+                onScroll={handleScroll}
                 style={{ maxHeight: "380px", overflowY: "auto" }}
                 className="custom-scrollbar">
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -64,6 +75,7 @@ const AllActivity = () => {
                       <ActivityCard activity={activity} />
                     </li>
                   ))}
+                  {scrollTop < 50 && <Scrollicon />}
                 </ul>
               </div>
             </>

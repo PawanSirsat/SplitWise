@@ -436,3 +436,48 @@
 .red-image {
   filter: hue-rotate(0deg) brightness(70%) saturate(100%) sepia(100%);
 }
+
+.arrow,
+.arrow:before {
+  position: absolute;
+  left: 50%;
+}
+
+.arrow {
+  width: 25px;
+  height: 25px;
+  top: 78%;
+  /* Adjust the positioning as needed */
+  margin: -20px 0 0 -20px;
+  transform: rotate(45deg);
+  border-left: none;
+  border-top: none;
+  border-right: 2px #1CC29F solid;
+  border-bottom: 2px #1CC29F solid;
+}
+
+.arrow:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  margin: -10px 0 0 -10px;
+  border-left: none;
+  border-top: none;
+  border-right: 1px #1CC29F solid;
+  border-bottom: 1px #1CC29F solid;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-name: arrow;
+}
+
+@keyframes arrow {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-10px, -10px);
+  }
+}

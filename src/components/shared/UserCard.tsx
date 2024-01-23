@@ -3,6 +3,8 @@ import { Models } from "appwrite";
 import Profilephoto from "./Profilephoto";
 import CircleLoader from "./CircleLoader";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
+import { useGetCurrentUser, useSettlmentById } from "@/lib/react-query/queries";
 
 type UserCardProps = {
   user: Models.Document;
@@ -15,6 +17,32 @@ const UserCard: React.FC<UserCardProps> = ({
   userCanPay,
   friendCanPay,
 }) => {
+  const {
+    data: currentUser,
+    isLoading: isgroupLoading,
+    isError: isErrorgroups,
+  } = useGetCurrentUser();
+
+  const navigate = useNavigate();
+
+  const { data: settlementDataPayer, isLoading: issettlementDataPayerLoading } =
+    useSettlmentById(currentUser.$id, user.$id);
+
+  const {
+    data: settlementDataReceiver,
+    isLoading: issettlementDataReceiverLoading,
+  } = useSettlmentById(user.$id, currentUser.$id);
+
+  const totalAmountPayer =
+    settlementDataPayer?.documents?.reduce((sum: number, settlementItem) => {
+      return sum + parseFloat(settlementItem.Amount);
+    }, 0) ?? 0;
+
+  const totalAmountReceiver =
+    settlementDataReceiver?.documents?.reduce((sum: number, settlementItem) => {
+      return sum + parseFloat(settlementItem.Amount);
+    }, 0) ?? 0;
+
   const handlePayment = () => {
     const upiLink = generateUPILink();
     if (upiLink) {
@@ -64,7 +92,15 @@ const UserCard: React.FC<UserCardProps> = ({
 
       <div className={`app-container ${isBlurred ? "expanded" : ""}`}>
         <div className={`${isBlurred ? "expanded" : "hidden"}`}>
-          <Button className="ml-2">
+          <Button
+            className="ml-2"
+            onClick={() =>
+              navigate(
+                `/settlement/${friendCanPay.toFixed(1) - totalAmountPayer}/${
+                  user.$id
+                }`
+              )
+            }>
             <img
               className="mr-2" // Add margin to adjust spacing between text and image
               width="40"
@@ -88,20 +124,22 @@ const UserCard: React.FC<UserCardProps> = ({
       </div>
 
       <div className={` ${isBlurred ? "blurred2" : ""}`}>
-        {userCanPay === 0 && friendCanPay === 0 ? (
+        {(userCanPay === 0 && friendCanPay === 0) ||
+        issettlementDataPayerLoading ||
+        issettlementDataReceiverLoading ? (
           <CircleLoader />
         ) : (
           <>
             <p>
               "{user.name}" owes you{" "}
               <span className="text-lg font-bold text-green-500">
-                &#8377;&nbsp;{userCanPay.toFixed(1)}
+                &#8377;&nbsp;{userCanPay.toFixed(1) - totalAmountReceiver}
               </span>
             </p>
             <p>
               You owe "{user.name}"{" "}
               <span className="text-lg font-bold text-red">
-                &#8377;&nbsp;{friendCanPay.toFixed(1)}
+                &#8377;&nbsp;{friendCanPay.toFixed(1) - totalAmountPayer}
               </span>
             </p>
           </>

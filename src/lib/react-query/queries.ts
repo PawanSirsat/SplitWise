@@ -16,8 +16,10 @@ import {
   getGroupById,
   createExpense,
   deleteActivity,
+  makeSettlement,
+  getsettlement,
 } from "@/lib/appwrite/api";
-import { INewExpense, INewGroup, INewUser } from "@/types";
+import { INewExpense, INewGroup, INewUser, ISettlement } from "@/types";
 
 // ============================================================
 // AUTH QUERIES
@@ -57,6 +59,14 @@ export const useFriends = (userId?: string) => {
   });
 };
 
+export const useSettlmentById = (payerId?: string, receiverId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_SETTLEMENT, payerId, receiverId],
+    queryFn: () => getsettlement(payerId, receiverId),
+    enabled: !!payerId,
+  });
+};
+
 export const useActivity = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
@@ -83,6 +93,18 @@ export const useCreateExpense = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
+      });
+    },
+  });
+};
+
+export const useMakeSettlement = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (settle: ISettlement) => makeSettlement(settle),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_NEW_SETTLEMENT],
       });
     },
   });

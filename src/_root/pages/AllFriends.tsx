@@ -10,6 +10,8 @@ import {
   getUniqueUserIdsFromGroups,
   processTransactions,
 } from "@/components/shared/Simplify";
+import Scrollicon from "@/components/ui/Scrollicon";
+import { SetStateAction, useState } from "react";
 
 const AllFriends = () => {
   const navigate = useNavigate();
@@ -19,6 +21,13 @@ const AllFriends = () => {
     isError: isErrorgroups,
   } = useGetCurrentUser();
 
+  const [scrollTop, setScrollTop] = useState(0);
+
+  const handleScroll = (event: {
+    currentTarget: { scrollTop: SetStateAction<number> };
+  }) => {
+    setScrollTop(event.currentTarget.scrollTop);
+  };
   const { data: currentGroup, isLoading: isDataloading } = useGroups();
 
   const userGroups: Models.Document[] =
@@ -94,7 +103,8 @@ const AllFriends = () => {
           ) : (
             <div
               style={{ maxHeight: "380px", overflowY: "auto" }}
-              className="custom-scrollbar">
+              className={`custom-scrollbar `}
+              onScroll={handleScroll}>
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {userFriends.map((friend: Models.Document) => {
                   // Update userFriendsID for each friend
@@ -119,9 +129,11 @@ const AllFriends = () => {
                     </li>
                   );
                 })}
+                {scrollTop < 50 && <Scrollicon />}
               </ul>
             </div>
           )}
+          {/* Render the arrow icon when scrolled down */}
           {/* Floating Add Friend button */}
         </div>
       </div>

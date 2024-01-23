@@ -9,6 +9,7 @@ export const appwriteConfig = {
   groupsCollectionId: import.meta.env.VITE_APPWRITE_GROUPS_COLLECTION_ID,
   activityCollectionId: import.meta.env.VITE_APPWRITE_ACTIVITY_COLLECTION_ID,
   friendsCollectionId: import.meta.env.VITE_APPWRITE_FRIENDS_COLLECTION_ID,
+  friendsTransactionId: import.meta.env.VITE_APPWRITE_FRIENDS_TRANSACTION_ID,
 };
 
 export const client = new Client();
