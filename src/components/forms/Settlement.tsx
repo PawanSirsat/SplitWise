@@ -39,7 +39,6 @@ const Settlement = () => {
     .reverse();
 
   // Now, mergedArray is sorted based on the 'Time' property
-  console.log(mergedArray);
 
   const { mutateAsync: makeSettlement, isLoading: isLoadingSettlement } =
     useMakeSettlement();
