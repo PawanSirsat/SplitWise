@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Models } from "appwrite";
 import Profilephoto from "./Profilephoto";
 import CircleLoader from "./CircleLoader";
@@ -17,21 +17,17 @@ const UserCard: React.FC<UserCardProps> = ({
   userCanPay,
   friendCanPay,
 }) => {
-  const {
-    data: currentUser,
-    isLoading: isgroupLoading,
-    isError: isErrorgroups,
-  } = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
 
   const navigate = useNavigate();
 
   const { data: settlementDataPayer, isLoading: issettlementDataPayerLoading } =
-    useSettlmentById(currentUser.$id, user.$id);
+    useSettlmentById(currentUser?.$id, user.$id);
 
   const {
     data: settlementDataReceiver,
     isLoading: issettlementDataReceiverLoading,
-  } = useSettlmentById(user.$id, currentUser.$id);
+  } = useSettlmentById(user.$id, currentUser?.$id);
 
   const totalAmountPayer =
     settlementDataPayer?.documents?.reduce((sum: number, settlementItem) => {
@@ -42,6 +38,19 @@ const UserCard: React.FC<UserCardProps> = ({
     settlementDataReceiver?.documents?.reduce((sum: number, settlementItem) => {
       return sum + parseFloat(settlementItem.Amount);
     }, 0) ?? 0;
+
+  const [payeer, setpayeer] = useState(0);
+  const [receiver, setreceiver] = useState(0);
+
+  useEffect(() => {
+    const newSum = totalAmountPayer + friendCanPay;
+    setpayeer(newSum);
+  }, [totalAmountPayer, friendCanPay]);
+
+  useEffect(() => {
+    const newSum = totalAmountReceiver + userCanPay;
+    setreceiver(newSum);
+  }, [totalAmountReceiver, userCanPay]);
 
   const handlePayment = () => {
     const upiLink = generateUPILink();
@@ -95,11 +104,7 @@ const UserCard: React.FC<UserCardProps> = ({
           <Button
             className="ml-2"
             onClick={() =>
-              navigate(
-                `/settlement/${friendCanPay.toFixed(1) - totalAmountPayer}/${
-                  user.$id
-                }`
-              )
+              navigate(`/settlement/${payeer.toFixed(1)}/${user.$id}`)
             }>
             <img
               className="mr-2" // Add margin to adjust spacing between text and image
@@ -133,13 +138,13 @@ const UserCard: React.FC<UserCardProps> = ({
             <p>
               "{user.name}" owes you{" "}
               <span className="text-lg font-bold text-green-500">
-                &#8377;&nbsp;{userCanPay.toFixed(1) - totalAmountReceiver}
+                &#8377;&nbsp;{receiver.toFixed(1)}
               </span>
             </p>
             <p>
               You owe "{user.name}"{" "}
               <span className="text-lg font-bold text-red">
-                &#8377;&nbsp;{friendCanPay.toFixed(1) - totalAmountPayer}
+                &#8377;&nbsp;{payeer.toFixed(1)}
               </span>
             </p>
           </>
