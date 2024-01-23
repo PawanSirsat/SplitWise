@@ -3,9 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 import { Button } from "../ui/button";
 import { ISettlement } from "@/types";
-import { useMakeSettlement } from "@/lib/react-query/queries";
+import { useMakeSettlement, useSettlmentById } from "@/lib/react-query/queries";
 import { useForm } from "react-hook-form";
 import Loader from "../shared/Loader";
+import TransactionDetail from "../shared/TransactionDetail";
+import { Models } from "appwrite";
 
 const Settlement = () => {
   const form = useForm<ISettlement>({
@@ -19,6 +21,25 @@ const Settlement = () => {
   const { receiverID } = useParams();
   const { user } = useUserContext();
   const navigate = useNavigate();
+
+  const { data: settlementDataPayer, isLoading: isPayerLoading } =
+    useSettlmentById(user?.id, receiverID);
+
+  const { data: settlementDataReceiver, isLoading: isReceiverLoading } =
+    useSettlmentById(receiverID, user.id);
+
+  // Use the spread operator to concatenate the 'documents' arrays
+  const mergedArray = [
+    ...(settlementDataPayer?.documents || []),
+    ...(settlementDataReceiver?.documents || []),
+  ];
+
+  mergedArray
+    .sort((a, b) => new Date(a.Time).getTime() - new Date(b.Time).getTime())
+    .reverse();
+
+  // Now, mergedArray is sorted based on the 'Time' property
+  console.log(mergedArray);
 
   const { mutateAsync: makeSettlement, isLoading: isLoadingSettlement } =
     useMakeSettlement();
@@ -52,8 +73,10 @@ const Settlement = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = Number(e.target.value);
-    if (!isNaN(inputValue)) {
+    if (!isNaN(inputValue) && inputValue > 0) {
       setCashAmount(Math.min(Number(amount), inputValue));
+    } else {
+      setCashAmount(null!);
     }
   };
 
@@ -78,7 +101,7 @@ const Settlement = () => {
           <form
             onSubmit={handleFormSubmit} // Use handleSubmit directly
             className="flex-col gap-5 w-full max-w-5xl text-gray-300">
-            <label className="font-bold shad-form_label m-2 ml-3">
+            <label className="font-bold shad-form_label m-2 ml-3 text-xl">
               Cash Amount:
             </label>
             <div className="flex m-2">
@@ -101,7 +124,15 @@ const Settlement = () => {
                 +
               </button>
             </div>
-            <Button className="mt-2 m-2" type="submit">
+            <Button
+              className={`mt-2 m-2 ${
+                cashAmount === null || cashAmount === 0
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : ""
+              }`}
+              type="submit"
+              disabled={!cashAmount || cashAmount === 0} // Disable the button if amount is null or zero
+            >
               <img
                 className="mr-2"
                 width="40"
@@ -115,10 +146,43 @@ const Settlement = () => {
                 </>
               ) : (
                 <span>&#8377; {cashAmount} Record By Cash</span>
-              )}{" "}
+              )}
             </Button>
           </form>
+          <div className="container p-1">
+            <h4 className="text-white text-2xl font-bold mb-1 mt-2">
+              Transactions
+            </h4>
+            {isPayerLoading || isReceiverLoading ? (
+              <Loader />
+            ) : mergedArray.length === 0 ? (
+              <p className="text-white font-bold mb-2">
+                No Transactions in Users
+              </p>
+            ) : (
+              <>
+                <div
+                  style={{ maxHeight: "230px", overflowY: "auto" }}
+                  className="custom-scrollbar">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {mergedArray.map((activity: Models.Document) => (
+                      <li
+                        key={activity.$id}
+                        className="bg-slate-800 p-4 shadow-md rounded-md text white">
+                        <TransactionDetail
+                          transactionData={activity}
+                          userId={user.id}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            )}
+          </div>
         </div>
+
+        {/* <TransactionDetail transactionData={mergedArray} userId={user.id} /> */}
       </div>
     </div>
   );
