@@ -77,6 +77,18 @@ const UserCard: React.FC<UserCardProps> = ({
     setIsBlurred((prevIsBlurred) => !prevIsBlurred);
   };
 
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
   return (
     <div>
       <div
@@ -125,6 +137,38 @@ const UserCard: React.FC<UserCardProps> = ({
             />
             Pay with UPI
           </Button>
+          <Button className="m-2 flex items-center" onClick={toggleModal}>
+            <img
+              className="mr-2 p-1" // Add margin to adjust spacing between text and image
+              width="40"
+              height="40"
+              src="/assets/icons/debts.png"
+              alt="paytm"
+            />
+            Simplify Debts
+          </Button>
+          {modal && (
+            <div className="modal">
+              <div onClick={toggleModal} className="overlay"></div>
+              <div className="modal-content">
+                <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+                  Simplify Debts
+                </h2>
+                <p className="text-white font-semibold mb-2">
+                  Automatically Combines debts to reduce the total number of
+                  repayment between two user
+                </p>
+                <Button
+                  className="btn bg-red hover:bg-red"
+                  onClick={toggleModal}>
+                  Cancle
+                </Button>
+                <Button className="btn m-2 bg-green-400" onClick={toggleModal}>
+                  Confirm
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
