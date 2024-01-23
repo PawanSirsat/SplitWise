@@ -176,7 +176,8 @@ export async function makeSettlement(settle: ISettlement) {
       {
         payerId: settle.payerId,
         receiverId: settle.receiverId,
-        Amount: settle.amount.toString(), // Convert to string
+        Amount: settle.amount.toString(),
+        Time: new Date().toISOString(),
       }
     );
 
