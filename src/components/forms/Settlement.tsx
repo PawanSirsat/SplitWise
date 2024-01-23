@@ -89,7 +89,7 @@ const Settlement = () => {
                 -
               </button>
               <input
-                type="text"
+                type="number"
                 className="shad-input text-center"
                 value={cashAmount}
                 onChange={handleInputChange}
