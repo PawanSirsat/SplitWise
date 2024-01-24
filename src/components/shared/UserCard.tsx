@@ -147,28 +147,6 @@ const UserCard: React.FC<UserCardProps> = ({
             />
             Simplify Debts
           </Button>
-          {modal && (
-            <div className="modal">
-              <div onClick={toggleModal} className="overlay"></div>
-              <div className="modal-content">
-                <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
-                  Simplify Debts
-                </h2>
-                <p className="text-white font-semibold mb-2">
-                  Automatically Combines debts to reduce the total number of
-                  repayment between two user
-                </p>
-                <Button
-                  className="btn bg-red hover:bg-red"
-                  onClick={toggleModal}>
-                  Cancle
-                </Button>
-                <Button className="btn m-2 bg-green-400" onClick={toggleModal}>
-                  Confirm
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -194,6 +172,26 @@ const UserCard: React.FC<UserCardProps> = ({
           </>
         )}
       </div>
+      {modal && (
+        <div className="modal">
+          <div onClick={toggleModal} className="overlay"></div>
+          <div className="modal-content">
+            <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+              Simplify Debts
+            </h2>
+            <p className="text-white font-semibold mb-2">
+              Automatically Combines debts to reduce the total number of
+              repayment between two user
+            </p>
+            <Button className="btn bg-red hover:bg-red" onClick={toggleModal}>
+              Cancle
+            </Button>
+            <Button className="btn m-2 bg-green-400" onClick={toggleModal}>
+              Confirm
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
