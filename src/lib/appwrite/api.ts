@@ -152,14 +152,21 @@ export async function createExpense(expense: INewExpense) {
   }
 }
 export async function getsettlement(userId?: string, receiverId?: string) {
-  if (!userId) return;
-  if (!receiverId) return;
+  const queryArray = [];
+
+  if (userId) {
+    queryArray.push(Query.equal("payerId", userId));
+  }
+
+  if (receiverId) {
+    queryArray.push(Query.equal("receiverId", receiverId));
+  }
 
   try {
     const settlementData = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.TransactionCollectionId,
-      [Query.equal("payerId", userId), Query.equal("receiverId", receiverId)]
+      queryArray
     );
     return settlementData;
   } catch (error) {

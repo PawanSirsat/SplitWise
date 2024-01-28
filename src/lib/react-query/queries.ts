@@ -63,7 +63,7 @@ export const useSettlmentById = (payerId?: string, receiverId?: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_SETTLEMENT, payerId, receiverId],
     queryFn: () => getsettlement(payerId, receiverId),
-    enabled: !!payerId,
+    enabled: !!(payerId || receiverId),
   });
 };
 
