@@ -13,11 +13,7 @@ const GroupDetails = () => {
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(
     id!
   );
-  const {
-    data: currentUser,
-    isLoading: isgroupLoading,
-    isError: isErrorgroups,
-  } = useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
 
   const GroupDataId = [GroupData];
   const simplifiedData2: { from: any; to: any; amount: number }[] =
