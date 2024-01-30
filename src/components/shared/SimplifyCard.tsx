@@ -76,18 +76,18 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
   }, [totalAmountReceiver, overallOwe]);
   return (
     <>
-      <div className="text-white text-lg font-bold mb-3">
-        <p className="text-blue-500">
+      <div className="text-white font-bold mb-3">
+        <p className="text-blue-500 text-xl">
           Total Balance :{" "}
           <span
-            className={`text-lg font-bold ${
+            className={` font-bold ${
               payeer - receiver < 0 ? "text-red" : "text-green-500"
             }`}>
             {" "}
-            &#8377; {(payeer - receiver).toFixed(2)}
+            &#8377;{(payeer - receiver).toFixed(2)}
           </span>
         </p>
-        <p>
+        <p className="text-sm">
           Overall, you owe{" "}
           <span style={{ display: "inline-block" }}>
             {issettlementDataReceiverLoading ? (
@@ -95,10 +95,8 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
             ) : (
               <span className="text-red">&#8377;{receiver.toFixed(2)}</span>
             )}
-          </span>
-        </p>
-        <p>
-          and you are receive{" "}
+          </span>{" "}
+          & receive{" "}
           <span style={{ display: "inline-block" }}>
             {issettlementDataPayerLoading ? (
               <CircleLoader />
