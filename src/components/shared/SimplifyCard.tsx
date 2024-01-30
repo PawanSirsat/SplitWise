@@ -78,7 +78,7 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
     <>
       <div className="text-white text-lg font-semibold mb-3">
         <p>
-          Balance :{" "}
+          Total Balance :{" "}
           <span
             className={`text-lg font-bold ${
               payeer - receiver < 0 ? "text-red" : "text-green-500"
