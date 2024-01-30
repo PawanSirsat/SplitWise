@@ -23,10 +23,7 @@ const AllFriends = () => {
     isError: isErrorgroups,
   } = useGetCurrentUser();
 
-  console.log(currentUser);
-
   const [scrollTop, setScrollTop] = useState(0);
-
   const handleScroll = (event: {
     currentTarget: { scrollTop: SetStateAction<number> };
   }) => {
