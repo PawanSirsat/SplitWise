@@ -65,7 +65,7 @@ const AllActivity = () => {
               />
               <div
                 onScroll={handleScroll}
-                style={{ maxHeight: "380px", overflowY: "auto" }}
+                style={{ maxHeight: "360px", overflowY: "auto" }}
                 className="custom-scrollbar">
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {userMemberGroups.map((activity: Models.Document) => (

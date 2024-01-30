@@ -106,11 +106,11 @@ const AllFriends = () => {
           <div
             style={{ display: "flex", justifyContent: "space-between" }}
             className={` text-white `}>
-            <div className="py-2">
-              <h2 className="text-white text-2xl font-bold mb-6 inline">
+            <div className="p-1">
+              <h2 className="text-white text-2xl font-bold mb-6 inline p-1">
                 <button
                   style={{ backgroundColor: "#1CC29F" }}
-                  className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
+                  className="font-semibold bg-blue-500 text-white px-4 py-1  ml-2 rounded-full 
       hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
                   onClick={() => navigate("/add-friend")}>
                   Add Friend
@@ -193,9 +193,26 @@ const AllFriends = () => {
 
                   {simplifiedData2.map((item: any) => (
                     <>
-                      <p>
-                        "{item.from}" owes "{item.to}"{" "}
-                        <span className="text-lg font-bold text-red">
+                      <p className="">
+                        <span
+                          className={`text-lg font-bold inline ${
+                            currentUser?.name === item.from
+                              ? "text-green-500"
+                              : "text-blue-500"
+                          }`}>
+                          {" "}
+                          "{item.from}"
+                        </span>{" "}
+                        owes{" "}
+                        <span
+                          className={`text-lg font-bold inline ${
+                            currentUser?.name === item.to
+                              ? "text-green-500"
+                              : "text-blue-500"
+                          }`}>
+                          "{item.to}"{" "}
+                        </span>{" "}
+                        <span className="text-lg font-bold text-red ">
                           &#8377;&nbsp;{item.amount.toFixed(1)}
                         </span>
                       </p>

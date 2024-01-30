@@ -78,6 +78,16 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
     <>
       <div className="text-white text-lg font-semibold mb-3">
         <p>
+          Balance :{" "}
+          <span
+            className={`text-lg font-bold ${
+              payeer - receiver < 0 ? "text-red-500" : "text-green-500"
+            }`}>
+            {" "}
+            {(payeer - receiver).toFixed(2)}
+          </span>
+        </p>
+        <p>
           Overall, you owe{" "}
           <span style={{ display: "inline-block" }}>
             {issettlementDataReceiverLoading ? (

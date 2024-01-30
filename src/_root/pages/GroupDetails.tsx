@@ -86,14 +86,32 @@ const GroupDetails = () => {
             className={`bg-slate-800 p-4 shadow-md rounded-md text-white  ${
               isBlurred ? "blurred2" : ""
             }`}>
+            <h2 className="text-lg font-bold mb-2  text-gray-400 inline ">
+              Group :{" "}
+              <span className="font-mono text-blue-400">
+                &nbsp;{GroupData.groupName}{" "}
+              </span>{" "}
+            </h2>
+
+            <p className="font-bold text-gray-400">
+              Members :&nbsp;&nbsp;
+              <span className="font-mono text-blue-400">
+                {GroupData.Members?.map(
+                  (user: { name: any }) => user.name
+                ).join(", ")}
+              </span>
+            </p>
+
             <div className="flex items-center">
               <div className="py-2">
-                <h2 className="text-lg font-bold mb-2  text-gray-400 inline ">
-                  Group :{" "}
-                  <span className="font-mono text-blue-400">
-                    &nbsp;{GroupData.groupName}{" "}
-                  </span>{" "}
-                </h2>
+                <p
+                  className="font-bold text-gray-400"
+                  style={{ paddingBottom: "5px" }}>
+                  Expenses :{" "}
+                  <span className="font-bold text-green-400">
+                    ${totalAmount.toFixed(2)}
+                  </span>
+                </p>
               </div>
 
               <div className=" ml-1">
@@ -110,22 +128,6 @@ const GroupDetails = () => {
               </div>
             </div>
 
-            <p className="font-bold text-gray-400">
-              Members :&nbsp;&nbsp;
-              <span className="font-mono text-blue-400">
-                {GroupData.Members?.map(
-                  (user: { name: any }) => user.name
-                ).join(", ")}
-              </span>
-            </p>
-            <p
-              className="font-bold text-gray-400"
-              style={{ paddingBottom: "5px" }}>
-              Expenses :{" "}
-              <span className="font-bold text-green-400">
-                ${totalAmount.toFixed(2)}
-              </span>
-            </p>
             <div
               style={{ maxHeight: "330px", overflowY: "auto" }}
               className="custom-scrollbar">
