@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
-import { useGetGroupById } from "@/lib/react-query/queries";
+import { useGetCurrentUser, useGetGroupById } from "@/lib/react-query/queries";
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
+import { simplifyTransactions } from "@/components/shared/Simplify";
 
 const GroupDetails = () => {
   const navigate = useNavigate();
@@ -12,6 +13,15 @@ const GroupDetails = () => {
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(
     id!
   );
+  const {
+    data: currentUser,
+    isLoading: isgroupLoading,
+    isError: isErrorgroups,
+  } = useGetCurrentUser();
+
+  const GroupDataId = [GroupData];
+  const simplifiedData2: { from: any; to: any; amount: number }[] =
+    !isGroupDataLoading ? simplifyTransactions(GroupDataId) : [];
 
   const totalAmount = GroupData?.activity.reduce(
     (sum: number, activityItem: { Amout: string }) => {
@@ -21,10 +31,21 @@ const GroupDetails = () => {
   );
 
   const [isBlurred, setIsBlurred] = useState(false);
-
   const handleButtonClick = () => {
     setIsBlurred((prevIsBlurred) => !prevIsBlurred);
   };
+
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
   return (
     <>
       <div className={`items-center flex-1 p-5 `}>
@@ -69,12 +90,29 @@ const GroupDetails = () => {
             className={`bg-slate-800 p-4 shadow-md rounded-md text-white  ${
               isBlurred ? "blurred2" : ""
             }`}>
-            <h2 className="text-lg font-bold mb-2 mt-2 text-gray-400">
-              Group :
-              <span className="font-mono text-blue-400">
-                &nbsp;{GroupData.groupName}
-              </span>
-            </h2>
+            <div className="flex items-center">
+              <div className="py-2">
+                <h2 className="text-lg font-bold mb-2  text-gray-400 inline ">
+                  Group :{" "}
+                  <span className="font-mono text-blue-400">
+                    &nbsp;{GroupData.groupName}{" "}
+                  </span>{" "}
+                </h2>
+              </div>
+
+              <div className=" ml-1">
+                <Button className="m-1" onClick={toggleModal}>
+                  <img
+                    className="mr-1 p-1"
+                    width="40"
+                    height="40"
+                    src="/assets/icons/debt3.png"
+                    alt="paytm"
+                  />
+                  Simplify
+                </Button>
+              </div>
+            </div>
 
             <p className="font-bold text-gray-400">
               Members :&nbsp;&nbsp;
@@ -112,6 +150,63 @@ const GroupDetails = () => {
                   ))}
               </ul>
             </div>
+            {modal && GroupData && simplifiedData2 && (
+              <div className="modal">
+                <div onClick={toggleModal} className="overlay"></div>
+
+                <div className="modal-content">
+                  <div className="py-3">
+                    <div className="flex justify-between">
+                      <div className="py-2">
+                        <h2 className="text-yellow-400	text-2xl font-bold  inline">
+                          Simplify Debts
+                        </h2>
+                      </div>
+
+                      <div className="ml-1">
+                        <button className="m-1" onClick={toggleModal}>
+                          <img
+                            className="mr-1 p-1"
+                            width="40"
+                            height="40"
+                            src="/assets/icons/close.png"
+                            alt="paytm"
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    {simplifiedData2.map((item: any) => (
+                      <>
+                        <p className="">
+                          <span
+                            className={`text-lg font-bold inline ${
+                              currentUser?.name === item.from
+                                ? "text-green-500"
+                                : "text-blue-500"
+                            }`}>
+                            {" "}
+                            "{item.from}"
+                          </span>{" "}
+                          owes{" "}
+                          <span
+                            className={`text-lg font-bold inline ${
+                              currentUser?.name === item.to
+                                ? "text-green-500"
+                                : "text-blue-500"
+                            }`}>
+                            "{item.to}"{" "}
+                          </span>{" "}
+                          <span className="text-lg font-bold text-red ">
+                            &#8377;&nbsp;{item.amount.toFixed(1)}
+                          </span>
+                        </p>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

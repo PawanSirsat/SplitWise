@@ -1,3 +1,5 @@
+import { Models } from "appwrite";
+
 type FriendTransactions = {
   friendCanPay: number;
   userCanPay: number;
@@ -52,3 +54,93 @@ export const getUniqueUserIdsFromGroups = (groups: any, userid: any) => {
   const uniqueUserDataArray = Array.from(uniqueUserDataMap.values());
   return uniqueUserDataArray;
 };
+
+export function simplifyTransactions(GroupData: any) {
+  const idMap = new Map();
+  const userFriends: any[] = [];
+
+  GroupData.forEach((obj: any) => {
+    obj.Members.forEach((member: any) => {
+      if (!idMap.has(member.$id)) {
+        idMap.set(member.$id, true);
+        userFriends.push(member);
+      }
+    });
+  });
+
+  const jsonData = Array.from(
+    new Set(
+      GroupData.flatMap((obj: any) =>
+        obj.activity.map((activity: any) => activity)
+      )
+    )
+  );
+  const users: { [key: string]: number } = {};
+  userFriends.forEach((friend: Models.Document) => {
+    users[friend.name] = 0;
+  });
+
+  const transactions: { from: any; to: any; amount: number }[] = [];
+  const processedPairs = new Set();
+
+  userFriends.forEach((friendList: Models.Document) => {
+    userFriends.forEach((friend: Models.Document) => {
+      const updatedUserFriendsID = friend.$id;
+
+      if (updatedUserFriendsID !== friendList.$id) {
+        const pair1 = `${friendList.$id}-${updatedUserFriendsID}`;
+        const pair2 = `${updatedUserFriendsID}-${friendList.$id}`;
+
+        if (!processedPairs.has(pair1) && !processedPairs.has(pair2)) {
+          const { userCanPay, friendCanPay } = processTransactions(
+            friendList.$id || "",
+            jsonData || [],
+            updatedUserFriendsID || []
+          );
+
+          transactions.push({
+            from: friendList.name,
+            to: friend.name,
+            amount: friendCanPay,
+          });
+
+          transactions.push({
+            from: friend.name,
+            to: friendList.name,
+            amount: userCanPay,
+          });
+
+          // Add the pairs to the set to avoid duplicates
+          processedPairs.add(pair1);
+          processedPairs.add(pair2);
+        }
+      }
+    });
+  });
+
+  transactions.forEach((transaction) => {
+    users[transaction.from] -= transaction.amount;
+    users[transaction.to] += transaction.amount;
+  });
+
+  const simplifiedTransactions: { from: any; to: any; amount: number }[] = [];
+
+  Object.keys(users).forEach((sender) => {
+    if (users[sender] < 0) {
+      Object.keys(users).forEach((receiver) => {
+        if (users[receiver] > 0) {
+          const amount = Math.min(Math.abs(users[sender]), users[receiver]);
+          simplifiedTransactions.push({
+            from: sender,
+            to: receiver,
+            amount: amount,
+          });
+          users[sender] += amount;
+          users[receiver] -= amount;
+        }
+      });
+    }
+  });
+
+  return simplifiedTransactions;
+}

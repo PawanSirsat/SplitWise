@@ -88,7 +88,7 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
           </span>
         </p>
         <p>
-          and you are owed{" "}
+          and you are receive{" "}
           <span style={{ display: "inline-block" }}>
             {issettlementDataPayerLoading ? (
               <CircleLoader />

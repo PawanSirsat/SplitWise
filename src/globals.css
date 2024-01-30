@@ -516,10 +516,10 @@ body.active-modal {
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: #535151;
-  padding: 14px 28px;
+  padding: 3px 12px;
   border-radius: 3px;
   max-width: 600px;
-  min-width: 300px;
+  min-width: 373px;
 }
 
 .close-modal {

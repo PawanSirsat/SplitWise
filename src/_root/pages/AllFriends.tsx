@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import {
   getUniqueUserIdsFromGroups,
   processTransactions,
+  simplifyTransactions,
 } from "@/components/shared/Simplify";
 import Scrollicon from "@/components/ui/Scrollicon";
 import { SetStateAction, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const AllFriends = () => {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ const AllFriends = () => {
     isLoading: isgroupLoading,
     isError: isErrorgroups,
   } = useGetCurrentUser();
+
+  console.log(currentUser);
 
   const [scrollTop, setScrollTop] = useState(0);
 
@@ -37,6 +41,19 @@ const AllFriends = () => {
       );
     }) ?? [];
 
+  const simplifiedData2: { from: any; to: any; amount: number }[] =
+    !isgroupLoading ? simplifyTransactions(userGroups) : [];
+
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
   const uniqueUserIds = getUniqueUserIdsFromGroups(
     userGroups,
     currentUser?.$id
@@ -85,17 +102,35 @@ const AllFriends = () => {
   return (
     <div className="common-container">
       <div className="user-container">
-        <div className="container p-5 flex flex-col">
-          <h2 className="text-white text-2xl font-bold mb-6">
-            Friends
-            <button
-              style={{ backgroundColor: "#1CC29F" }}
-              className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
+        <div className="container p-2 flex flex-col">
+          <div
+            style={{ display: "flex", justifyContent: "space-between" }}
+            className={` text-white `}>
+            <div className="py-2">
+              <h2 className="text-white text-2xl font-bold mb-6 inline">
+                <button
+                  style={{ backgroundColor: "#1CC29F" }}
+                  className="font-semibold bg-blue-500 text-white px-2 py-1 ml-2 rounded-full 
       hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
-              onClick={() => navigate("/add-friend")}>
-              Add Friend
-            </button>
-          </h2>
+                  onClick={() => navigate("/add-friend")}>
+                  Add Friend
+                </button>
+              </h2>
+            </div>
+            <div className=" ml-1">
+              <Button className="m-1" onClick={toggleModal}>
+                <img
+                  className="mr-1 p-1"
+                  width="40"
+                  height="40"
+                  src="/assets/icons/debt3.png"
+                  alt="paytm"
+                />
+                Simplify Debts
+              </Button>
+            </div>
+          </div>
+
           {isgroupLoading || isDataloading ? (
             <Loader />
           ) : userFriends.length === 0 ? (
@@ -130,8 +165,46 @@ const AllFriends = () => {
               </ul>
             </div>
           )}
-          {/* Render the arrow icon when scrolled down */}
-          {/* Floating Add Friend button */}
+          {modal && currentGroup && simplifiedData2 && (
+            <div className="modal">
+              <div onClick={toggleModal} className="overlay"></div>
+
+              <div className="modal-content">
+                <div className="py-1">
+                  <div className="flex justify-between">
+                    <div className="py-2">
+                      <h2 className="text-yellow-400	text-2xl font-bold  inline">
+                        Simplify Debts
+                      </h2>
+                    </div>
+
+                    <div className="ml-1">
+                      <button className="m-1" onClick={toggleModal}>
+                        <img
+                          className="mr-1 p-1"
+                          width="40"
+                          height="40"
+                          src="/assets/icons/close.png"
+                          alt="paytm"
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                  {simplifiedData2.map((item: any) => (
+                    <>
+                      <p>
+                        "{item.from}" owes "{item.to}"{" "}
+                        <span className="text-lg font-bold text-red">
+                          &#8377;&nbsp;{item.amount.toFixed(1)}
+                        </span>
+                      </p>
+                    </>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
