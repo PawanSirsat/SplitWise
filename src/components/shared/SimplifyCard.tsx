@@ -76,15 +76,15 @@ const SimplifyCard: React.FC<SimplifyCardProps> = ({ activities, userId }) => {
   }, [totalAmountReceiver, overallOwe]);
   return (
     <>
-      <div className="text-white text-lg font-semibold mb-3">
-        <p>
+      <div className="text-white text-lg font-bold mb-3">
+        <p className="text-blue-500">
           Total Balance :{" "}
           <span
             className={`text-lg font-bold ${
               payeer - receiver < 0 ? "text-red" : "text-green-500"
             }`}>
             {" "}
-            {(payeer - receiver).toFixed(2)}
+            &#8377; {(payeer - receiver).toFixed(2)}
           </span>
         </p>
         <p>
