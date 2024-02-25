@@ -19,13 +19,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
-
 const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-
-  // Query
   const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
@@ -41,7 +38,6 @@ const SigninForm = () => {
 
     if (!session) {
       toast({ title: "Login failed. Please try again." });
-
       return;
     }
 
@@ -49,35 +45,45 @@ const SigninForm = () => {
 
     if (isLoggedIn) {
       form.reset();
-
       navigate("/");
     } else {
       toast({ title: "Login failed. Please try again." });
-
-      return;
     }
   };
 
+  const handleDemoLogin = () => {
+    const demoCredentials = {
+      email: "pawan21@gmail.com",
+      password: "pawan123",
+    };
+    handleSignin(demoCredentials);
+  };
+
   return (
-    <Form {...form} >
-    <div  className="bg-gray-800 h-16 fixed top-0 w-full z-10">
-      <div className="text-white font-bold text-lg flex items-center justify-center">
-        <span role="img" aria-label="Splitwise App" className="mr-3 p-2 mt-1 items-center">
-          <img
-            width="40"
-            height="40"
-            src="/assets/images/split-logo.png"
-            alt="cash-in-hand"
-          />
-        </span>
-        Splitwise
+    <Form {...form}>
+      <div className="bg-gray-800 h-16 fixed top-0 w-full z-10">
+        <div className="text-white font-bold text-lg flex items-center justify-center">
+          <span
+            role="img"
+            aria-label="Splitwise App"
+            className="mr-3 p-2 mt-1 items-center">
+            <img
+              width="40"
+              height="40"
+              src="/assets/images/split-logo.png"
+              alt="cash-in-hand"
+            />
+          </span>
+          Splitwise
+        </div>
       </div>
-    </div>
-        
-      <div className="sm:w-420 flex-center flex-col">      
-        <h3 style={{ color: '#1CC29F' }} className="text-2xl font-bold">Login</h3>
+
+      <div className="sm:w-420 flex-center flex-col">
+        <h3 style={{ color: "#1CC29F" }} className="text-2xl font-bold">
+          Login
+        </h3>
         {/* Add your login form components here */}
-     <form
+        <form
           onSubmit={form.handleSubmit(handleSignin)}
           className="flex flex-col gap-5 w-full mt-4">
           <FormField
@@ -108,7 +114,10 @@ const SigninForm = () => {
             )}
           />
 
-          <Button type="submit" style={{ backgroundColor: '#1CC29F' }} className="">
+          <Button
+            type="submit"
+            style={{ backgroundColor: "#1CC29F" }}
+            className="">
             {isLoading || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
@@ -118,9 +127,17 @@ const SigninForm = () => {
             )}
           </Button>
 
+          <Button
+            type="button"
+            style={{ backgroundColor: "#1C7FC2" }}
+            onClick={handleDemoLogin}>
+            Demo Login
+          </Button>
+
           <p className="text-small-regular text-light-2 text-center mt-2">
             Don&apos;t have an account?
-            <Link style={{color: '#1CC29F' }}
+            <Link
+              style={{ color: "#1CC29F" }}
               to="/sign-up"
               className=" text-small-semibold ml-1">
               Sign up
