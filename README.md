@@ -1,4 +1,4 @@
-# SpendShare
+# SplitWise Clone
 
 SpendShare is a web application for splitting expenses in groups. It allows users to manage groups, track expenses, and view activity history.
 
