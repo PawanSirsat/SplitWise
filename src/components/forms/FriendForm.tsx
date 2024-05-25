@@ -46,7 +46,7 @@ const FriendForm = () => {
           />
           <Input
             type="text"
-            placeholder="Search"
+            placeholder="Enter Username"
             className="explore-search"
             value={searchValue}
             onChange={(e) => {

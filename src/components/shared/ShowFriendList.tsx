@@ -5,6 +5,7 @@ import { useFriends } from "@/lib/react-query/queries";
 import { Button } from "../ui/button";
 import Loader from "./Loader";
 import { loginaddFriend, targetaddFriend } from "@/lib/utils";
+import { toast } from "../ui";
 
 type ShowFriendListProps = {
   list: any; // Replace 'any' with the type of your friend data
@@ -131,6 +132,10 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      toast({
+        title: `New Friend Added Successfully.`,
+      });
     }
   };
 
