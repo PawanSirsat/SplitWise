@@ -124,7 +124,7 @@ const GroupActivity = ({ activity }: UserCardProps) => {
             cursor: isLoadingExpense ? "not-allowed" : "pointer", // Cursor style changes if loading
             opacity: isLoadingExpense ? 0.6 : 1, // Reduce opacity if loading
             transition: "background-color 0.3s", // Smooth background color transition
-            float: "left", // Position button on the left
+            float: "right", // Position button on the left
             marginTop: "10px", // Add some margin on top for spacing
           }}
           onMouseEnter={() => setIsHovered(true)}
