@@ -88,13 +88,13 @@ const GroupDetails = () => {
           </button>
           <div className={`${isBlurred ? "expanded" : "hidden"}`}>
             <Button
-              disabled={isLoadingGroup}
+              disabled={isGroupDataLoading}
               className="ml-2"
               onClick={() => navigate(`/add-member/${GroupData?.$id}`)}>
               Add Member
             </Button>
             <Button
-              disabled={isLoadingGroup}
+              disabled={isGroupDataLoading}
               className="ml-2"
               onClick={() => navigate(`/add-expense/${GroupData?.$id}`)}>
               Add Expense
