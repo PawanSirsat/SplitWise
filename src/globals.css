@@ -517,9 +517,10 @@ body.active-modal {
   line-height: 1.4;
   background: #535151;
   padding: 3px 12px;
-  border-radius: 3px;
+  margin: 5px;
+  border-radius: 5px;
   max-width: 600px;
-  min-width: 373px;
+  min-width: 280px;
 }
 
 .close-modal {

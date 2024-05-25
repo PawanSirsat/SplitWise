@@ -125,10 +125,11 @@ export const useAddFriend = () => {
 export const useDeleteActivity = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ groupId }: { groupId?: string }) => deleteActivity(groupId),
+    mutationFn: ({ activityId }: { activityId?: string }) =>
+      deleteActivity(activityId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
+        queryKey: [QUERY_KEYS.GET_GROUP_BY_ID],
       });
     },
   });

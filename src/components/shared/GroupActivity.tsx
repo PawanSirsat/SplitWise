@@ -1,7 +1,14 @@
 import { Models } from "appwrite";
-import { useGetCurrentUser } from "@/lib/react-query/queries";
+import {
+  useDeleteActivity,
+  useGetCurrentUser,
+} from "@/lib/react-query/queries";
 import DateDisplay from "./DateDisplay";
 import ActivityImage from "./ActivityImage";
+import { toast } from "../ui/use-toast";
+import { Button } from "../ui/button";
+import Loader from "./Loader";
+import { useState } from "react";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -9,7 +16,35 @@ type UserCardProps = {
 
 const GroupActivity = ({ activity }: UserCardProps) => {
   const { data: currentUser } = useGetCurrentUser();
+  const [isHovered, setIsHovered] = useState(false);
+  const [modal, setModal] = useState(false);
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
+  const { mutateAsync: deleteActivityMutation, isLoading: isLoadingExpense } =
+    useDeleteActivity();
+
+  const handleDelete = async () => {
+    try {
+      setModal(!modal);
+      await deleteActivityMutation({ activityId: activity.$id });
+      toast({
+        title: `Expense Deleted Successfully.`,
+      });
+    } catch (error) {
+      toast({
+        title: `Failed to delete activity. Please try again.`,
+      });
+    }
+  };
   const isPaidByCurrentUser = activity.PaidBy.$id === currentUser?.$id;
   const isCurrentUserInvolved =
     activity.splitMember?.some(
@@ -78,7 +113,46 @@ const GroupActivity = ({ activity }: UserCardProps) => {
               : "text-indigo-700 font-semibold"
         }`}>
         {amountMessage}
+        <Button
+          onClick={toggleModal}
+          style={{
+            backgroundColor:
+              isHovered || isLoadingExpense ? "#FF6347" : "#1CC29F", // Change background color on hover
+            color: "white", // Text color
+            padding: "8px 16px", // Equivalent to py-2 px-4
+            borderRadius: "8px", // Rounded corners
+            cursor: isLoadingExpense ? "not-allowed" : "pointer", // Cursor style changes if loading
+            opacity: isLoadingExpense ? 0.6 : 1, // Reduce opacity if loading
+            transition: "background-color 0.3s", // Smooth background color transition
+            float: "left", // Position button on the left
+            marginTop: "10px", // Add some margin on top for spacing
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          disabled={isLoadingExpense}>
+          {isLoadingExpense && <Loader />}
+          Delete
+        </Button>
       </p>
+      {modal && (
+        <div className="modal">
+          <div onClick={handleDelete} className="overlay"></div>
+          <div className="modal-content">
+            <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+              Do you want to delete this expense?
+            </h2>
+            <p className="text-white font-semibold mb-2">
+              If deleted, the expense will be permanently removed.
+            </p>
+            <Button className="btn bg-red hover:bg-red" onClick={toggleModal}>
+              Cancle
+            </Button>
+            <Button className="btn m-2 bg-green-400" onClick={handleDelete}>
+              Confirm
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -195,12 +195,12 @@ export async function makeSettlement(settle: ISettlement) {
 }
 
 // ============================== DELETE ACTIVITY
-export async function deleteActivity(postId?: string) {
+export async function deleteActivity(activityId?: string) {
   try {
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.activityCollectionId,
-      postId!
+      activityId!
     );
     if (!statusCode) throw Error;
     return { status: "Ok" };
