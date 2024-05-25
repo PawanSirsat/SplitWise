@@ -18,6 +18,7 @@ import {
   deleteActivity,
   makeSettlement,
   getsettlement,
+  deleteGroup,
 } from "@/lib/appwrite/api";
 import { INewExpense, INewGroup, INewUser, ISettlement } from "@/types";
 
@@ -130,6 +131,18 @@ export const useDeleteActivity = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_GROUP_BY_ID],
+      });
+    },
+  });
+};
+
+export const useDeleteGroup = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ groupId }: { groupId?: string }) => deleteGroup(groupId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_GROUPS],
       });
     },
   });

@@ -10,9 +10,9 @@ import {
   FormMessage,
   Button,
   Input,
+  toast,
 } from "@/components/ui";
 import { ExpenseValidation } from "@/lib/validation";
-import { useToast } from "@/components/ui/use-toast";
 import { Loader } from "@/components/shared";
 import { useCreateExpense, useGetGroupById } from "@/lib/react-query/queries";
 import { INewExpense } from "@/types";
@@ -22,7 +22,6 @@ import { useUserContext } from "@/context/AuthContext";
 const AddExpense = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { user } = useUserContext();
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(
     id!
@@ -66,9 +65,20 @@ const AddExpense = () => {
     useCreateExpense();
 
   const handleSubmit = async (value: INewExpense) => {
-    if (selectedMembers.length === 0) {
+    if (
+      selectedMembers.length === 0 ||
+      (selectedMembers.length === 1 &&
+        selectedMembers[0] === selectedPaidBy &&
+        selectedPaidBy === selectedMembers[0])
+    ) {
       setIsCheckboxError(true);
       return;
+    }
+
+    if (selectedPaidBy === null || selectedMembers === null) {
+      toast({
+        title: `Expense creation failed. Please try again.`,
+      });
     }
     const newExpense = await createExpense({
       ...value,
@@ -83,6 +93,10 @@ const AddExpense = () => {
         title: `Expense creation failed. Please try again.`,
       });
     } else {
+      toast({
+        title: "Expense Added Successfully.",
+        description: "Your expense has been added to the group.",
+      });
       navigate(`/groups/${id}`);
     }
   };
@@ -186,27 +200,24 @@ const AddExpense = () => {
                         className="custom-scrollbar">
                         {GroupData?.Members?.map((member: any) => (
                           <div key={member.$id}>
-                            <ul
-                              className="p-1 m-1 w-48 text-sm font-medium text-gray-900 bg-gray-600 border
-         border-gray-600 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <ul className="p-1 m-1 w-48 text-sm font-medium text-gray-900 bg-gray-600 border border-gray-600 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                               <li className="w-full border-b border-gray-600 rounded-t-lg dark:border-gray-600">
-                                <input
-                                  className="w-4 h-4 text-blue-600  border-gray-300 rounded focus:ring-blue-500 
-          dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 
-           focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                                  type="checkbox"
-                                  id={member.$id}
-                                  value={member.$id}
-                                  checked={selectedMembers.includes(member.$id)}
-                                  onChange={() =>
-                                    handleMemberCheckboxChange(member.$id)
-                                  }
-                                />
                                 <label
-                                  className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray- 
-             300"
+                                  className="w-full py-1 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center"
                                   htmlFor={member.$id}>
-                                  {member.name}
+                                  <input
+                                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    type="checkbox"
+                                    id={member.$id}
+                                    value={member.$id}
+                                    checked={selectedMembers.includes(
+                                      member.$id
+                                    )}
+                                    onChange={() =>
+                                      handleMemberCheckboxChange(member.$id)
+                                    }
+                                  />
+                                  <span className="ml-2">{member.name}</span>
                                 </label>
                               </li>
                             </ul>
@@ -215,7 +226,7 @@ const AddExpense = () => {
                       </div>
                       {isCheckboxError && (
                         <p className="text-red text-sm mt-2">
-                          Please select at least one member.
+                          Please select at least one member other than you.
                         </p>
                       )}
                     </div>

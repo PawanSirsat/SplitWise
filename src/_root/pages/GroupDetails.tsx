@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui";
+import { Button, toast } from "@/components/ui";
 import { Loader } from "@/components/shared";
-import { useGetCurrentUser, useGetGroupById } from "@/lib/react-query/queries";
+import {
+  useDeleteGroup,
+  useGetCurrentUser,
+  useGetGroupById,
+} from "@/lib/react-query/queries";
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
 import { simplifyTransactions } from "@/components/shared/Simplify";
@@ -14,7 +18,34 @@ const GroupDetails = () => {
     id!
   );
   const { data: currentUser } = useGetCurrentUser();
+  const { mutateAsync: deleteGroupMutation, isLoading: isLoadingGroup } =
+    useDeleteGroup();
+  const [modal2, setModal2] = useState(false);
 
+  const [showAllMembers, setShowAllMembers] = useState(false);
+
+  const toggleShowAllMembers = () => {
+    setShowAllMembers(!showAllMembers);
+  };
+
+  const membersToShow = showAllMembers
+    ? GroupData?.Members
+    : GroupData?.Members?.slice(0, 2);
+
+  const handleDelete = async () => {
+    try {
+      toggleModal2(); // Close the modal
+      await deleteGroupMutation({ groupId: GroupData?.$id });
+      navigate(-1);
+      toast({
+        title: `Group Deleted Successfully.`,
+      });
+    } catch (error) {
+      toast({
+        title: `Failed to delete group. Please try again.`,
+      });
+    }
+  };
   const GroupDataId = [GroupData];
   const simplifiedData2: { from: any; to: any; amount: number }[] =
     !isGroupDataLoading ? simplifyTransactions(GroupDataId) : [];
@@ -35,6 +66,10 @@ const GroupDetails = () => {
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleModal2 = () => {
+    setModal2(!modal2);
   };
 
   if (modal) {
@@ -96,9 +131,16 @@ const GroupDetails = () => {
             <p className="font-bold text-gray-400">
               Members :&nbsp;&nbsp;
               <span className="font-mono text-blue-400">
-                {GroupData.Members?.map(
-                  (user: { name: any }) => user.name
-                ).join(", ")}
+                {membersToShow
+                  ?.map((user: { name: any }) => user.name)
+                  .join(",")}
+                {GroupData.Members?.length! > 2 && (
+                  <span
+                    className="text-green-400 cursor-pointer ml-1 underline"
+                    onClick={toggleShowAllMembers}>
+                    {showAllMembers ? "hide" : "show all"}
+                  </span>
+                )}
               </span>
             </p>
 
@@ -114,22 +156,34 @@ const GroupDetails = () => {
                 </p>
               </div>
 
-              <div className=" ml-1">
+              <div className=" ml-1 text-sm">
                 <Button className="m-1" onClick={toggleModal}>
                   <img
-                    className="mr-1 p-1"
-                    width="40"
-                    height="40"
+                    width="24"
+                    height="24"
                     src="/assets/icons/debt3.png"
                     alt="paytm"
-                  />
-                  Simplify
+                  />{" "}
+                  Simplify Debt
+                </Button>
+                <Button
+                  className="m-1"
+                  onClick={toggleModal2}
+                  disabled={isLoadingGroup}>
+                  <img
+                    width="24"
+                    height="24"
+                    src="https://img.icons8.com/color/48/delete-forever.png"
+                    alt="delete-forever"
+                  />{" "}
+                  {isLoadingGroup && <Loader />}
+                  {isLoadingGroup ? "Deleting..." : "Delete Group"}{" "}
                 </Button>
               </div>
             </div>
 
             <div
-              style={{ maxHeight: "330px", overflowY: "auto" }}
+              style={{ maxHeight: "270px", overflowY: "auto" }}
               className="custom-scrollbar">
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {GroupData.activity
@@ -142,7 +196,7 @@ const GroupDetails = () => {
                   .map((activity: Models.Document) => (
                     <li
                       key={activity.$id}
-                      className="bg-slate-800 p-4 shadow-md rounded-md text white">
+                      className="bg-slate-900 p-4 shadow-md  rounded-md text white">
                       <GroupActivity activity={activity} />
                     </li>
                   ))}
@@ -208,6 +262,25 @@ const GroupDetails = () => {
           </div>
         )}
       </div>
+      {modal2 && (
+        <div className="modal">
+          <div onClick={handleDelete} className="overlay"></div>
+          <div className="modal-content">
+            <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+              Do you want to delete this group?
+            </h2>
+            <p className="text-white font-semibold mb-2">
+              If deleted, the Group expense will be permanently removed.
+            </p>
+            <Button className="btn bg-red hover:bg-red" onClick={toggleModal2}>
+              Cancle
+            </Button>
+            <Button className="btn m-2 bg-green-400" onClick={handleDelete}>
+              Confirm
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -13,9 +13,9 @@ import {
   FormMessage,
   Button,
   Input,
+  toast,
 } from "@/components/ui";
 import { GroupValidation } from "@/lib/validation";
-import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import { Loader } from "@/components/shared";
 import { useCreateGroup } from "@/lib/react-query/queries";
@@ -27,7 +27,6 @@ type PostFormProps = {
 
 const PostForm = ({ group, action }: PostFormProps) => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { user } = useUserContext();
   const form = useForm<z.infer<typeof GroupValidation>>({
     resolver: zodResolver(GroupValidation),
@@ -61,6 +60,10 @@ const PostForm = ({ group, action }: PostFormProps) => {
     if (!newGroup) {
       toast({
         title: `Create group failed. Please try again.`,
+      });
+    } else {
+      toast({
+        title: `Group Created Successfully.`,
       });
     }
     navigate("/");

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFriends, useGetGroupById } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "../ui";
+import { Button, toast } from "../ui";
 import Loader from "../shared/Loader";
 import { addMember } from "@/lib/utils";
 import UserList from "../shared/UserList";
@@ -54,8 +54,15 @@ const AddMemberForm = () => {
         navigate(`/groups/${id}`);
       }
     } catch (error) {
+      toast({
+        title: "Facing Some Issue.",
+      });
       console.error("Error adding member:", error);
     } finally {
+      toast({
+        title: "New Member Added in Group.",
+        description: "From your Friend List.",
+      });
       setLoading(false);
     }
   };

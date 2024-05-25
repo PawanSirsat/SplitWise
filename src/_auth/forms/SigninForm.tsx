@@ -14,13 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/shared/Loader";
-import { useToast } from "@/components/ui/use-toast";
 
 import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
+import { toast } from "@/components/ui";
 const SigninForm = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
@@ -44,6 +43,7 @@ const SigninForm = () => {
     const isLoggedIn = await checkAuthUser();
 
     if (isLoggedIn) {
+      toast({ title: "Login Successfully." });
       form.reset();
       navigate("/");
     } else {

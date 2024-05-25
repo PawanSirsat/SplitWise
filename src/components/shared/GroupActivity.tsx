@@ -5,10 +5,10 @@ import {
 } from "@/lib/react-query/queries";
 import DateDisplay from "./DateDisplay";
 import ActivityImage from "./ActivityImage";
-import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import Loader from "./Loader";
 import { useState } from "react";
+import { toast } from "../ui";
 
 type UserCardProps = {
   activity: Models.Document;
@@ -131,7 +131,7 @@ const GroupActivity = ({ activity }: UserCardProps) => {
           onMouseLeave={() => setIsHovered(false)}
           disabled={isLoadingExpense}>
           {isLoadingExpense && <Loader />}
-          Delete
+          {isLoadingExpense ? "Deleting..." : "Delete"}
         </Button>
       </p>
       {modal && (
