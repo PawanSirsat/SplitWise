@@ -203,7 +203,7 @@ const AddExpense = () => {
                             <ul className="p-1 m-1 w-48 text-sm font-medium text-gray-900 bg-gray-600 border border-gray-600 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                               <li className="w-full border-b border-gray-600 rounded-t-lg dark:border-gray-600">
                                 <label
-                                  className="w-full py-1 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center"
+                                  className="w-full py-1 ms-2 text-sm font-medium text-white dark:text-gray-300 flex items-center"
                                   htmlFor={member.$id}>
                                   <input
                                     className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
