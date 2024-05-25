@@ -117,15 +117,14 @@ const GroupActivity = ({ activity }: UserCardProps) => {
           onClick={toggleModal}
           style={{
             backgroundColor:
-              isHovered || isLoadingExpense ? "#FF6347" : "#1CC29F", // Change background color on hover
+              isHovered || isLoadingExpense ? "#FF6347" : "#1CC29F",
             color: "white", // Text color
-            padding: "8px 16px", // Equivalent to py-2 px-4
+            padding: "8px 12px", // Equivalent to py-2 px-4
             borderRadius: "8px", // Rounded corners
-            cursor: isLoadingExpense ? "not-allowed" : "pointer", // Cursor style changes if loading
+            cursor: isLoadingExpense ? "not-allowed" : "pointer",
             opacity: isLoadingExpense ? 0.6 : 1, // Reduce opacity if loading
             transition: "background-color 0.3s", // Smooth background color transition
             float: "right", // Position button on the left
-            marginTop: "10px", // Add some margin on top for spacing
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
