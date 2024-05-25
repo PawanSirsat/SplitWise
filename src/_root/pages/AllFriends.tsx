@@ -134,7 +134,7 @@ const AllFriends = () => {
             <p className="text-white font-bold mb-2">You have no friends</p>
           ) : (
             <div
-              style={{ maxHeight: "440px", overflowY: "auto" }}
+              style={{ maxHeight: "470px", overflowY: "auto" }}
               className={`custom-scrollbar mt-2`}
               onScroll={handleScroll}>
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

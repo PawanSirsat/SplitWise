@@ -183,7 +183,7 @@ const GroupDetails = () => {
             </div>
 
             <div
-              style={{ maxHeight: "270px", overflowY: "auto" }}
+              style={{ maxHeight: "330px", overflowY: "auto" }}
               className="custom-scrollbar">
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {GroupData.activity
