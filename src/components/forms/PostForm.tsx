@@ -42,6 +42,14 @@ const PostForm = ({ group, action }: PostFormProps) => {
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof GroupValidation>) => {
+    // Check if any value is null
+    if (user.id === null || value.groupname === null) {
+      toast({
+        title: `Create group failed. Please try again.`,
+      });
+      return; // Stop further execution if user.id is null
+    }
+
     // ACTION = CREATE
     const newGroup = await createGroup({
       ...value,
@@ -52,7 +60,7 @@ const PostForm = ({ group, action }: PostFormProps) => {
 
     if (!newGroup) {
       toast({
-        title: `${action} group failed. Please try again.`,
+        title: `Create group failed. Please try again.`,
       });
     }
     navigate("/");

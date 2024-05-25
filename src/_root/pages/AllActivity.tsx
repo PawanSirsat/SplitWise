@@ -35,7 +35,7 @@ const AllActivity = () => {
         )
     ) ?? [];
 
-  if (isErrorgroups || isErroractivity) {
+  if (isErrorgroups || isErroractivity || userMemberGroups.length === 0) {
     return (
       <div className="flex flex-1">
         <div className="home-container">
