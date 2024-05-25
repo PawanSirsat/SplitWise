@@ -59,7 +59,7 @@ const Home = () => {
             </p>
           ) : (
             <div
-              style={{ maxHeight: "410px", overflowY: "auto" }}
+              style={{ maxHeight: "460px", overflowY: "auto" }}
               className="custom-scrollbar">
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {userMemberGroups.map((group: Models.Document) => (
