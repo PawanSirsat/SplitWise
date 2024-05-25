@@ -99,6 +99,19 @@ const GroupDetails = () => {
               onClick={() => navigate(`/add-expense/${GroupData?.$id}`)}>
               Add Expense
             </Button>
+            <Button
+              className="ml-2 mt-1"
+              onClick={toggleModal2}
+              disabled={isLoadingGroup || isGroupDataLoading}>
+              {/* <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/color/48/delete-forever.png"
+                alt="delete-forever"
+              />{" "} */}
+              {isLoadingGroup && <Loader />}
+              {isLoadingGroup ? "Deleting..." : "Delete Group"}{" "}
+            </Button>
           </div>
         </div>
         <div className={`w-full`}>
@@ -129,7 +142,6 @@ const GroupDetails = () => {
                 &nbsp;{GroupData.groupName}{" "}
               </span>{" "}
             </h2>
-
             <p className="font-bold text-gray-400">
               Members :&nbsp;&nbsp;
               <span className="font-mono text-blue-400">
@@ -158,8 +170,8 @@ const GroupDetails = () => {
                 </p>
               </div>
 
-              <div className=" ml-1 text-sm">
-                <Button className="m-1" onClick={toggleModal}>
+              <div className="mb-2 mt-1 text-sm">
+                <Button className="ml-2 p-2" onClick={toggleModal}>
                   <img
                     width="24"
                     height="24"
@@ -168,7 +180,7 @@ const GroupDetails = () => {
                   />{" "}
                   Simplify Debt
                 </Button>
-                <Button
+                {/* <Button
                   className="m-1"
                   onClick={toggleModal2}
                   disabled={isLoadingGroup}>
@@ -180,12 +192,12 @@ const GroupDetails = () => {
                   />{" "}
                   {isLoadingGroup && <Loader />}
                   {isLoadingGroup ? "Deleting..." : "Delete Group"}{" "}
-                </Button>
+                </Button> */}
               </div>
             </div>
 
             <div
-              style={{ maxHeight: "330px", overflowY: "auto" }}
+              style={{ maxHeight: "370px", overflowY: "auto" }}
               className="custom-scrollbar">
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {GroupData.activity
@@ -209,10 +221,10 @@ const GroupDetails = () => {
                 <div onClick={toggleModal} className="overlay"></div>
 
                 <div className="modal-content">
-                  <div className="py-3">
+                  <div className="py-1">
                     <div className="flex justify-between">
                       <div className="py-2">
-                        <h2 className="text-yellow-400	text-2xl font-bold  inline">
+                        <h2 className="text-neutral-200	text-2xl font-bold  inline">
                           Simplify Debts
                         </h2>
                       </div>
@@ -236,8 +248,8 @@ const GroupDetails = () => {
                           <span
                             className={`text-lg font-bold inline ${
                               currentUser?.name === item.from
-                                ? "text-green-500"
-                                : "text-blue-500"
+                                ? "text-sky-300"
+                                : "text-neutral-400"
                             }`}>
                             {" "}
                             "{item.from}"
@@ -246,8 +258,8 @@ const GroupDetails = () => {
                           <span
                             className={`text-lg font-bold inline ${
                               currentUser?.name === item.to
-                                ? "text-green-500"
-                                : "text-blue-500"
+                                ? "text-indigo-300"
+                                : "text-neutral-400"
                             }`}>
                             "{item.to}"{" "}
                           </span>{" "}
@@ -268,10 +280,10 @@ const GroupDetails = () => {
         <div className="modal">
           <div onClick={handleDelete} className="overlay"></div>
           <div className="modal-content">
-            <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+            <h2 className="text-neutral-300	 text-2xl font-bold mb-2">
               Do you want to delete this group?
             </h2>
-            <p className="text-white font-semibold mb-2">
+            <p className="text-neutral-400 font-semibold mb-2">
               If deleted, the Group expense will be permanently removed.
             </p>
             <Button className="btn bg-red hover:bg-red" onClick={toggleModal2}>

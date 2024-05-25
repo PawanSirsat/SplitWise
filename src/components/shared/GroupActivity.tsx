@@ -137,16 +137,16 @@ const GroupActivity = ({ activity }: UserCardProps) => {
         <div className="modal">
           <div onClick={handleDelete} className="overlay"></div>
           <div className="modal-content">
-            <h2 className="text-yellow-400	 text-2xl font-bold mb-2">
+            <h2 className="text-neutral-300	 text-2xl font-bold mb-2">
               Do you want to delete this expense?
             </h2>
-            <p className="text-white font-semibold mb-2">
+            <p className="text-neutral-400 font-semibold mb-2">
               If deleted, the expense will be permanently removed.
             </p>
             <Button className="btn bg-red hover:bg-red" onClick={toggleModal}>
               Cancle
             </Button>
-            <Button className="btn m-2 bg-green-400" onClick={handleDelete}>
+            <Button className="btn m-2 bg-green-600" onClick={handleDelete}>
               Confirm
             </Button>
           </div>

@@ -515,12 +515,13 @@ body.active-modal {
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: #535151;
-  padding: 3px 12px;
-  margin: 5px;
+  background: rgba(82, 79, 79, 0.184);
+  /* Slightly transparent background */
+  padding: 21px;
   border-radius: 5px;
   max-width: 600px;
-  min-width: 280px;
+  min-width: 310px;
+  backdrop-filter: blur(3px);
 }
 
 .close-modal {

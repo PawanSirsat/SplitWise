@@ -15,7 +15,6 @@ const CreateGroup = () => {
             Create a group
           </h2>
         </div>
-
         <PostForm action="Create" />
       </div>
     </div>

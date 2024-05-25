@@ -170,7 +170,7 @@ const AllFriends = () => {
                 <div className="py-1">
                   <div className="flex justify-between">
                     <div className="py-2">
-                      <h2 className="text-yellow-400	text-2xl font-bold  inline">
+                      <h2 className="text-neutral-200	text-2xl font-bold  inline">
                         Simplify Debts
                       </h2>
                     </div>
@@ -194,8 +194,8 @@ const AllFriends = () => {
                         <span
                           className={`text-lg font-bold inline ${
                             currentUser?.name === item.from
-                              ? "text-green-500"
-                              : "text-blue-500"
+                              ? "text-sky-300"
+                              : "text-neutral-400"
                           }`}>
                           {" "}
                           "{item.from}"
@@ -204,8 +204,8 @@ const AllFriends = () => {
                         <span
                           className={`text-lg font-bold inline ${
                             currentUser?.name === item.to
-                              ? "text-green-500"
-                              : "text-blue-500"
+                              ? "text-sky-300"
+                              : "text-neutral-400"
                           }`}>
                           "{item.to}"{" "}
                         </span>{" "}
