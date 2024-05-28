@@ -1,24 +1,21 @@
 import { Models } from "appwrite";
 import { Loader } from "@/components/shared";
-import { useActivity, useGetCurrentUser } from "@/lib/react-query/queries";
 import ActivityCard from "@/components/shared/ActivityCard";
 import SimplifyCard from "@/components/shared/SimplifyCard";
 import { SetStateAction, useState } from "react";
 import Scrollicon from "@/components/ui/Scrollicon";
+import { useUserContext } from "@/context/AuthContext";
+import { useGetGroupsActivityById } from "@/lib/react-query/queries";
 
 const AllActivity = () => {
-  const {
-    data: currentUser,
-    isLoading: isgroupLoading,
-    isError: isErrorgroups,
-  } = useGetCurrentUser();
-  const {
-    data: activity,
-    isLoading: isactivityLoading,
-    isError: isErroractivity,
-  } = useActivity();
-
+  const { user } = useUserContext();
   const [scrollTop, setScrollTop] = useState(0);
+
+  const {
+    data: GroupsData,
+    isLoading: isGroupsDataLoading,
+    isError: isGroupsError,
+  } = useGetGroupsActivityById(user.group);
 
   const handleScroll = (event: {
     currentTarget: { scrollTop: SetStateAction<number> };
@@ -26,23 +23,18 @@ const AllActivity = () => {
     setScrollTop(event.currentTarget.scrollTop);
   };
 
-  const userMemberGroups: Models.Document[] =
-    activity?.documents?.filter(
-      (activity: Models.Document) =>
-        activity.Group.Members?.some(
-          (member: { $id: string | undefined }) =>
-            member.$id === currentUser?.$id
-        )
-    ) ?? [];
-
-  if (isErrorgroups || isErroractivity) {
+  if (isGroupsError) {
     return (
       <div className="flex flex-1">
         <div className="home-container">
-          <p className="body-medium text-dark-1">Something bad happened</p>
+          <span className="body-medium text-dark-1">
+            Something bad happened
+          </span>
         </div>
         <div className="home-creators">
-          <p className="body-medium text-light-1">Something bad happened</p>
+          <span className="body-medium text-light-1">
+            Something bad happened
+          </span>
         </div>
       </div>
     );
@@ -53,22 +45,24 @@ const AllActivity = () => {
       <div className="user-container">
         <div className="container p-3">
           <h2 className="text-white text-2xl font-bold mb-3">Activity</h2>
-          {isgroupLoading || isactivityLoading ? (
+          {isGroupsDataLoading ? (
             <Loader />
-          ) : userMemberGroups.length === 0 ? (
-            <p className="text-white font-bold mb-2">No Activity in Groups</p>
+          ) : GroupsData.length == 0 && !isGroupsDataLoading ? (
+            <span className="text-white font-bold mb-2">
+              No Activity in Groups
+            </span>
           ) : (
             <>
-              <SimplifyCard
-                activities={userMemberGroups}
-                userId={currentUser?.$id}
-              />
+              <SimplifyCard activities={GroupsData} userId={user?.id} />
               <div
                 onScroll={handleScroll}
                 style={{ maxHeight: "440px", overflowY: "auto" }}
                 className="custom-scrollbar">
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {userMemberGroups.map((activity: Models.Document) => (
+                  {GroupsData.sort(
+                    (a, b) =>
+                      new Date(b.Time).getTime() - new Date(a.Time).getTime()
+                  ).map((activity: Models.Document) => (
                     <li
                       key={activity.$id}
                       className="bg-slate-800 p-4 shadow-md rounded-md text white">

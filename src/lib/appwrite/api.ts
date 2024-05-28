@@ -328,6 +328,47 @@ export async function getGroupById(groupId: string) {
   }
 }
 
+export async function getGroupsActivityById(groups: string[]) {
+  try {
+    const groupActivities = await Promise.all(
+      groups.map(async (group) => {
+        const groupData = await getGroupById(group.$id); // Wait for the response
+        if (groupData) {
+          groupData.activity.forEach((obj: { [key: string]: any }) => {
+            obj["Group"] = group; // Associate each activity with the group
+          });
+          return groupData.activity;
+        } else {
+          return [];
+        }
+      })
+    );
+    return groupActivities.flat();
+  } catch (error) {
+    console.error("Error fetching group data:", error);
+    return [];
+  }
+}
+
+export async function getUserGroupsById(groups: string[]) {
+  try {
+    const groupActivities = await Promise.all(
+      groups.map(async (group) => {
+        const groupData = await getGroupById(group.$id); // Wait for the response
+        if (groupData) {
+          return groupData;
+        } else {
+          return [];
+        }
+      })
+    );
+    return groupActivities.flat();
+  } catch (error) {
+    console.error("Error fetching group data:", error);
+    return [];
+  }
+}
+
 export async function geByUsername(username: string) {
   try {
     const users = await databases.listDocuments(

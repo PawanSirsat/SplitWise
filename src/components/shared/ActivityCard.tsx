@@ -51,7 +51,7 @@ const ActivityCard = ({ activity }: UserCardProps) => {
           className={`font-semibold ${
             isPaidByCurrentUser ? "text-green-500" : ""
           }`}>
-          "{activity.PaidBy.UserName}"
+          "{activity.PaidBy.name}"
         </span>{" "}
         in <span className="font-semibold">"{activity.Group.groupName}"</span>
       </p>

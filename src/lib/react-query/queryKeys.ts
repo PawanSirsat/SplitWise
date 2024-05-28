@@ -7,6 +7,8 @@ export enum QUERY_KEYS {
   GET_USERS = "getUsers",
   GET_USER_BY_ID = "getUserById",
   GET_GROUP_BY_ID = "getGroupById",
+  GET_GROUPS_BY_ID = "getGroupsById",
+  GET_USER_GROUPS_BY_ID = "getUserGroupsById",
   GET_USER_BY_USER_NAME = "geByUsername",
 
   // POST KEYS

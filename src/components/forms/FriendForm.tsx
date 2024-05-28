@@ -20,7 +20,9 @@ const SearchResults = ({
     return <ShowFriendList list={searchedFriends} />;
   } else {
     return (
-      <p className="text-light-4 mt-5 text-center w-full">No results found</p>
+      <span className="text-light-4 mt-5 text-center w-full">
+        No results found
+      </span>
     );
   }
 };
@@ -64,9 +66,9 @@ const FriendForm = () => {
             searchedFriends={searchedFriends}
           />
         ) : (
-          <p className="text-light-3 mt-10 text-center w-full">
+          <span className="text-light-3 mt-10 text-center w-full">
             Find Friends By Username
-          </p>
+          </span>
         )}
       </div>
     </div>

@@ -17,6 +17,7 @@ const GroupDetails = () => {
   const { data: GroupData, isLoading: isGroupDataLoading } = useGetGroupById(
     id!
   );
+
   const { data: currentUser } = useGetCurrentUser();
   const { mutateAsync: deleteGroupMutation, isLoading: isLoadingGroup } =
     useDeleteGroup();

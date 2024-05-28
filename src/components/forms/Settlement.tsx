@@ -94,7 +94,7 @@ const Settlement = () => {
                 width={24}
                 height={24}
               />
-              <p className="small-medium lg:base-medium">Back</p>
+              <span className="small-medium lg:base-medium">Back</span>
             </Button>
           </div>
           <form
@@ -155,9 +155,9 @@ const Settlement = () => {
             {isPayerLoading || isReceiverLoading ? (
               <Loader />
             ) : mergedArray.length === 0 ? (
-              <p className="text-white font-bold mb-2">
+              <span className="text-white font-bold mb-2">
                 No Transactions in Users
-              </p>
+              </span>
             ) : (
               <>
                 <div

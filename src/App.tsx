@@ -13,8 +13,25 @@ import AddMemberForm from "./components/forms/AddMemberForm";
 import AddExpense from "./components/forms/AddExpense";
 import GroupDetails from "./_root/pages/GroupDetails";
 import Settlement from "./components/forms/Settlement";
+import {
+  useGetGroupsActivityById,
+  useGetUserGroupsById,
+} from "./lib/react-query/queries";
+import { useUserContext } from "./context/AuthContext";
+import { useEffect } from "react";
 
 const App = () => {
+  const { user, isLoading } = useUserContext();
+
+  const groupsActivityQuery = useGetGroupsActivityById(user?.group);
+  const userGroupsQuery = useGetUserGroupsById(user?.group);
+
+  useEffect(() => {
+    if (!isLoading && user?.name.length !== 0) {
+      groupsActivityQuery.refetch();
+      userGroupsQuery.refetch();
+    }
+  }, [isLoading, user, groupsActivityQuery, userGroupsQuery]);
   return (
     <main className="flex h-screen">
       <Routes>

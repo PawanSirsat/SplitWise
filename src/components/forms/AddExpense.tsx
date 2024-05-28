@@ -109,9 +109,9 @@ const AddExpense = () => {
             {isGroupDataLoading ? (
               <Loader />
             ) : GroupData?.length === 0 ? (
-              <p className="text-white font-bold mb-2">
+              <span className="text-white font-bold mb-2">
                 You are not part of any groups.
-              </p>
+              </span>
             ) : (
               <>
                 <h2 className="text-lg font-bold mb-2 text-white">
@@ -225,9 +225,9 @@ const AddExpense = () => {
                         ))}
                       </div>
                       {isCheckboxError && (
-                        <p className="text-red text-sm mt-2">
+                        <span className="text-red text-sm mt-2">
                           Please select at least one member other than you.
-                        </p>
+                        </span>
                       )}
                     </div>
                   </div>

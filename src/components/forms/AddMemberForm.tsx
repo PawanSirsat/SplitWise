@@ -82,7 +82,7 @@ const AddMemberForm = () => {
                 width={24}
                 height={24}
               />
-              <p className="small-medium lg:base-medium">Back</p>
+              <span className="small-medium lg:base-medium">Back</span>
             </Button>
           </div>
           <h2 className="h3-bold md:h2-bold w-full">Add Member</h2>
@@ -90,7 +90,9 @@ const AddMemberForm = () => {
           {isGroupDataLoading || isFrndLoading ? (
             <Loader />
           ) : friendArray.length === 0 ? (
-            <p className="text-white font-bold mb-2">You have no friends</p>
+            <span className="text-white font-bold mb-2">
+              You have no friends
+            </span>
           ) : (
             <div
               style={{ maxHeight: "370px", overflowY: "auto" }}

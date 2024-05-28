@@ -1,9 +1,8 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
 import {
-  useActivity,
-  useGetCurrentUser,
-  useGroups,
+  useGetGroupsActivityById,
+  useGetUserGroupsById,
 } from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,14 +13,21 @@ import {
 import Scrollicon from "@/components/ui/Scrollicon";
 import { SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useUserContext } from "@/context/AuthContext";
 
 const AllFriends = () => {
   const navigate = useNavigate();
+  const { user } = useUserContext();
   const {
-    data: currentUser,
-    isLoading: isgroupLoading,
-    isError: isErrorgroups,
-  } = useGetCurrentUser();
+    data: userGroupsData,
+    isLoading: isUserGroupsLoading,
+    isError: isErrorGroupsLoading,
+  } = useGetUserGroupsById(user?.group);
+  const {
+    data: GroupsActivity,
+    isLoading: isGroupsActivityLoading,
+    isError: isErrorGroupsActivity,
+  } = useGetGroupsActivityById(user?.group);
 
   const [scrollTop, setScrollTop] = useState(0);
   const handleScroll = (event: {
@@ -29,17 +35,11 @@ const AllFriends = () => {
   }) => {
     setScrollTop(event.currentTarget.scrollTop);
   };
-  const { data: currentGroup, isLoading: isDataloading } = useGroups();
 
-  const userGroups: Models.Document[] =
-    currentGroup?.documents?.filter((group: Models.Document) => {
-      return group.Members?.some(
-        (member: { $id: string | undefined }) => member.$id === currentUser?.$id
-      );
-    }) ?? [];
+  const userGroups: Models.Document[] = userGroupsData || [];
 
   const simplifiedData2: { from: any; to: any; amount: number }[] =
-    !isgroupLoading ? simplifyTransactions(userGroups) : [];
+    !isUserGroupsLoading ? simplifyTransactions(userGroups) : [];
 
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
@@ -51,39 +51,21 @@ const AllFriends = () => {
   } else {
     document.body.classList.remove("active-modal");
   }
-  const uniqueUserIds = getUniqueUserIdsFromGroups(
-    userGroups,
-    currentUser?.$id
-  );
+
+  const uniqueUserIds = getUniqueUserIdsFromGroups(userGroups, user?.id);
 
   let userFriends: Models.Document[] = [];
 
-  const { data: activity } = useActivity();
+  const userMemberGroups = GroupsActivity || [];
 
-  const userMemberGroups: Models.Document[] =
-    activity?.documents?.filter(
-      (activity: Models.Document) =>
-        activity.Group.Members?.some(
-          (member: { $id: string | undefined }) =>
-            member.$id === currentUser?.$id
-        )
-    ) ?? [];
-
-  // Example usage:
-  const userId = currentUser?.$id; // Replace with the actual user ID
+  const userId = user?.id;
   const jsonData = userMemberGroups;
 
-  if (
-    (currentUser &&
-      currentUser.List &&
-      currentUser.List.length > 0 &&
-      currentUser.List[0].friendsId) ||
-    uniqueUserIds.length > 0
-  ) {
+  if ((user && user.list && user.list.length > 0) || uniqueUserIds.length > 0) {
     userFriends = uniqueUserIds;
   }
 
-  if (isErrorgroups) {
+  if (isErrorGroupsLoading || isErrorGroupsActivity) {
     return (
       <div className="flex flex-1">
         <div className="home-container">
@@ -107,14 +89,14 @@ const AllFriends = () => {
               <h2 className="text-white text-2xl font-bold mb-6 inline p-1">
                 <button
                   style={{ backgroundColor: "#1CC29F" }}
-                  className="font-semibold bg-blue-500 text-white px-4 py-1  ml-2 rounded-full 
+                  className="font-semibold bg-blue-500 text-white px-4 py-1 ml-2 rounded-full 
       hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 text-lg"
                   onClick={() => navigate("/add-friend")}>
                   Add Friend
                 </button>
               </h2>
             </div>
-            <div className=" ml-1">
+            <div className="ml-1">
               <Button className="m-1" onClick={toggleModal}>
                 <img
                   className="mr-1 p-1"
@@ -128,10 +110,12 @@ const AllFriends = () => {
             </div>
           </div>
 
-          {isgroupLoading || isDataloading ? (
+          {isGroupsActivityLoading || isUserGroupsLoading ? (
             <Loader />
           ) : userFriends.length === 0 ? (
-            <p className="text-white font-bold mb-2">You have no friends</p>
+            <span className="text-white font-bold mb-2">
+              You have no friends
+            </span>
           ) : (
             <div
               style={{ maxHeight: "470px", overflowY: "auto" }}
@@ -141,7 +125,7 @@ const AllFriends = () => {
                 {userFriends.map((friend: Models.Document) => {
                   const updatedUserFriendsID = friend.$id;
                   const { userCanPay, friendCanPay } = processTransactions(
-                    userId || "", // Ensure userId is not undefined
+                    userId || "",
                     jsonData || [],
                     updatedUserFriendsID || []
                   );
@@ -162,7 +146,7 @@ const AllFriends = () => {
               </ul>
             </div>
           )}
-          {modal && currentGroup && simplifiedData2 && (
+          {modal && userGroupsData && simplifiedData2.length > 0 && (
             <div className="modal">
               <div onClick={toggleModal} className="overlay"></div>
 
@@ -170,7 +154,7 @@ const AllFriends = () => {
                 <div className="py-1">
                   <div className="flex justify-between">
                     <div className="py-2">
-                      <h2 className="text-neutral-200	text-2xl font-bold  inline">
+                      <h2 className="text-neutral-200 text-2xl font-bold inline">
                         Simplify Debts
                       </h2>
                     </div>
@@ -182,38 +166,35 @@ const AllFriends = () => {
                           width="40"
                           height="40"
                           src="/assets/icons/close.png"
-                          alt="paytm"
+                          alt="close"
                         />
                       </button>
                     </div>
                   </div>
 
                   {simplifiedData2.map((item: any) => (
-                    <>
-                      <p className="">
-                        <span
-                          className={`text-lg font-bold inline ${
-                            currentUser?.name === item.from
-                              ? "text-sky-300"
-                              : "text-neutral-400"
-                          }`}>
-                          {" "}
-                          "{item.from}"
-                        </span>{" "}
-                        owes{" "}
-                        <span
-                          className={`text-lg font-bold inline ${
-                            currentUser?.name === item.to
-                              ? "text-sky-300"
-                              : "text-neutral-400"
-                          }`}>
-                          "{item.to}"{" "}
-                        </span>{" "}
-                        <span className="text-lg font-bold text-red ">
-                          &#8377;&nbsp;{item.amount.toFixed(1)}
-                        </span>
-                      </p>
-                    </>
+                    <p key={`${item.from}-${item.to}`}>
+                      <span
+                        className={`text-lg font-bold inline ${
+                          user?.name === item.from
+                            ? "text-sky-300"
+                            : "text-neutral-400"
+                        }`}>
+                        "{item.from}"
+                      </span>{" "}
+                      owes{" "}
+                      <span
+                        className={`text-lg font-bold inline ${
+                          user?.name === item.to
+                            ? "text-sky-300"
+                            : "text-neutral-400"
+                        }`}>
+                        "{item.to}"{" "}
+                      </span>{" "}
+                      <span className="text-lg font-bold text-red">
+                        &#8377;&nbsp;{item.amount.toFixed(1)}
+                      </span>
+                    </p>
                   ))}
                 </div>
               </div>

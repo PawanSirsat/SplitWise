@@ -55,6 +55,8 @@ export type IUser = {
   name: string;
   username: string;
   email: string;
+  group: string;
+  list: string;
 };
 
 export type INewUser = {

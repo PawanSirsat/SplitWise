@@ -1,31 +1,21 @@
 import { Models } from "appwrite";
 import { Loader, PostCard } from "@/components/shared";
-import { useGetCurrentUser, useGroups } from "@/lib/react-query/queries";
 import { useNavigate } from "react-router-dom";
+import { useGetCurrentUser } from "@/lib/react-query/queries";
 
 const Home = () => {
   const navigate = useNavigate();
   const {
     data: currentUser,
-    isLoading: isgroupLoading,
-    isError: isErrorgroups,
+    isLoading: userloading,
+    isError: isusererror,
   } = useGetCurrentUser();
-  const {
-    data: currentGroup,
-    isLoading: isLoading,
-    isError: iserror,
-  } = useGroups();
 
-  // console.log(currentGroup);
+  let userMemberGroups = currentUser?.UserMember
+    ? [...currentUser.UserMember].reverse()
+    : [];
 
-  const userMemberGroups: Models.Document[] =
-    currentGroup?.documents?.filter((group: Models.Document) => {
-      return group.Members?.some(
-        (member: { $id: string | undefined }) => member.$id === currentUser?.$id
-      );
-    }) ?? [];
-
-  if (isErrorgroups || iserror) {
+  if (isusererror) {
     return (
       <>
         <div className="home-container">
@@ -51,7 +41,7 @@ const Home = () => {
               Add Group
             </button>
           </h2>
-          {isLoading || isgroupLoading ? (
+          {userloading ? (
             <Loader />
           ) : userMemberGroups.length === 0 ? (
             <p className="text-white font-bold mb-2">

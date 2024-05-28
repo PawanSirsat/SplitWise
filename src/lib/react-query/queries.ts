@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
 import {
   createUserAccount,
@@ -19,6 +18,8 @@ import {
   makeSettlement,
   getsettlement,
   deleteGroup,
+  getGroupsActivityById,
+  getUserGroupsById,
 } from "@/lib/appwrite/api";
 import { INewExpense, INewGroup, INewUser, ISettlement } from "@/types";
 
@@ -92,10 +93,15 @@ export const useCreateExpense = () => {
   return useMutation({
     mutationFn: (expense: INewExpense) => createExpense(expense),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_RECENT_ACTIVITY],
-      });
+      queryClient.invalidateQueries([QUERY_KEYS.GET_GROUPS_BY_ID]);
+      queryClient.invalidateQueries([QUERY_KEYS.GET_CURRENT_USER]);
     },
+  });
+};
+export const useGetCurrentUser = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+    queryFn: getCurrentUser,
   });
 };
 
@@ -148,13 +154,6 @@ export const useDeleteGroup = () => {
   });
 };
 
-export const useGetCurrentUser = () => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_CURRENT_USER],
-    queryFn: getCurrentUser,
-  });
-};
-
 export const useGetUsers = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_USERS],
@@ -175,6 +174,22 @@ export const useGetGroupById = (groupId: string) => {
     queryKey: [QUERY_KEYS.GET_GROUP_BY_ID, groupId],
     queryFn: () => getGroupById(groupId),
     enabled: !!groupId,
+  });
+};
+
+export const useGetGroupsActivityById = (groups: string[]) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_GROUPS_BY_ID, groups],
+    queryFn: () => getGroupsActivityById(groups),
+    enabled: !!groups,
+  });
+};
+
+export const useGetUserGroupsById = (groups: string[]) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_GROUPS_BY_ID, groups],
+    queryFn: () => getUserGroupsById(groups),
+    enabled: !!groups,
   });
 };
 
