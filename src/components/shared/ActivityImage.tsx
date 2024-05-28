@@ -1,21 +1,27 @@
 import { imageKeywordPairs, imageKeywordPairsGroup } from "@/types";
 
+interface ImageKeywordPair {
+  name: string;
+  keywords: string[];
+}
+
 type UserCardProps = {
   Desc: string;
   Type: string;
 };
 
 const ActivityImage = ({ Desc, Type }: UserCardProps) => {
-  let imageKeywordPair;
+  let imageKeywordPair: ImageKeywordPair[];
   if (Type === "group") {
     imageKeywordPair = imageKeywordPairsGroup;
   } else {
     imageKeywordPair = imageKeywordPairs;
   }
+
   const findMatchingImage = (desc: string) => {
     const lowercaseDesc = desc.toLowerCase();
     const matchingImage = imageKeywordPair.find((pair) =>
-      pair.keywords.some((keyword: any) => lowercaseDesc.includes(keyword))
+      pair.keywords.some((keyword: string) => lowercaseDesc.includes(keyword))
     );
 
     if (matchingImage) {
