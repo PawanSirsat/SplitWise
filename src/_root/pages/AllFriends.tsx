@@ -31,9 +31,7 @@ const AllFriends = () => {
     isError: isErrorGroupsActivity,
   } = useGetGroupsActivityById(group);
 
-  const { data: friendList, isLoading: isFriendListLoading } = useFriends(
-    user.id
-  );
+  const { data: friendList } = useFriends(user.id);
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
