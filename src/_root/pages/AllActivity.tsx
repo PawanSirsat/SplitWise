@@ -10,12 +10,13 @@ import { useGetGroupsActivityById } from "@/lib/react-query/queries";
 const AllActivity = () => {
   const { user } = useUserContext();
   const [scrollTop, setScrollTop] = useState(0);
+  const group: any = user.group;
 
   const {
     data: GroupsData,
     isLoading: isGroupsDataLoading,
     isError: isGroupsError,
-  } = useGetGroupsActivityById(user.group);
+  } = useGetGroupsActivityById(group);
 
   const handleScroll = (event: {
     currentTarget: { scrollTop: SetStateAction<number> };

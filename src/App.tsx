@@ -22,9 +22,9 @@ import { useEffect } from "react";
 
 const App = () => {
   const { user, isLoading } = useUserContext();
-
-  const groupsActivityQuery = useGetGroupsActivityById(user?.group);
-  const userGroupsQuery = useGetUserGroupsById(user?.group);
+  const group: any = user.group;
+  const groupsActivityQuery = useGetGroupsActivityById(group);
+  const userGroupsQuery = useGetUserGroupsById(group);
 
   useEffect(() => {
     if (!isLoading && user?.name.length !== 0) {

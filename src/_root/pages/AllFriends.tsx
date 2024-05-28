@@ -18,16 +18,17 @@ import { useUserContext } from "@/context/AuthContext";
 const AllFriends = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
+  const group: any = user.group;
   const {
     data: userGroupsData,
     isLoading: isUserGroupsLoading,
     isError: isErrorGroupsLoading,
-  } = useGetUserGroupsById(user?.group);
+  } = useGetUserGroupsById(group);
   const {
     data: GroupsActivity,
     isLoading: isGroupsActivityLoading,
     isError: isErrorGroupsActivity,
-  } = useGetGroupsActivityById(user?.group);
+  } = useGetGroupsActivityById(group);
 
   const [scrollTop, setScrollTop] = useState(0);
   const handleScroll = (event: {

@@ -331,7 +331,7 @@ export async function getGroupById(groupId: string) {
 export async function getGroupsActivityById(groups: string[]) {
   try {
     const groupActivities = await Promise.all(
-      groups.map(async (group) => {
+      groups.map(async (group: any) => {
         const groupData = await getGroupById(group.$id); // Wait for the response
         if (groupData) {
           groupData.activity.forEach((obj: { [key: string]: any }) => {
@@ -353,7 +353,7 @@ export async function getGroupsActivityById(groups: string[]) {
 export async function getUserGroupsById(groups: string[]) {
   try {
     const groupActivities = await Promise.all(
-      groups.map(async (group) => {
+      groups.map(async (group: any) => {
         const groupData = await getGroupById(group.$id); // Wait for the response
         if (groupData) {
           return groupData;
