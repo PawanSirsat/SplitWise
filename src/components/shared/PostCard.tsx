@@ -1,5 +1,6 @@
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
+import ActivityImage from "./ActivityImage";
 
 type PostCardProps = {
   post: Models.Document;
@@ -16,9 +17,13 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <>
       <Link to={`/groups/${post?.$id}`}>
-        <h2 className="text-lg font-bold mb-2 text-emerald-500">
-          {post.groupName}
-        </h2>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <ActivityImage Desc={post.groupName} Type={"group"} />
+          <p className="text-lg font-bold mb-2 mt-2 text-emerald-500">
+            &ensp;{post.groupName}
+          </p>
+        </div>
+
         {/* {post.Members && post.Members.length > 2 && (
           <p className="font-bold text-gray-400">
             Members :&nbsp;&nbsp;
@@ -28,7 +33,7 @@ const PostCard = ({ post }: PostCardProps) => {
            </span>
           </p>
         )} */}
-        <p className="font-bold text-gray-400 capitalize">
+        <p className="font-bold text-gray-400 capitalize mt-2">
           Creator :&nbsp;&nbsp;
           <span className="font-mono text-blue-400">{post.Creator?.name}</span>
         </p>

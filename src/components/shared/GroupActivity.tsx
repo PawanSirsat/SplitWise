@@ -74,7 +74,7 @@ const GroupActivity = ({ activity }: UserCardProps) => {
         style={{ display: "flex", justifyContent: "space-between" }}
         className="pb-2">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <ActivityImage Desc={activity.Desc} />
+          <ActivityImage Desc={activity.Desc} Type={"activity"} />
           <p className="text-lg font-bold mb-1 mt-2">&ensp;{activity.Desc}</p>
         </div>
         <span className="text-blue-500 text-lg font-bold mt-2">
