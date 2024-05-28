@@ -117,7 +117,7 @@ const GroupActivity = ({ activity }: UserCardProps) => {
           onClick={toggleModal}
           style={{
             backgroundColor:
-              isHovered || isLoadingExpense ? "#FF6347" : "#1CC29F",
+              isHovered || isLoadingExpense ? "#FF6347" : "#E53E3E",
             color: "white", // Text color
             padding: "8px 12px", // Equivalent to py-2 px-4
             borderRadius: "8px", // Rounded corners

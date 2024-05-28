@@ -145,7 +145,7 @@ const GroupDetails = () => {
             </h2>
             <p className="font-bold text-gray-400">
               Members :&nbsp;&nbsp;
-              <span className="font-mono text-blue-400">
+              <span className="font-mono text-blue-400 capitalize">
                 {membersToShow
                   ?.map((user: { name: any }) => user.name)
                   .join(",")}

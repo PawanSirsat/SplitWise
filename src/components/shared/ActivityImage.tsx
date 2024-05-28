@@ -17,7 +17,6 @@ const ActivityImage = ({ Desc, Type }: UserCardProps) => {
   } else {
     imageKeywordPair = imageKeywordPairs;
   }
-
   const findMatchingImage = (desc: string) => {
     const lowercaseDesc = desc.toLowerCase();
     const matchingImage = imageKeywordPair.find((pair) =>

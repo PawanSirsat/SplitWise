@@ -41,7 +41,7 @@ const Profile = () => {
               style={{ display: "flex", alignItems: "center" }}
               className="pb-3 text-white">
               <Profilephoto name={currentUser} />
-              <span className="text-lg font-bold mb-1 pl-3 text-blue-500">
+              <span className="text-lg font-bold mb-1 pl-3 text-blue-500 capitalize">
                 {currentUser.name}{" "}
               </span>
             </div>

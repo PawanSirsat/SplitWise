@@ -12,7 +12,7 @@ const MemberCard = ({ user }: UserCardProps) => {
         style={{ display: "flex", alignItems: "center" }}
         className="pb-3 text-white">
         <Profilephoto name={user} />
-        <p className="text-lg font-bold mb-1 pl-3 text-blue-500">
+        <p className="text-lg font-bold mb-1 pl-3 text-blue-500 capitalize">
           {user.name}{" "}
         </p>
       </div>

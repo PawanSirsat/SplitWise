@@ -48,12 +48,15 @@ const ActivityCard = ({ activity }: UserCardProps) => {
       <p>
         Added by{" "}
         <span
-          className={`font-semibold ${
-            isPaidByCurrentUser ? "text-green-500" : ""
+          className={`font-semibold capitalize ${
+            isPaidByCurrentUser ? "text-green-500 capitalize" : "capitalize"
           }`}>
           "{activity.PaidBy.name}"
         </span>{" "}
-        in <span className="font-semibold">"{activity.Group.groupName}"</span>
+        in{" "}
+        <span className="font-semibold capitalize">
+          "{activity.Group.groupName}"
+        </span>
       </p>
       <p>
         <DateDisplay dateTimeString={activity.Time} />
@@ -61,10 +64,10 @@ const ActivityCard = ({ activity }: UserCardProps) => {
       <p
         className={`${
           isPaidByCurrentUser
-            ? "text-green-500 font-semibold"
+            ? "text-green-500 font-semibold capitalize"
             : !isPaidByCurrentUser && isCurrentUserInvolved
-              ? "text-red font-semibold"
-              : "text-indigo-700 font-semibold"
+              ? "text-red font-semibold capitalize"
+              : "text-indigo-700 font-semibold capitalize"
         }`}>
         {amountMessage}
       </p>
