@@ -86,13 +86,13 @@ const GroupActivity = ({ activity }: UserCardProps) => {
       <p>
         Added by{" "}
         <span
-          className={`font-semibold ${
-            isPaidByCurrentUser ? "text-green-500" : "text-teal-400"
+          className={`font-semibold capitalize ${
+            isPaidByCurrentUser ? "text-green-500 " : "text-teal-400"
           }`}>
           "{activity.PaidBy.name}"
         </span>{" "}
         Split in{" "}
-        <span className="font-bold text-teal-400	">
+        <span className="font-bold text-teal-400 capitalize">
           {activity.splitMember?.map(
             (member: {
               UserName: string;
