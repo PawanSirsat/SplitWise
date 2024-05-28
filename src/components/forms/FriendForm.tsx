@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui";
 import useDebounce from "@/hooks/useDebounce";
 import { Loader } from "@/components/shared";
 import { useGetUserByUserName } from "@/lib/react-query/queries";
 import ShowFriendList from "../shared/ShowFriendList";
+import { geByUsername } from "@/lib/appwrite/api";
+import { useUserContext } from "@/context/AuthContext";
 
 export type SearchResultProps = {
   isSearchFetching: boolean;
@@ -28,10 +30,38 @@ const SearchResults = ({
 };
 
 const FriendForm = () => {
+  const { user } = useUserContext();
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearch = useDebounce(searchValue, 500);
   const { data: searchedFriends, isFetching: isSearchFetching } =
     useGetUserByUserName(debouncedSearch);
+  const [friendSuggestions, setFriendSuggestions] = useState<any[]>([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const friendUserList = ["yogesh21", "pawan21", "nayan21", "john21"];
+
+  useEffect(() => {
+    const fetchFriendSuggestions = async () => {
+      setIsLoading(true);
+      const friendData = await Promise.all(
+        friendUserList.map(async (username) => {
+          try {
+            const user = await geByUsername(username);
+            return user;
+          } catch (error) {
+            console.error(`Error fetching user data for ${username}:`, error);
+            return null;
+          } finally {
+            setIsLoading(false);
+          }
+        })
+      );
+      setFriendSuggestions(friendData.filter((user) => user !== null));
+    };
+
+    fetchFriendSuggestions();
+  }, []);
 
   const shouldShowSearchResults = searchValue !== "";
 
@@ -48,7 +78,7 @@ const FriendForm = () => {
           />
           <Input
             type="text"
-            placeholder="Enter Username"
+            placeholder="Find Friends By Username"
             className="explore-search"
             value={searchValue}
             onChange={(e) => {
@@ -66,9 +96,30 @@ const FriendForm = () => {
             searchedFriends={searchedFriends}
           />
         ) : (
-          <span className="text-light-3 mt-10 text-center w-full">
-            Find Friends By Username
-          </span>
+          <>
+            <span className="text-light-1 mt-5 text-center w-full">
+              Friends Suggestions
+            </span>
+            {isLoading ? <Loader /> : null}
+            <div
+              style={{ maxHeight: "370px", overflowY: "auto" }}
+              className="custom-scrollbar">
+              {!isLoading && (
+                <>
+                  {friendSuggestions.map(
+                    (friend, index) =>
+                      user.name !== friend.name && (
+                        <SearchResults
+                          key={index}
+                          isSearchFetching={false}
+                          searchedFriends={friend}
+                        />
+                      )
+                  )}
+                </>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

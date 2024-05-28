@@ -141,9 +141,10 @@ const ShowFriendList: React.FC<ShowFriendListProps> = ({ list }) => {
 
   return (
     <>
-      <h4 className="m-3">User Found</h4>
       <div className="flex">
-        <div className="bg-slate-800 p-4 shadow-md rounded-md text-white mb-4">
+        <div
+          className="bg-slate-800 p-4 shadow-md rounded-md text-white mb-4"
+          style={{ width: "340px" }}>
           <div className="flex items-center">
             <Profilephoto name={list} />
             <div className="ml-2">

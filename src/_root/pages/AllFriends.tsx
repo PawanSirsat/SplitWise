@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
 import { Loader, UserCard } from "@/components/shared";
 import {
+  useFriends,
   useGetGroupsActivityById,
   useGetUserGroupsById,
 } from "@/lib/react-query/queries";
@@ -30,6 +31,18 @@ const AllFriends = () => {
     isError: isErrorGroupsActivity,
   } = useGetGroupsActivityById(group);
 
+  const { data: friendList, isLoading: isFriendListLoading } = useFriends(
+    user.id
+  );
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  let userFriends: Models.Document[] = [];
+  const userMemberGroups = GroupsActivity || [];
+  const userGroups: Models.Document[] = userGroupsData || [];
+
   const [scrollTop, setScrollTop] = useState(0);
   const handleScroll = (event: {
     currentTarget: { scrollTop: SetStateAction<number> };
@@ -37,33 +50,37 @@ const AllFriends = () => {
     setScrollTop(event.currentTarget.scrollTop);
   };
 
-  const userGroups: Models.Document[] = userGroupsData || [];
-
   const simplifiedData2: { from: any; to: any; amount: number }[] =
     !isUserGroupsLoading ? simplifyTransactions(userGroups) : [];
 
-  const [modal, setModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+  const uniqueUserIds = getUniqueUserIdsFromGroups(userGroups, user?.id);
+  const uniqueUserIds2 = friendList?.documents[0]?.friendsId || [];
 
+  // Function to merge JSON arrays while excluding duplicates based on ID
+  const mergeUniqueUsers = (json1: any[], json2: any[]): any[] => {
+    const merged: any[] = [...json1];
+    const idsSet: Set<number> = new Set(json1.map((user) => user.id));
+
+    json2.forEach((user) => {
+      if (!idsSet.has(user.id)) {
+        merged.push(user);
+        idsSet.add(user.id);
+      }
+    });
+
+    return merged;
+  };
+  const mergedJson: any[] = mergeUniqueUsers(uniqueUserIds2, uniqueUserIds);
+
+  if ((user && user.list && user.list.length > 0) || uniqueUserIds.length > 0) {
+    userFriends = mergedJson;
+  }
+  const userId = user?.id;
+  const jsonData = userMemberGroups;
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
-  }
-
-  const uniqueUserIds = getUniqueUserIdsFromGroups(userGroups, user?.id);
-
-  let userFriends: Models.Document[] = [];
-
-  const userMemberGroups = GroupsActivity || [];
-
-  const userId = user?.id;
-  const jsonData = userMemberGroups;
-
-  if ((user && user.list && user.list.length > 0) || uniqueUserIds.length > 0) {
-    userFriends = uniqueUserIds;
   }
 
   if (isErrorGroupsLoading || isErrorGroupsActivity) {
