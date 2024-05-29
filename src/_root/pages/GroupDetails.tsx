@@ -2,11 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, toast } from "@/components/ui";
 import { Loader } from "@/components/shared";
-import {
-  useDeleteGroup,
-  useGetCurrentUser,
-  useGetGroupById,
-} from "@/lib/react-query/queries";
+import { useDeleteGroup, useGetGroupById } from "@/lib/react-query/queries";
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
 import { simplifyTransactions } from "@/components/shared/Simplify";
