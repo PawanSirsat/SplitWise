@@ -53,16 +53,15 @@ const FriendForm = () => {
             console.error(`Error fetching user data for ${username}:`, error);
             return null;
           } finally {
-            setIsLoading(false);
           }
         })
       );
       setFriendSuggestions(friendData.filter((user) => user !== null));
+      setIsLoading(false);
     };
 
     fetchFriendSuggestions();
   }, []);
-
   const shouldShowSearchResults = searchValue !== "";
 
   return (
