@@ -1,11 +1,10 @@
 const Loader = () => (
   <div className="flex-center w-full">
     <img
-      src="/assets/icons/loader.svg"
-      alt="loader"
-      width={24}
-      height={24}
-      className="animate-spin"
+      src="/assets/icons/Loader2.gif"
+      alt="Loading..."
+      width={40}
+      height={40}
     />
   </div>
 );
