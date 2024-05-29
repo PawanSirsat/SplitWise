@@ -10,6 +10,7 @@ import {
 import { Models } from "appwrite";
 import GroupActivity from "@/components/shared/GroupActivity";
 import { simplifyTransactions } from "@/components/shared/Simplify";
+import { useUserContext } from "@/context/AuthContext";
 
 const GroupDetails = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const GroupDetails = () => {
     id!
   );
 
-  const { data: currentUser } = useGetCurrentUser();
+  const { user } = useUserContext();
   const { mutateAsync: deleteGroupMutation, isLoading: isLoadingGroup } =
     useDeleteGroup();
   const [modal2, setModal2] = useState(false);
@@ -248,7 +249,7 @@ const GroupDetails = () => {
                         <p className="">
                           <span
                             className={`text-lg font-bold inline ${
-                              currentUser?.name === item.from
+                              user?.name === item.from
                                 ? "text-sky-300"
                                 : "text-neutral-400"
                             }`}>
@@ -258,7 +259,7 @@ const GroupDetails = () => {
                           owes{" "}
                           <span
                             className={`text-lg font-bold inline ${
-                              currentUser?.name === item.to
+                              user?.name === item.to
                                 ? "text-indigo-300"
                                 : "text-neutral-400"
                             }`}>

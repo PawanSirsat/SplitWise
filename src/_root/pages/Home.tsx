@@ -43,7 +43,7 @@ const Home = () => {
           </h2>
           {userloading ? (
             <Loader />
-          ) : userMemberGroups.length === 0 ? (
+          ) : userMemberGroups.length === 0 && !userloading ? (
             <p className="text-white font-bold mb-2">
               You are not part of any groups.
             </p>

@@ -22,6 +22,7 @@ import {
   getUserGroupsById,
 } from "@/lib/appwrite/api";
 import { INewExpense, INewGroup, INewUser, ISettlement } from "@/types";
+import { useUserContext } from "@/context/AuthContext";
 
 // ============================================================
 // AUTH QUERIES
@@ -89,12 +90,23 @@ export const useCreateGroup = () => {
 };
 
 export const useCreateExpense = () => {
+  const { user } = useUserContext();
+
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (expense: INewExpense) => createExpense(expense),
-    onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.GET_GROUPS_BY_ID]);
+    onSuccess: (expense) => {
       queryClient.invalidateQueries([QUERY_KEYS.GET_CURRENT_USER]);
+      queryClient.invalidateQueries([
+        QUERY_KEYS.GET_GROUP_BY_ID,
+        expense?.group,
+      ]);
+      queryClient.invalidateQueries([
+        QUERY_KEYS.GET_USER_GROUPS_BY_ID,
+        user.group,
+      ]);
+      queryClient.invalidateQueries([QUERY_KEYS.GET_GROUPS_BY_ID, user.group]);
+      queryClient.invalidateQueries([QUERY_KEYS.GET_FRIENDS]);
     },
   });
 };

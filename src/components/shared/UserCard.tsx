@@ -151,12 +151,7 @@ const UserCard: React.FC<UserCardProps> = ({
       </div>
 
       <div className={` ${isBlurred ? "blurred2 capitalize" : "capitalize"}`}>
-        {(userCanPay === 0 &&
-          friendCanPay === 0 &&
-          issettlementDataReceiverLoading &&
-          issettlementDataPayerLoading) ||
-        issettlementDataPayerLoading ||
-        issettlementDataReceiverLoading ? (
+        {issettlementDataPayerLoading || issettlementDataReceiverLoading ? (
           <CircleLoader />
         ) : (
           <>

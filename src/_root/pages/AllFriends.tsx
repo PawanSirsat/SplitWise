@@ -31,7 +31,12 @@ const AllFriends = () => {
     isError: isErrorGroupsActivity,
   } = useGetGroupsActivityById(group);
 
-  const { data: friendList } = useFriends(user.id);
+  const {
+    data: friendList,
+    isLoading: isfriendListLoading,
+    isError: isErrorfriendList,
+  } = useFriends(user.id);
+
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
@@ -68,9 +73,16 @@ const AllFriends = () => {
 
     return merged;
   };
-  const mergedJson: any[] = mergeUniqueUsers(uniqueUserIds2, uniqueUserIds);
 
-  if ((user && user.list && user.list.length > 0) || uniqueUserIds.length > 0) {
+  if (
+    (user &&
+      user.list &&
+      user.list.length > 0 &&
+      !isUserGroupsLoading &&
+      !isfriendListLoading) ||
+    uniqueUserIds.length > 0
+  ) {
+    const mergedJson: any[] = mergeUniqueUsers(uniqueUserIds2, uniqueUserIds);
     userFriends = mergedJson;
   }
   const userId = user?.id;
@@ -81,7 +93,7 @@ const AllFriends = () => {
     document.body.classList.remove("active-modal");
   }
 
-  if (isErrorGroupsLoading || isErrorGroupsActivity) {
+  if (isErrorGroupsLoading || isErrorGroupsActivity || isErrorfriendList) {
     return (
       <div className="flex flex-1">
         <div className="home-container">
@@ -126,9 +138,13 @@ const AllFriends = () => {
             </div>
           </div>
 
-          {isGroupsActivityLoading || isUserGroupsLoading ? (
+          {isGroupsActivityLoading ||
+          isUserGroupsLoading ||
+          isfriendListLoading ? (
             <Loader />
-          ) : userFriends.length === 0 ? (
+          ) : userFriends.length === 0 &&
+            !isUserGroupsLoading &&
+            !isfriendListLoading ? (
             <span className="text-white font-bold mb-2">
               You have no friends
             </span>
