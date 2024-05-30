@@ -3,8 +3,8 @@ const Loader = () => (
     <img
       src="/assets/icons/Loader2.gif"
       alt="Loading..."
-      width={40}
-      height={40}
+      width={30}
+      height={30}
     />
   </div>
 );
