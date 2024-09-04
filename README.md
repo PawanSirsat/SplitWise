@@ -1,98 +1,88 @@
-# SplitWise Clone
+Here's a more organized and user-friendly version of the installation guide for the SplitWise Clone, SpendShare:
 
-SpendShare is a web application for splitting expenses in groups. It allows users to manage groups, track expenses, and view activity history.
-### Installation
+---
 
-1. Clone the repository:
+# **SpendShare Installation Guide**
+
+**SpendShare** is a web application designed to help users manage group expenses, track payments, and view activity history. Follow this step-by-step guide to set up the application on your local machine.
+
+---
+
+### **1. Clone the Repository**
+
+Begin by cloning the SpendShare repository to your local machine:
 
 ```bash
 git clone https://github.com/PawanSirsat/SpendShare.git
 ```
 
-2. Installation
+### **2. Install Dependencies**
+
+Navigate to the project directory and install the required Node.js packages:
 
 ```bash
 cd spendshare
 npm install
 ```
-3. Install Tailwind
+
+### **3. Install and Configure Tailwind CSS**
+
+Install Tailwind CSS and initialize it in your project:
 
 ```bash
 npm install -D tailwindcss
 npx tailwindcss init
 ```
-3. Setup Appwrite (Database Design)
 
-1) Create Appwrite Account
-2) Create New Project (ex: Splitwise)
-3) Go into Databases and Create one Database (ex: Expense)
-4) Now Create 5 Collections (Users, Groups, Activity, Friends, Transaction)
-5) Go to the Attribute Section in every Collection and Create this Following attributes
+### **4. Setup Appwrite (Database Configuration)**
 
-User:-
-   ```bash
-    Key: UserName   Type: string  Default Value: -
-    Key: email      Type: email   Default Value: -
-    Key: accountId  Type: string  Default Value: -
-    Key: accountId  Type: string  Default Value: -
-   ```
-     Groups:-
-   ```bash
-    Key: groupName  Type: string  Default Value: -
-   
-    Key: Creator    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): groups, Relation: Many to one,
-    On deleting a document: Cascade - delete all related documents,
-   
-    Key: Members    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): userMember, Relation: Many to Many,
-    On deleting a document: set Null
-   ```
-Friends:-
-   ```bash
-    Key: friendsId,    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): friendCollection, Relation: Many to many,
-    On deleting a document: set Null
-   
-    Key: CollectionId, Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): List, Relation: Many to one,
-    On deleting a document: set Null
-   ```
-Activity:-
-   ```bash
-    Key: Desc  Type: string  Default Value: -
-    Key: Time  Type: DateTime  Default Value: -
-    Key: Amout Type: string  Default Value: -  Required // Here the amount spelling is incorrect in my database (If you change here also change in react app)
-    Key: IsSettled  Type: boolean  Default Value: - false
+#### **Step 1: Create an Appwrite Account**
+- Sign up for an Appwrite account at [Appwrite](https://appwrite.io).
 
-    Key: splitMember  Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): members, Relation: Many to many,
-    On deleting a document: set Null
-   
-    Key: PaidBy    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): activity, Relation: Many to one,
-    On deleting a document: set Null
-   
-    Key: Group    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): activity, Relation: Many to one,
-    On deleting a document: Cascade - delete all related documents
-   ```
-Transaction:-
-   ```bash
-    Key: Amount  Type: string  Default Value: -
-    Key: Time  Type: DateTime  Default Value: -
-    Key: Isold  Type: boolean  Default Value: - false
+#### **Step 2: Create a New Project**
+- In the Appwrite dashboard, create a new project (e.g., **Splitwise**).
 
-    Key: payerId  Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): transaction, Relation: Many to one,
-    On deleting a document: set Null
+#### **Step 3: Setup the Database**
+- Go to the **Databases** section and create a new database (e.g., **Expense**).
 
-    Key: receiverId  Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): transactionId, Relation: Many to one,
-    On deleting a document: set Null
-   ```
-4. Copy All IDs and store in .env
+#### **Step 4: Create Collections**
+Create the following collections within your database:
 
-   1) Go in Prokect Settings Copy Project ID like thsi 
-      657c067c93411fbcf173
-   2) Go in Prokect Settings Copy API Endpoint like this
-      https://cloud.appwrite.io/v1
-   3) Copy Database ID
-   4) Copy All Collections id From database 
+1. **Users**
+   - **UserName**: `string` (Default: `-`)
+   - **email**: `email` (Default: `-`)
+   - **accountId**: `string` (Default: `-`)
 
+2. **Groups**
+   - **groupName**: `string` (Default: `-`)
+   - **Creator**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Cascade on delete)
+   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Set Null on delete)
 
-Sample .env.local
+3. **Friends**
+   - **friendsId**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Set Null on delete)
+   - **CollectionId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+
+4. **Activity**
+   - **Desc**: `string` (Default: `-`)
+   - **Time**: `DateTime` (Default: `-`)
+   - **Amout**: `string` (Default: `-`) *Note: If you change this spelling, update it in the React app.*
+   - **IsSettled**: `boolean` (Default: `false`)
+   - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Set Null on delete)
+   - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+   - **Group**: `Relationship` (Two-way Relationship with **Groups**; `Many to one`, Cascade on delete)
+
+5. **Transaction**
+   - **Amount**: `string` (Default: `-`)
+   - **Time**: `DateTime` (Default: `-`)
+   - **IsOld**: `boolean` (Default: `false`)
+   - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+   - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+
+#### **Step 5: Copy IDs to .env File**
+
+1. In **Project Settings**, copy the **Project ID** and **API Endpoint**.
+2. Copy the **Database ID** and all **Collection IDs** from the database.
+3. Create a `.env.local` file and add the copied IDs as follows:
 
 ```bash
 VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
@@ -105,11 +95,16 @@ VITE_APPWRITE_ACTIVITY_COLLECTION_ID='657c099dd2eda1dd9ebb'
 VITE_APPWRITE_FRIENDS_COLLECTION_ID='6581b28b356casds5dd28d'
 VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07faec3c8'
 ```
-      
-5. Run Project
+
+### **5. Run the Project**
+
+Finally, start the development server:
+
 ```bash
 npm run dev
 ```
+
+---
 
 
 # Login
