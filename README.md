@@ -8,7 +8,7 @@
 
 ### **1. Clone the Repository**
 
-Begin by cloning the SpendShare repository to your local machine:
+Begin by cloning the SplitWise repository to your local machine:
 
 ```bash
 git clone https://github.com/PawanSirsat/SplitWise.git
@@ -63,7 +63,7 @@ Create the following collections within your database:
 4. **Activity**
    - **Desc**: `string` (Default: `-`)
    - **Time**: `DateTime` (Default: `-`)
-   - **Amout**: `string` (Default: `-`) *Note: If you change this spelling(Amout), update it in the React app.*
+   - **Amout**: `string` (Default: `-`) *Note: If you change this spelling (Amout), update it in the React app.*
    - **IsSettled**: `boolean` (Default: `false`)
    - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Attribute Key (related collection): members,  Set Null on delete)
    - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): activity, Set Null on delete)
@@ -101,10 +101,12 @@ Finally, start the development server:
 ```bash
 npm run dev
 ```
-Need Help?
-If you encounter any issues with the database or need further assistance, feel free to email me at: p1.sirsat1998@gmail.com.
----
 
+### **Need Help?**
+
+If you encounter any issues with the database or need further assistance, feel free to email me at: p1.sirsat1998@gmail.com.
+
+--- 
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
