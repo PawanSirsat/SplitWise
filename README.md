@@ -1,26 +1,6 @@
 # SplitWise Clone
 
 SpendShare is a web application for splitting expenses in groups. It allows users to manage groups, track expenses, and view activity history.
-
-# Login
-![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
-
-# Signup
-![Screenshot (464)](https://github.com/PawanSirsat/SplitWise/assets/48860105/71c31b5f-beee-4a61-87ff-3398fdd6e98f)
-
-# Home
-![Screenshot (457)](https://github.com/PawanSirsat/SplitWise/assets/48860105/b09536d8-43a5-402d-8590-7b6c4edbfd59)
-
-# All Activity
-![Screenshot (458)](https://github.com/PawanSirsat/SplitWise/assets/48860105/63a37885-204b-4d6c-b1e1-6d2f09b3dcd8)
-
-# Group Activity
-![Screenshot (460)](https://github.com/PawanSirsat/SplitWise/assets/48860105/ae8b0631-8a98-49d1-96cb-9810a0673586)
-
-# Profile 
-![Screenshot (459)](https://github.com/PawanSirsat/SplitWise/assets/48860105/8f6f3be7-7883-483b-9e23-05aaf8fcc29f)
-
-
 ### Installation
 
 1. Clone the repository:
@@ -41,16 +21,67 @@ npm install
 npm install -D tailwindcss
 npx tailwindcss init
 ```
-4. Run Project
+3. Setup Appwrite (Database Design)
+   1) Create Appwrite Account
+   2) Create New Project (ex: Splitwise)
+   3) Go into Databases and Create one Database (ex: Expense)
+   4) Now Create 5 Collections (Users, Groups, Activity, Friends, Transaction)
+   5) Go to the Attribute Section in every Collection and Create this Following attributes
+     User:-
+   ```bash
+    Key: UserName   Type: string  Default Value: -
+    Key: email      Type: email   Default Value: -
+    Key: accountId  Type: string  Default Value: -
+    Key: accountId  Type: string  Default Value: -
+   ```
+     Groups:-
+   ```bash
+    Key: groupName  Type: string  Default Value: -
+    Key: Creator    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): groups, Relation: Many to one,
+    On deleting a document: Cascade - delete all related documents,
+   
+    Key: Members    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): userMember, Relation: Many to Many,
+    On deleting a document: set Null,
+   ```
+     Friends:-
+   ```bash
+    Key: friendsId,    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): friendCollection, Relation: Many to many,
+    On deleting a document: set Null,
+   
+    Key: CollectionId, Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): List, Relation: Many to one,
+    On deleting a document: set Null,
+   ```
+   
+5. Run Project
 ```bash
 npm run dev
 ```
+
+
+# Login
+![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
+
+# Signup
+![Screenshot (464)](https://github.com/PawanSirsat/SplitWise/assets/48860105/71c31b5f-beee-4a61-87ff-3398fdd6e98f)
+
+# Home
+![Screenshot (457)](https://github.com/PawanSirsat/SplitWise/assets/48860105/b09536d8-43a5-402d-8590-7b6c4edbfd59)
+
+# All Activity
+![Screenshot (458)](https://github.com/PawanSirsat/SplitWise/assets/48860105/63a37885-204b-4d6c-b1e1-6d2f09b3dcd8)
+
+# Group Activity
+![Screenshot (460)](https://github.com/PawanSirsat/SplitWise/assets/48860105/ae8b0631-8a98-49d1-96cb-9810a0673586)
+
+# Profile 
+![Screenshot (459)](https://github.com/PawanSirsat/SplitWise/assets/48860105/8f6f3be7-7883-483b-9e23-05aaf8fcc29f)
+
+
 ### Built With
 
 React - A JavaScript library for building user interfaces.
 React Router - Declarative routing for React.js.
 Tailwind CSS - A utility-first CSS framework.
-
 
 
 # React + TypeScript + Vite
