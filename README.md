@@ -1,10 +1,8 @@
-Here's a more organized and user-friendly version of the installation guide for the SplitWise Clone, SpendShare:
-
 ---
 
-# **SpendShare Installation Guide**
+# **SplitWise Clone Installation Guide**
 
-**SpendShare** is a web application designed to help users manage group expenses, track payments, and view activity history. Follow this step-by-step guide to set up the application on your local machine.
+**SplitWise Clone** is a web application designed to help users manage group expenses, track payments, and view activity history. Follow this step-by-step guide to set up the application on your local machine.
 
 ---
 
@@ -13,7 +11,7 @@ Here's a more organized and user-friendly version of the installation guide for 
 Begin by cloning the SpendShare repository to your local machine:
 
 ```bash
-git clone https://github.com/PawanSirsat/SpendShare.git
+git clone https://github.com/PawanSirsat/SplitWise.git
 ```
 
 ### **2. Install Dependencies**
@@ -21,7 +19,7 @@ git clone https://github.com/PawanSirsat/SpendShare.git
 Navigate to the project directory and install the required Node.js packages:
 
 ```bash
-cd spendshare
+cd splitwise
 npm install
 ```
 
@@ -55,28 +53,28 @@ Create the following collections within your database:
 
 2. **Groups**
    - **groupName**: `string` (Default: `-`)
-   - **Creator**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Cascade on delete)
-   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Set Null on delete)
+   - **Creator**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): groups, Cascade on delete)
+   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Attribute Key (related collection): userMember, Set Null on delete)
 
 3. **Friends**
-   - **friendsId**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Set Null on delete)
-   - **CollectionId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+   - **friendsId**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Attribute Key (related collection): friendCollection, Set Null on delete)
+   - **CollectionId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): List, Set Null on delete)
 
 4. **Activity**
    - **Desc**: `string` (Default: `-`)
    - **Time**: `DateTime` (Default: `-`)
-   - **Amout**: `string` (Default: `-`) *Note: If you change this spelling, update it in the React app.*
+   - **Amout**: `string` (Default: `-`) *Note: If you change this spelling(Amout), update it in the React app.*
    - **IsSettled**: `boolean` (Default: `false`)
-   - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Set Null on delete)
-   - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
-   - **Group**: `Relationship` (Two-way Relationship with **Groups**; `Many to one`, Cascade on delete)
+   - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Attribute Key (related collection): members,  Set Null on delete)
+   - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): activity, Set Null on delete)
+   - **Group**: `Relationship` (Two-way Relationship with **Groups**; `Many to one`, Attribute Key (related collection): activity, Cascade on delete)
 
 5. **Transaction**
    - **Amount**: `string` (Default: `-`)
    - **Time**: `DateTime` (Default: `-`)
    - **IsOld**: `boolean` (Default: `false`)
-   - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
-   - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Set Null on delete)
+   - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transaction, Set Null on delete)
+   - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transactionId, Set Null on delete)
 
 #### **Step 5: Copy IDs to .env File**
 
@@ -86,14 +84,14 @@ Create the following collections within your database:
 
 ```bash
 VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
-VITE_APPWRITE_PROJECT_ID='657c067565211fbcf173'
-VITE_APPWRITE_DATABASE_ID='657c0953b37f27853da8'
-VITE_APPWRITE_STORAGE_ID='655731fab34674189956216'
+VITE_APPWRITE_PROJECT_ID='67c067565211fbcf173'
+VITE_APPWRITE_DATABASE_ID='657c0953b37f27853d8'
+VITE_APPWRITE_STORAGE_ID='65731fab34674189956216'
 VITE_APPWRITE_USER_COLLECTION_ID='657casd56db7f49cee3b20'
 VITE_APPWRITE_GROUPS_COLLECTION_ID='657c09839424664asd87496'
-VITE_APPWRITE_ACTIVITY_COLLECTION_ID='657c099dd2eda1dd9ebb'
-VITE_APPWRITE_FRIENDS_COLLECTION_ID='6581b28b356casds5dd28d'
-VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07faec3c8'
+VITE_APPWRITE_ACTIVITY_COLLECTION_ID='657c099dd2eda1ddebb'
+VITE_APPWRITE_FRIENDS_COLLECTION_ID='681b28b356casds5dd28d'
+VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07aec3c8'
 ```
 
 ### **5. Run the Project**
@@ -103,7 +101,8 @@ Finally, start the development server:
 ```bash
 npm run dev
 ```
-
+Need Help?
+If you encounter any issues with the database or need further assistance, feel free to email me at: p1.sirsat1998@gmail.com.
 ---
 
 
