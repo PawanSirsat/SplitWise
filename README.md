@@ -78,6 +78,7 @@ Create the following collections within your database:
 2. Copy the **Database ID** and all **Collection IDs** from the database.
 3. Create a `.env.local` file and add the copied IDs as follows:
 
+#### **Sample .env File**
 ```bash
 VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
 VITE_APPWRITE_PROJECT_ID='67c067565211fbcf173'
@@ -112,12 +113,15 @@ If you encounter any issues with the database or need further assistance, feel f
 ### **DOC PDF** 
 [splitwise_documentation.pdf](https://github.com/user-attachments/files/16871474/splitwise_documentation.pdf)
 
+---
 ### **Database Design** 
-![DataBase Design 1](https://github.com/user-attachments/assets/26d84039-10e9-4d9b-b04d-442017fbcb80)---
+![DataBase Design 1](https://github.com/user-attachments/assets/26d84039-10e9-4d9b-b04d-442017fbcb80)
 
+---
 ### **Flowchart** 
 ![FlowChart](https://github.com/user-attachments/assets/6add1f3d-8f64-43e9-8c78-cedcd18032d4)
 
+---
 ### **Simplify Debt Flowchart** 
 ![Simplify Debt Flow](https://github.com/user-attachments/assets/9114c101-d851-48d5-a7ab-15f1b1b69f5c)
 
@@ -125,6 +129,7 @@ If you encounter any issues with the database or need further assistance, feel f
 
 # **Appwrite Database Guide Video**
 
+[![Video Thumbnail](path-to-thumbnail-image)](https://drive.google.com/file/d/1NfhE-5ouF3df4g5RCNpAOCO0rnWb7zWO/view?usp=drive_link)
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
