@@ -1,4 +1,4 @@
----
+![DataBase Design 1](https://github.com/user-attachments/assets/26d84039-10e9-4d9b-b04d-442017fbcb80)---
 
 # **SplitWise Clone Installation Guide**
 
@@ -105,6 +105,16 @@ npm run dev
 If you encounter any issues with the database or need further assistance, feel free to email me at: p1.sirsat1998@gmail.com.
 
 --- 
+
+# **Documentation**
+[splitwise_documentation.pdf](https://github.com/user-attachments/files/16871474/splitwise_documentation.pdf)
+
+![Uploading [Splitwise Schemas.pdf](https://github.com/user-attachments/files/16871484/Splitwise.Schemas.pdf)DataBase Design 1.svg…]()
+
+
+
+
+
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
