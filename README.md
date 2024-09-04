@@ -46,7 +46,7 @@ User:-
     Key: Members    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): userMember, Relation: Many to Many,
     On deleting a document: set Null
    ```
- Friends:-
+Friends:-
    ```bash
     Key: friendsId,    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): friendCollection, Relation: Many to many,
     On deleting a document: set Null
@@ -82,6 +82,29 @@ Transaction:-
     Key: receiverId  Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): transactionId, Relation: Many to one,
     On deleting a document: set Null
    ```
+4. Copy All IDs and store in .env
+
+   1) Go in Prokect Settings Copy Project ID like thsi 
+      657c067c93411fbcf173
+   2) Go in Prokect Settings Copy API Endpoint like this
+      https://cloud.appwrite.io/v1
+   3) Copy Database ID
+   4) Copy All Collections id From database 
+
+
+Sample .env.local
+
+```bash
+VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
+VITE_APPWRITE_PROJECT_ID='657c067565211fbcf173'
+VITE_APPWRITE_DATABASE_ID='657c0953b37f27853da8'
+VITE_APPWRITE_STORAGE_ID='655731fab34674189956216'
+VITE_APPWRITE_USER_COLLECTION_ID='657casd56db7f49cee3b20'
+VITE_APPWRITE_GROUPS_COLLECTION_ID='657c09839424664asd87496'
+VITE_APPWRITE_ACTIVITY_COLLECTION_ID='657c099dd2eda1dd9ebb'
+VITE_APPWRITE_FRIENDS_COLLECTION_ID='6581b28b356casds5dd28d'
+VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07faec3c8'
+```
       
 5. Run Project
 ```bash
