@@ -105,6 +105,11 @@ If you encounter any issues with the database or need further assistance, feel f
 
 --- 
 
+# **Appwrite Database Guide Video**
+
+https://github.com/user-attachments/assets/a09c0edf-5d71-4417-b03d-39db91105be6
+
+--- 
 # **Documentation**
 
 ### **Google Drive** 
@@ -126,10 +131,6 @@ If you encounter any issues with the database or need further assistance, feel f
 ![Simplify Debt Flow](https://github.com/user-attachments/assets/9114c101-d851-48d5-a7ab-15f1b1b69f5c)
 
 --- 
-
-# **Appwrite Database Guide Video**
-
-<iframe src="https://drive.google.com/file/d/1NfhE-5ouF3df4g5RCNpAOCO0rnWb7zWO/preview" width="640" height="480" allow="autoplay"></iframe>
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
