@@ -22,12 +22,14 @@ npm install -D tailwindcss
 npx tailwindcss init
 ```
 3. Setup Appwrite (Database Design)
-   1) Create Appwrite Account
-   2) Create New Project (ex: Splitwise)
-   3) Go into Databases and Create one Database (ex: Expense)
-   4) Now Create 5 Collections (Users, Groups, Activity, Friends, Transaction)
-   5) Go to the Attribute Section in every Collection and Create this Following attributes
-     User:-
+
+1) Create Appwrite Account
+2) Create New Project (ex: Splitwise)
+3) Go into Databases and Create one Database (ex: Expense)
+4) Now Create 5 Collections (Users, Groups, Activity, Friends, Transaction)
+5) Go to the Attribute Section in every Collection and Create this Following attributes
+
+User:-
    ```bash
     Key: UserName   Type: string  Default Value: -
     Key: email      Type: email   Default Value: -
@@ -37,21 +39,50 @@ npx tailwindcss init
      Groups:-
    ```bash
     Key: groupName  Type: string  Default Value: -
+   
     Key: Creator    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): groups, Relation: Many to one,
     On deleting a document: Cascade - delete all related documents,
    
     Key: Members    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): userMember, Relation: Many to Many,
-    On deleting a document: set Null,
+    On deleting a document: set Null
    ```
-     Friends:-
+ Friends:-
    ```bash
     Key: friendsId,    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): friendCollection, Relation: Many to many,
-    On deleting a document: set Null,
+    On deleting a document: set Null
    
     Key: CollectionId, Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): List, Relation: Many to one,
-    On deleting a document: set Null,
+    On deleting a document: set Null
    ```
+Activity:-
+   ```bash
+    Key: Desc  Type: string  Default Value: -
+    Key: Time  Type: DateTime  Default Value: -
+    Key: Amout Type: string  Default Value: -  Required // Here the amount spelling is incorrect in my database (If you change here also change in react app)
+    Key: IsSettled  Type: boolean  Default Value: - false
+
+    Key: splitMember  Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): members, Relation: Many to many,
+    On deleting a document: set Null
    
+    Key: PaidBy    Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): activity, Relation: Many to one,
+    On deleting a document: set Null
+   
+    Key: Group    Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): activity, Relation: Many to one,
+    On deleting a document: Cascade - delete all related documents
+   ```
+Transaction:-
+   ```bash
+    Key: Amount  Type: string  Default Value: -
+    Key: Time  Type: DateTime  Default Value: -
+    Key: Isold  Type: boolean  Default Value: - false
+
+    Key: payerId  Type: Relationship Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): transaction, Relation: Many to one,
+    On deleting a document: set Null
+
+    Key: receiverId  Type: Relationship, Rel-Type: Two-way Relationship, Related Collection: Users, Attribute Key (related collection): transactionId, Relation: Many to one,
+    On deleting a document: set Null
+   ```
+      
 5. Run Project
 ```bash
 npm run dev
