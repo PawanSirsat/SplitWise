@@ -2,7 +2,7 @@
 
 # **SplitWise Clone Installation Guide**
 
-**SplitWise Clone** is a web application designed to help users manage group expenses, track payments, and view activity history. Follow this step-by-step guide to set up the application on your local machine.
+**SplitWise-Clone** is a web application designed to help users manage group expenses, track payments, and view activity history. Follow this step-by-step guide to set up the application on your local machine.
 
 ---
 
