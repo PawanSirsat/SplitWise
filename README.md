@@ -129,7 +129,7 @@ If you encounter any issues with the database or need further assistance, feel f
 
 # **Appwrite Database Guide Video**
 
-[![Video Thumbnail](path-to-thumbnail-image)](https://drive.google.com/file/d/1NfhE-5ouF3df4g5RCNpAOCO0rnWb7zWO/view?usp=drive_link)
+<iframe src="https://drive.google.com/file/d/1NfhE-5ouF3df4g5RCNpAOCO0rnWb7zWO/preview" width="640" height="480" allow="autoplay"></iframe>
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
