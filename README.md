@@ -1,5 +1,3 @@
-![DataBase Design 1](https://github.com/user-attachments/assets/26d84039-10e9-4d9b-b04d-442017fbcb80)---
-
 # **SplitWise Clone Installation Guide**
 
 ---
@@ -109,12 +107,11 @@ If you encounter any issues with the database or need further assistance, feel f
 # **Documentation**
 [splitwise_documentation.pdf](https://github.com/user-attachments/files/16871474/splitwise_documentation.pdf)
 
-![Uploading [Splitwise Schemas.pdf](https://github.com/user-attachments/files/16871484/Splitwise.Schemas.pdf)DataBase Design 1.svg…]()
+![DataBase Design 1](https://github.com/user-attachments/assets/26d84039-10e9-4d9b-b04d-442017fbcb80)---
 
+![FlowChart](https://github.com/user-attachments/assets/6add1f3d-8f64-43e9-8c78-cedcd18032d4)
 
-
-
-
+![Simplify Debt Flow](https://github.com/user-attachments/assets/9114c101-d851-48d5-a7ab-15f1b1b69f5c)
 
 # Login
 ![Screenshot (463)](https://github.com/PawanSirsat/SplitWise/assets/48860105/6feaf149-4f67-474b-ac5b-a61f6eacbb63)
