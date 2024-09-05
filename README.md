@@ -42,6 +42,8 @@ npx tailwindcss init
 
 - Go to the **Databases** section and create a new database (e.g., **Expense**).
 
+---
+
 #### **Step 4: Create Collections**
 
 Create the following collections within your database:
@@ -81,6 +83,8 @@ Create the following collections within your database:
    - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transaction, Set Null on delete)
    - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transactionId, Set Null on delete)
 
+---
+
 ### Step 5: Update Collection Permissions
 
 1. **Navigate to Collection Settings**:
@@ -102,7 +106,7 @@ Create the following collections within your database:
 
 ---
 
-#### **Step 6: Copy IDs to .env File**
+### **Step 6: Copy IDs to .env File**
 
 1. In **Project Settings**, copy the **Project ID** and **API Endpoint**.
 2. Copy the **Database ID** and all **Collection IDs** from the database.
@@ -121,7 +125,19 @@ VITE_APPWRITE_FRIENDS_COLLECTION_ID='681b28b356casds5dd28d'
 VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07aec3c8'
 ```
 
-### Step 7: Deploy on Vercel
+---
+
+### Step 7: Run the Project
+
+Finally, start the development server:
+
+```bash
+npm run dev
+```
+
+---
+
+### Step 8: Deploy on Vercel
 
 1. **Deploy on Vercel**:
 
@@ -140,14 +156,6 @@ VITE_APPWRITE_TRANSACTION_COLLECTION_ID='65aasd54f3a07aec3c8'
    - Your app is now deployed and integrated with Appwrite! 🎉
 
 ---
-
-### **5. Run the Project**
-
-Finally, start the development server:
-
-```bash
-npm run dev
-```
 
 ### **Need Help?**
 
