@@ -81,9 +81,26 @@ Create the following collections within your database:
    - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transaction, Set Null on delete)
    - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transactionId, Set Null on delete)
 
-#### **Step 5: Copy IDs to .env File**
+### Step 5: Update Collection Permissions
 
-1. In **Collection Settings**, go in every `collection`, tap on settings change `Permissions` set role `Any` check all create, read, update, delete.
+1. **Navigate to Collection Settings**:
+
+   - In your **Appwrite** dashboard, open the **Collection Settings** for each collection that requires permission changes.
+
+2. **Modify Permissions**:
+
+   - For each collection, go to the **Settings** tab.
+   - Under the **Permissions** section, update the role to `Any`.
+   - Ensure that the following permissions are checked:
+     - **Create**
+     - **Read**
+     - **Update**
+     - **Delete**
+
+3. **Save Changes**:
+   - Repeat the process for each collection, ensuring the correct permissions are applied.
+
+---
 
 #### **Step 6: Copy IDs to .env File**
 
