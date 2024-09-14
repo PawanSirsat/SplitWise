@@ -131,7 +131,7 @@ Create the following collections within your database:
 
 1. In **Project Settings**, copy the **Project ID** and **API Endpoint**.
 2. Copy the **Database ID** and all **Collection IDs** from the database.
-3. Create a `.env.local` file and add the copied IDs as follows:
+3. Create a `.env` file and add the copied IDs as follows:
 
 #### **Sample .env File**
 
