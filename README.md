@@ -1,4 +1,3 @@
-
 ![Splitwise clone Banner](https://github.com/user-attachments/assets/b44a514e-0a41-4f09-8786-fc529ed51cf9)
 
 ---
@@ -6,24 +5,25 @@
 # **📄 SplitWise Clone Installation Guide**
 
 ### 📚 **Table of Contents**
+
 1. [📥 Clone the Repository](#-1-clone-the-repository)
 2. [📦 Install Dependencies](#-2-install-dependencies)
 3. [🎨 Install and Configure Tailwind CSS](#-3-install-and-configure-tailwind-css)
 4. [🗄️ Setup Appwrite (Database Configuration)](#-4-setup-appwrite-database-configuration)
-    - [🔑 Create an Appwrite Account](#-step-1-create-an-appwrite-account)
-    - [📁 Create a New Project](#-step-2-create-a-new-project)
-    - [🛠️ Setup the Database](#-step-3-setup-the-database)
-    - [🏗️ Create Collections](#-step-4-create-collections)
-    - [🔒 Update Collection Permissions](#-step-5-update-collection-permissions)
-    - [🔑 Copy IDs to .env File](#-step-6-copy-ids-to-env-file)
+   - [🔑 Create an Appwrite Account](#-step-1-create-an-appwrite-account)
+   - [📁 Create a New Project](#-step-2-create-a-new-project)
+   - [🛠️ Setup the Database](#-step-3-setup-the-database)
+   - [🏗️ Create Collections](#-step-4-create-collections)
+   - [🔒 Update Collection Permissions](#-step-5-update-collection-permissions)
+   - [🔑 Copy IDs to .env File](#-step-6-copy-ids-to-env-file)
 5. [🚀 Run the Project](#-5-run-the-project)
 6. [🌐 Deploy on Vercel](#-6-deploy-on-vercel)
-    - [🔌 Configure Appwrite Integration](#-configure-appwrite-integration)
+   - [🔌 Configure Appwrite Integration](#-configure-appwrite-integration)
 7. [📧 Need Help?](#-need-help)
 8. [🎥 Appwrite Database Guide Video](#-appwrite-database-guide-video)
 9. [📑 Documentation](#-documentation)
-    - [📂 Google Drive](#google-drive)
-    - [📄 DOC PDF](#doc-pdf)
+   - [📂 Google Drive](#google-drive)
+   - [📄 DOC PDF](#doc-pdf)
 10. [📊 Database Design](#-database-design)
 11. [🔄 Flowchart](#-flowchart)
 12. [💸 Simplify Debt Flowchart](#-simplify-debt-flowchart)
@@ -59,12 +59,15 @@ npx tailwindcss init
 ### 🗄️ **4. Setup Appwrite (Database Configuration)**
 
 #### 🔑 **Step 1: Create an Appwrite Account**
+
 - Sign up for an Appwrite account at [Appwrite](https://appwrite.io).
 
 #### 📁 **Step 2: Create a New Project**
+
 - In the Appwrite dashboard, create a new project (e.g., **Splitwise**).
 
 #### 🛠️ **Step 3: Setup the Database**
+
 - Go to the **Databases** section and create a new database (e.g., **Expense**).
 
 #### 🏗️ **Step 4: Create Collections**
@@ -131,9 +134,9 @@ Create the following collections within your database:
 
 1. In **Project Settings**, copy the **Project ID** and **API Endpoint**.
 2. Copy the **Database ID** and all **Collection IDs** from the database.
-3. Create a `.env` file and add the copied IDs as follows:
+3. Create a `.env.local` file in main folder and add the copied IDs as follows:
 
-#### **Sample .env File**
+#### **Sample .env.local File**
 
 ```bash
 VITE_APPWRITE_URL='https://cloud.appwrite.io/v1'
@@ -192,11 +195,11 @@ https://github.com/user-attachments/assets/a09c0edf-5d71-4417-b03d-39db91105be6
 
 ### 📑 **Documentation**
 
-#### 📂 **Google Drive**  
+#### 📂 **Google Drive**
 
 [Google Drive Complete Application DOC](https://drive.google.com/drive/folders/1nG6kY0vprGZ4sazl2pUZ6ee1TMno9BVI?usp=drive_link)
 
-#### 📄 **DOC PDF**  
+#### 📄 **DOC PDF**
 
 [splitwise_documentation.pdf](https://github.com/user-attachments/files/16871474/splitwise_documentation.pdf)
 
