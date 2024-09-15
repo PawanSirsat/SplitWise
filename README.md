@@ -1,5 +1,7 @@
 
-![Splitwise clone Banner](https://github.com/user-attachments/assets/b44a514e-0a41-4f09-8786-fc529ed51cf9)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b44a514e-0a41-4f09-8786-fc529ed51cf9" alt="Splitwise clone Banner"/>
+</p>
 
 ---
 
