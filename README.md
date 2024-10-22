@@ -37,7 +37,7 @@
 Begin by cloning the SplitWise repository to your local machine:
 
 ```bash
-git clone https://github.com/PawanSirsat/SplitWise.git
+git clone https://github.com/alwayskkc/SplitWise.git
 ```
 
 ### 📦 **2. Install Dependencies**
