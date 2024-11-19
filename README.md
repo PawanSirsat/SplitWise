@@ -99,6 +99,8 @@ If you prefer to set up the database manually, follow these steps:
 
 - Create the following collections within your database:
 
+⚠️ **Warning**: Ensure that you use the attribute names and related collections exactly as mentioned below. To avoid errors, **copy and paste the names directly** where applicable.
+
 1. **Users**
 
    - **UserName**: `string` (Default: `-`)
@@ -110,7 +112,7 @@ If you prefer to set up the database manually, follow these steps:
 
    - **groupName**: `string` (Default: `-`)
    - **Creator**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): groups, Cascade on delete)
-   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Attribute Key (related collection): userMember, Set Null on delete)
+   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Attribute Key (related collection): UserMember, Set Null on delete)
 
 3. **Friends**
 
