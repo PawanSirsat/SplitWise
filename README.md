@@ -4,14 +4,16 @@
 
 ---
 
+### 🤝 **Looking for Collaborators**
+
 I’m actively looking for collaborators to help add new features and enhance this project further!
 
 If you have ideas, expertise, or just the enthusiasm to contribute, feel free to:
 
-1. Fork this repository and start contributing.
-2. Reach out to me at [p1.sirsat1998@gmail.com](mailto:p1.sirsat1998@gmail.com) to discuss ideas or ask questions.
+- Fork this repository and start contributing.
+- Reach out to me at [p1.sirsat1998@gmail.com](mailto:p1.sirsat1998@gmail.com) to discuss ideas or ask questions.
 
-Together, we can make this project even better!
+✨ **Together, we can make this project even better!** ✨
 
 ---
 
