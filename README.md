@@ -97,7 +97,7 @@ If you prefer to set up the database manually, follow these steps:
 
 #### 🏗️ **Step 4: Create Collections**
 
-- Create the following collections within your database:
+- Create the following collections and there attributes within your database:
 
 ⚠️ **Warning**: Ensure that you use the attribute names and related collections exactly as mentioned below. To avoid errors, **copy and paste the names directly** where applicable.
 
@@ -111,13 +111,17 @@ If you prefer to set up the database manually, follow these steps:
 2. **Groups**
 
    - **groupName**: `string` (Default: `-`)
-   - **Creator**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): groups, Cascade on delete)
-   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`, Attribute Key (related collection): UserMember, Set Null on delete)
+   - **Creator**: `Relationship` (Two-way Relationship with `Users`; `Many to one`,
+     Attribute Key (related collection): `groups`, Cascade on delete)
+   - **Members**: `Relationship` (Two-way Relationship with **Users**; `Many to Many`,
+     Attribute Key (related collection): `UserMember`, Set Null on delete)
 
 3. **Friends**
 
-   - **friendsId**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Attribute Key (related collection): friendCollection, Set Null on delete)
-   - **CollectionId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): List, Set Null on delete)
+   - **friendsId**: `Relationship` (Two-way Relationship with **Users**; `Many to many`,
+     Attribute Key (related collection): `friendCollection`, Set Null on delete)
+   - **CollectionId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`,
+     Attribute Key (related collection): `List`, Set Null on delete)
 
 4. **Activity**
 
@@ -125,16 +129,21 @@ If you prefer to set up the database manually, follow these steps:
    - **Time**: `DateTime` (Default: `-`)
    - **Amout**: `string` (Default: `-`) _Note: If you change this spelling (Amout), update it in the React app._
    - **IsSettled**: `boolean` (Default: `false`)
-   - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`, Attribute Key (related collection): members, Set Null on delete)
-   - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): activity, Set Null on delete)
-   - **Group**: `Relationship` (Two-way Relationship with **Groups**; `Many to one`, Attribute Key (related collection): activity, Cascade on delete)
+   - **splitMember**: `Relationship` (Two-way Relationship with **Users**; `Many to many`,
+     Attribute Key (related collection): `members`, Set Null on delete)
+   - **PaidBy**: `Relationship` (Two-way Relationship with **Users**; `Many to one`,
+     Attribute Key (related collection): `activity`, Set Null on delete)
+   - **Group**: `Relationship` (Two-way Relationship with **Groups**; `Many to one`,
+     Attribute Key (related collection): `activity`, Cascade on delete)
 
 5. **Transaction**
    - **Amount**: `string` (Default: `-`)
    - **Time**: `DateTime` (Default: `-`)
    - **IsOld**: `boolean` (Default: `false`)
-   - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transaction, Set Null on delete)
-   - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`, Attribute Key (related collection): transactionId, Set Null on delete)
+   - **payerId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`,
+     Attribute Key (related collection): `transaction`, Set Null on delete)
+   - **receiverId**: `Relationship` (Two-way Relationship with **Users**; `Many to one`,
+     Attribute Key (related collection): `transactionId`, Set Null on delete)
 
 #### 🔒 **Step 5: Update Collection Permissions**
 
