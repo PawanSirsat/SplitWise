@@ -218,6 +218,7 @@ npm run dev
    - Go to [Vercel](https://vercel.com/) and sign in or sign up.
    - Connect your **GitHub** account and select the Git repository of the project you want to deploy.
    - Follow the prompts to deploy your project. Vercel will handle the deployment and provide you with a live URL once completed.
+   - Add .env.local in Vercel Spliwise Project Go in Settings Environment Variables And Paste Your all  .env.local in that
 
 2. **Configure Appwrite Integration**:
    - After deployment, copy the Vercel deployment URL (e.g., `https://your-project-name.vercel.app`).
