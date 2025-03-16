@@ -106,12 +106,12 @@ const SignupForm = () => {
       </div>
 
       <div className="sm:w-420 flex-center flex-col pt-10">
-        <h3 style={{ color: "#1CC29F" }} className="text-2xl font-bold">
+        <h3 style={{ color: "#1CC29F" }} className="text-2xl font-bold lg:mt-6">
           SignUp
         </h3>
         <form
           onSubmit={form.handleSubmit(handleSignup)}
-          className="flex flex-col gap-5 w-full mt-4">
+          className="flex flex-col gap-5 w-full mt-4 lg:mt-2">
           <FormField
             control={form.control}
             name="name"
